@@ -32,7 +32,7 @@ public class InteractionDetector : MonoBehaviour
         );
         
         // Debug: Show how many colliders detected
-        Debug.Log($"Detected {hitColliders.Length} colliders in layer {LayerMask.LayerToName(6)}");
+        //Debug.Log($"Detected {hitColliders.Length} colliders in layer {LayerMask.LayerToName(6)}");
         
         // Clear previous list
         nearbyInteractibles.Clear();
@@ -47,7 +47,7 @@ public class InteractionDetector : MonoBehaviour
             }
             if (interactible != null)
             {
-                Debug.Log($"Found interactible: {interactible.name}");
+                //Debug.Log($"Found interactible: {interactible.name}");
                 nearbyInteractibles.Add(interactible);
             }
         }
