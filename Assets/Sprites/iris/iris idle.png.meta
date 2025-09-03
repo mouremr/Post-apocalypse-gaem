@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 3ddca33e17018d54eab984359cba83bf
+guid: 904c5b4dbf2f6074f94010f584aae413
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2147426609343116294
-    second: iris run0005_0
+      213: 1295551447779985171
+    second: iris idle_0
+  - first:
+      213: 1231515754706644192
+    second: iris idle_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +54,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,23 +116,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: iris run0005_0
+      name: iris idle_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 2
-        width: 47
-        height: 70
+        x: 1
+        y: 1
+        width: 17
+        height: 73
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 1, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: afbc1e850eec232e0800000000000000
-      internalID: -2147426609343116294
+      spriteID: 3174b297d29baf110800000000000000
+      internalID: 1295551447779985171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iris idle_1
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 1
+        width: 19
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 1, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ec2696dd09371110800000000000000
+      internalID: 1231515754706644192
       vertices: []
       indices: 
       edges: []
@@ -138,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6d942605af75f23419d71a5c2988733a
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      iris run0005_0: -2147426609343116294
+      iris idle_0: 1295551447779985171
+      iris idle_1: 1231515754706644192
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

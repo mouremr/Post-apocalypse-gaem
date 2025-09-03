@@ -12,7 +12,6 @@ public class StateMachine : MonoBehaviour
     private void Start()
     {
         interactionDetector = GetComponent<InteractionDetector>();
-        // Initialize with default state
         ChangeState(new GroundedState(this));
     }
 

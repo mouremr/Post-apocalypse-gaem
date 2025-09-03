@@ -15,29 +15,32 @@ public class JumpingState : PlayerState
     {
         rb.gravityScale = 1;
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-        //animator.SetBool("IsGrounded", false);
     }
+
+    private string state = "jump"; // or "grounded", initialize somewhere
 
     public override void Update()
     {
-        // Check if player has landed
-        if (Mathf.Abs(rb.linearVelocity.y) < 0.1f && IsGrounded())
-        {
-            stateMachine.ChangeState(new GroundedState(stateMachine));
-            return;
+        switch(state){
+            case "jump":
+                rb.linearVelocity = new Vector2(input.HorizontalInput * moveSpeed, rb.linearVelocity.y);
+                if(IsGrounded()){
+                    state="grounded";
+                }
+                break;
+            case  "grounded":
+                stateMachine.ChangeState(new GroundedState(stateMachine));
+                break;
         }
     }
-
-    public override void FixedUpdate()
-    {
-        // Air control
-        rb.linearVelocity = new Vector2(input.HorizontalInput * moveSpeed, rb.linearVelocity.y);
-    }
-
     private bool IsGrounded()
     {
-        // Implement ground detection
-        return Physics2D.Raycast(player.transform.position, Vector2.down, 1.0f, LayerMask.GetMask("Ground"));
+        Collider2D col = player.GetComponent<Collider2D>();
+        Bounds bounds = col.bounds;
+
+        Vector2 origin = new Vector2(bounds.center.x, bounds.min.y); 
+
+        return Physics2D.Raycast(origin, Vector2.down, 0.1f , LayerMask.GetMask("Ground"));
     }
 
     private bool IsNearLadder()

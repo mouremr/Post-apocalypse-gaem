@@ -8,7 +8,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        HorizontalInput = Input.GetAxisRaw("Horizontal");
+        HorizontalInput = Input.GetAxis("Horizontal");
         JumpPressed = Input.GetButtonDown("Jump");
         InteractPressed = Input.GetKeyDown(KeyCode.E);
     }

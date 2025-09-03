@@ -21,6 +21,7 @@ public class GroundedState : PlayerState
         if (input.JumpPressed)
         {
             stateMachine.ChangeState(new JumpingState(stateMachine, 5f));
+            Debug.Log("JUMP BUTTON PRESSED");
         }
     }
 
@@ -28,15 +29,5 @@ public class GroundedState : PlayerState
     {
         // Horizontal movement
         rb.linearVelocity = new Vector2(input.HorizontalInput * moveSpeed, rb.linearVelocityY);
-        
-        // Handle sprite flipping
-        if (input.HorizontalInput != 0)
-        {
-            player.transform.localScale = new Vector3(
-                Mathf.Sign(input.HorizontalInput),
-                player.transform.localScale.y,
-                player.transform.localScale.z
-            );
-        }
     }
 }
