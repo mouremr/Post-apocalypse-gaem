@@ -8,8 +8,8 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
+        InteractPressed = Input.GetKeyDown(KeyCode.E);
         HorizontalInput = Input.GetAxis("Horizontal");
         JumpPressed = Input.GetButtonDown("Jump");
-        InteractPressed = Input.GetKeyDown(KeyCode.E);
     }
 }

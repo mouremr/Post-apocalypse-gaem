@@ -15,12 +15,6 @@ public class InteractionDetector : MonoBehaviour
     {
         DetectInteractibles();
         FindClosestInteractible();
-        
-        // Debug: Show current interactible in console
-        if (CurrentInteractible != null)
-        {
-            Debug.Log($"Near interactible: {CurrentInteractible.name}");
-        }
     }
     
     private void DetectInteractibles()
@@ -68,15 +62,6 @@ public class InteractionDetector : MonoBehaviour
                 closestDistance = distance;
                 CurrentInteractible = interactible;
             }
-        }
-        
-        // Debug when interactible changes
-        if (previousInteractible != CurrentInteractible)
-        {
-            if (CurrentInteractible != null)
-                Debug.Log($"Now targeting: {CurrentInteractible.name}");
-            else
-                Debug.Log("No interactible targeted");
         }
     }
     

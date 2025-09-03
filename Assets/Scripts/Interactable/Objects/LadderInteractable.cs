@@ -9,7 +9,6 @@ public class LadderInteractible : Interactible
 
     public override void Interact(GameObject player)
     {
-        Debug.Log("Test");
         StateMachine stateMachine = player.GetComponent<StateMachine>();
         if (stateMachine != null && stateMachine.CurrentState is not ClimbingState)
         {

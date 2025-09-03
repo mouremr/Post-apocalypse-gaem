@@ -18,13 +18,9 @@ public class GroundedState : PlayerState
     public override void Update()
     {
         // Handle jumping
-        if(input.JumpPressed){
-            Debug.Log("jump pressed");
-        }
         if (input.JumpPressed && IsGrounded())
         {
             stateMachine.ChangeState(new JumpingState(stateMachine, 5f));
-            Debug.Log("JUMP BUTTON PRESSED");
         }
     }
 

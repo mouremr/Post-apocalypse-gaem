@@ -19,10 +19,6 @@ public class StateMachine : MonoBehaviour
     {
         _currentState?.Update();
         // Handle global interaction input
-        if (interactionDetector.HasInteractible)
-        {
-            Debug.Log("tru");
-        }
         if (Input.GetKeyDown(KeyCode.E) && interactionDetector.HasInteractible)
         {
             interactionDetector.CurrentInteractible.Interact(gameObject);
