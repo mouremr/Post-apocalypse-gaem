@@ -1,36 +1,36 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(PlayerInput))]
-[RequireComponent(typeof(Animator))]  
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
 public class PlayerSpriteFlip : MonoBehaviour
 {
     private SpriteRenderer spriteRenderer;
-    private PlayerInput input;
-
+    private Rigidbody2D rb;
     public Animator animator;
+
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        input = GetComponent<PlayerInput>();
-       // animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        if (input.HorizontalInput > 0){
+        float horizontalSpeed = rb.linearVelocity.x;
+
+
+        if(Mathf.Abs(horizontalSpeed) > 0.1f) animator.SetBool("running", true);
+        else if(Mathf.Abs(horizontalSpeed) < 0.1f) animator.SetBool("running", false);
+
+        if (horizontalSpeed > 0.1f)
+        {
             spriteRenderer.flipX = false;
-            animator.SetBool("running",true);
-
         }
-        else if (input.HorizontalInput < 0) {
-            spriteRenderer.flipX = true;
-            animator.SetBool("running",true);
-
-        }
-        else{
-            animator.SetBool("running",false);
+        else if (horizontalSpeed < -0.1f)
+        {
+            spriteRenderer.flipX = true; 
         }
     }
 }
