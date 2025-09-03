@@ -17,22 +17,16 @@ public class JumpingState : PlayerState
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
     }
 
-    private string state = "jump"; // or "grounded", initialize somewhere
 
     public override void Update()
     {
-        switch(state){
-            case "jump":
-                rb.linearVelocity = new Vector2(input.HorizontalInput * moveSpeed, rb.linearVelocity.y);
-                if(IsGrounded()){
-                    state="grounded";
-                }
-                break;
-            case  "grounded":
-                stateMachine.ChangeState(new GroundedState(stateMachine));
-                break;
+  
+        rb.linearVelocity = new Vector2(input.HorizontalInput * moveSpeed, rb.linearVelocity.y);
+        if(IsGrounded()){
+            stateMachine.ChangeState(new GroundedState(stateMachine));
         }
     }
+
     private bool IsGrounded()
     {
         Collider2D col = player.GetComponent<Collider2D>();
@@ -40,7 +34,8 @@ public class JumpingState : PlayerState
 
         Vector2 origin = new Vector2(bounds.center.x, bounds.min.y); 
 
-        return Physics2D.Raycast(origin, Vector2.down, 0.1f , LayerMask.GetMask("Ground"));
+        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, 0.05f, LayerMask.GetMask("Ground"));
+        return hit.collider != null;
     }
 
     private bool IsNearLadder()

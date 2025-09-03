@@ -27,7 +27,6 @@ public class PlayerSpriteFlip : MonoBehaviour
         else if (input.HorizontalInput < 0) {
             spriteRenderer.flipX = true;
             animator.SetBool("running",true);
-            Debug.Log("Moving left: Horizontal input is less than 0");
 
         }
         else{
