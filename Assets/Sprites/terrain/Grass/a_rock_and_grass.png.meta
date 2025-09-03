@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 2374f36560a7b2343a0c3478f5c549ab
+guid: cf2af0a5a5b02e6418907becd96d4a4d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8608048418856496920
-    second: dirt1_0
+      213: -1215431112050354445
+    second: a_rock_and_grass_0
+  - first:
+      213: 1225795101637338810
+    second: a_rock_and_grass_1
+  - first:
+      213: -3571910793825718715
+    second: a_rock_and_grass_2
+  - first:
+      213: -30260511338002081
+    second: a_rock_and_grass_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +105,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dirt1_0
+      name: a_rock_and_grass_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 258
-        height: 88
+        y: 5
+        width: 21
+        height: 12
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +124,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8e012b802911a8880800000000000000
-      internalID: -8608048418856496920
+      spriteID: 3f6d74dd7dbe12fe0800000000000000
+      internalID: -1215431112050354445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: a_rock_and_grass_1
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 4
+        width: 77
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab6e1808626e20110800000000000000
+      internalID: 1225795101637338810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: a_rock_and_grass_2
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 5
+        width: 37
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54e62acce060e6ec0800000000000000
+      internalID: -3571910793825718715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: a_rock_and_grass_3
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 2
+        width: 37
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f590afaa93e749ff0800000000000000
+      internalID: -30260511338002081
       vertices: []
       indices: 
       edges: []
@@ -138,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 26f8fdcc2459d264e833707bd894a923
+    spriteID: e10763038b3bcf243bca2a9aed7681f8
     internalID: 0
     vertices: []
     indices: 
@@ -148,8 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dirt1_0: -8608048418856496920
-      dirt1_1: 1372057826
+      a_rock_and_grass_0: -1215431112050354445
+      a_rock_and_grass_1: 1225795101637338810
+      a_rock_and_grass_2: -3571910793825718715
+      a_rock_and_grass_3: -30260511338002081
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
