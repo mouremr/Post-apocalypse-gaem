@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 383ec66138081984f9c77f1d2571277b
+guid: 7a77e4b66622e2e4fa8e7475d6a9613b
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -137,12 +137,12 @@ TextureImporter:
       name: iris run_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 1
-        width: 38
-        height: 74
-      alignment: 9
-      pivot: {x: 0.51711565, y: 0.46191412}
+        x: 0
+        y: 0
+        width: 69
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -159,10 +159,10 @@ TextureImporter:
       name: iris run_1
       rect:
         serializedVersion: 2
-        x: 79
-        y: 1
-        width: 45
-        height: 74
+        x: 69
+        y: 0
+        width: 69
+        height: 79
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,12 +181,12 @@ TextureImporter:
       name: iris run_2
       rect:
         serializedVersion: 2
-        x: 132
-        y: 2
-        width: 61
-        height: 73
-      alignment: 9
-      pivot: {x: 0.5817441, y: 0.61285305}
+        x: 138
+        y: 0
+        width: 69
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -203,12 +203,12 @@ TextureImporter:
       name: iris run_3
       rect:
         serializedVersion: 2
-        x: 201
-        y: 2
-        width: 54
-        height: 73
-      alignment: 9
-      pivot: {x: 0.5875959, y: 0.55642647}
+        x: 207
+        y: 0
+        width: 69
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -225,12 +225,12 @@ TextureImporter:
       name: iris run_4
       rect:
         serializedVersion: 2
-        x: 278
+        x: 276
         y: 0
-        width: 33
-        height: 74
-      alignment: 9
-      pivot: {x: 0.5394185, y: 0.49999994}
+        width: 69
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -247,12 +247,12 @@ TextureImporter:
       name: iris run_5
       rect:
         serializedVersion: 2
-        x: 333
+        x: 345
         y: 0
-        width: 48
-        height: 75
-      alignment: 9
-      pivot: {x: 0.5767835, y: 0.5491406}
+        width: 69
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -269,12 +269,12 @@ TextureImporter:
       name: iris run_6
       rect:
         serializedVersion: 2
-        x: 393
-        y: 8
-        width: 63
-        height: 67
-      alignment: 9
-      pivot: {x: 0.541889, y: 0.57881033}
+        x: 414
+        y: 0
+        width: 69
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -291,12 +291,12 @@ TextureImporter:
       name: iris run_7
       rect:
         serializedVersion: 2
-        x: 458
-        y: 4
-        width: 59
-        height: 71
-      alignment: 9
-      pivot: {x: 0.56614244, y: 0.53053474}
+        x: 483
+        y: 0
+        width: 69
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -313,7 +313,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f5ceb4333565bae4b9ad993191ef9ca2
+    spriteID: 45f811aea7c27d74ab5c002fae56a182
     internalID: 0
     vertices: []
     indices: 
@@ -322,8 +322,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries:
+      - key: SpriteEditor.SliceOnImport
+        value: False
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":1.0},"gridSpriteSize":{"x":69.0,"y":79.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       iris run_0: 1533812485741358856
       iris run_1: 359901358417921849

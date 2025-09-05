@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 904c5b4dbf2f6074f94010f584aae413
+guid: bb61426783ab47a40bf5d7cbf29a0393
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -50,7 +50,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
+  spriteExtrude: 0
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -119,13 +119,13 @@ TextureImporter:
       name: iris idle_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1
-        width: 17
-        height: 73
+        x: 5
+        y: 4
+        width: 19
+        height: 76
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 1, z: 0, w: 0}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -141,13 +141,13 @@ TextureImporter:
       name: iris idle_1
       rect:
         serializedVersion: 2
-        x: 20
-        y: 1
+        x: 35
+        y: 4
         width: 19
-        height: 74
+        height: 75
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 1, z: 0, w: 0}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -163,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 6d942605af75f23419d71a5c2988733a
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
