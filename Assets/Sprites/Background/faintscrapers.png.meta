@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 37d7afff2cd65804c9be50a9ceae626b
+guid: 1ad1b14b865d3bf4993c203ba9fddbbb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8700269957162390107
-    second: fent_leanpng_0
+      213: 8828132818181364085
+    second: faintscrapers_0
+  - first:
+      213: -8127502778609332920
+    second: faintscrapers_1
+  - first:
+      213: 2432309030077552591
+    second: faintscrapers_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fent_leanpng_0
+      name: faintscrapers_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 768
-        height: 204
+        y: 65
+        width: 145
+        height: 195
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5ad2559e19e624780800000000000000
-      internalID: -8700269957162390107
+      spriteID: 5791ba15604d38a70800000000000000
+      internalID: 8828132818181364085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faintscrapers_1
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 65
+        width: 172
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84d8df1c84f453f80800000000000000
+      internalID: -8127502778609332920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faintscrapers_2
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 65
+        width: 511
+        height: 195
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc75fb90d2c41c120800000000000000
+      internalID: 2432309030077552591
       vertices: []
       indices: 
       edges: []
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      fent_leanpng_0: -8700269957162390107
+      faintscrapers_0: 8828132818181364085
+      faintscrapers_1: -8127502778609332920
+      faintscrapers_2: 2432309030077552591
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
