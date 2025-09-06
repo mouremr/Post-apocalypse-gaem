@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8ff982604c7d48d4ea77ad846e796bec
+guid: 8070d4eccd28794469a488e660c517b4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4823520593034024409
-    second: dirt_terrain_segment_0
+      213: -3950267560646297049
+    second: dirt terrain segment 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,14 +40,14 @@ TextureImporter:
     filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 0
+  spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dirt_terrain_segment_0
+      name: dirt terrain segment 1_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 22
+        y: 0
         width: 256
         height: 66
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 18, z: 0, w: 0}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9d5139a5c6690f240800000000000000
-      internalID: 4823520593034024409
+      spriteID: 72abdef3594dd29c0800000000000000
+      internalID: -3950267560646297049
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ec5ec11132ea600449b0a1fbef0f2fa7
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dirt_terrain_segment_0: 4823520593034024409
+      dirt terrain segment 1_0: -3950267560646297049
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
