@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: bb61426783ab47a40bf5d7cbf29a0393
+guid: 580f451ee26fa304cb19da55a9349970
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1295551447779985171
-    second: iris idle_0
+      213: 9015776257194148417
+    second: containers_0
   - first:
-      213: 1231515754706644192
-    second: iris idle_1
+      213: 8214897613943432688
+    second: containers_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -50,7 +50,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 0
+  spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -116,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: iris idle_0
+      name: containers_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 5
-        width: 19
-        height: 75
+        x: 540
+        y: 43
+        width: 209
+        height: 116
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3174b297d29baf110800000000000000
-      internalID: 1295551447779985171
+      spriteID: 14245700db87e1d70800000000000000
+      internalID: 9015776257194148417
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: iris idle_1
+      name: containers_1
       rect:
         serializedVersion: 2
-        x: 35
-        y: 5
-        width: 19
-        height: 74
+        x: 1218
+        y: 40
+        width: 206
+        height: 119
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,8 +153,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0ec2696dd09371110800000000000000
-      internalID: 1231515754706644192
+      spriteID: 0f56d410bdd210270800000000000000
+      internalID: 8214897613943432688
       vertices: []
       indices: 
       edges: []
@@ -163,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 7c7ceccee0347b8488902a427c35ca06
+    spriteID: e8fa84206b12b8040a12bfbf84a12210
     internalID: 0
     vertices: []
     indices: 
@@ -173,8 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      iris idle_0: 1295551447779985171
-      iris idle_1: 1231515754706644192
+      containers_0: 9015776257194148417
+      containers_1: 8214897613943432688
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

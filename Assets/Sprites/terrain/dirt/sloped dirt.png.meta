@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: bb61426783ab47a40bf5d7cbf29a0393
+guid: a6920e914dabe2047bbf0ea0e762ad90
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1295551447779985171
-    second: iris idle_0
-  - first:
-      213: 1231515754706644192
-    second: iris idle_1
+      213: -5352519116430925063
+    second: sloped dirt_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,8 +46,8 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
-  spriteExtrude: 0
+  spriteMode: 1
+  spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -116,45 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: iris idle_0
+      name: sloped dirt_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 5
-        width: 19
-        height: 75
+        x: 0
+        y: 0
+        width: 128
+        height: 66
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3174b297d29baf110800000000000000
-      internalID: 1295551447779985171
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: iris idle_1
-      rect:
-        serializedVersion: 2
-        x: 35
-        y: 5
-        width: 19
-        height: 74
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0ec2696dd09371110800000000000000
-      internalID: 1231515754706644192
+      spriteID: 9f2a5a3f83808b5b0800000000000000
+      internalID: -5352519116430925063
       vertices: []
       indices: 
       edges: []
@@ -163,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 7c7ceccee0347b8488902a427c35ca06
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -173,8 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      iris idle_0: 1295551447779985171
-      iris idle_1: 1231515754706644192
+      sloped dirt_0: -5352519116430925063
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
