@@ -4,6 +4,8 @@ public class GroundedState : PlayerState
 {
     private float moveSpeed = 5f;
     private InteractionDetector interactionDetector;
+    private float groundCheckCooldown = 0.1f;
+    private float groundCheckTimer = 0f;
 
     public GroundedState(StateMachine stateMachine) : base(stateMachine) 
     {
@@ -12,13 +14,16 @@ public class GroundedState : PlayerState
 
     public override void Enter()
     {
-        //animator.SetBool("IsGrounded", true);
+        animator.SetBool("running", true);
+        groundCheckTimer = groundCheckCooldown; // Start with cooldown
     }
 
     public override void Update()
     {
-        // Handle jumping
-        if (input.JumpPressed && IsGrounded())
+        groundCheckTimer -= Time.deltaTime;
+        
+        // Handle jumping - only check if cooldown is complete
+        if (input.JumpPressed && groundCheckTimer <= 0f && IsGrounded())
         {
             stateMachine.ChangeState(new JumpingState(stateMachine, 5f));
         }
@@ -29,15 +34,23 @@ public class GroundedState : PlayerState
         Collider2D col = player.GetComponent<Collider2D>();
         Bounds bounds = col.bounds;
 
-        Vector2 origin = new Vector2(bounds.center.x, bounds.min.y); 
-
-        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, 0.05f, LayerMask.GetMask("Ground"));
-        return hit.collider != null;
+        Vector2 originLeft = new Vector2(bounds.min.x + 0.1f, bounds.min.y);
+        Vector2 originCenter = new Vector2(bounds.center.x, bounds.min.y);
+        Vector2 originRight = new Vector2(bounds.max.x - 0.1f, bounds.min.y);
+        
+        float rayDistance = 0.1f;
+        LayerMask groundMask = LayerMask.GetMask("Ground");
+        
+        RaycastHit2D hitLeft = Physics2D.Raycast(originLeft, Vector2.down, rayDistance, groundMask);
+        RaycastHit2D hitCenter = Physics2D.Raycast(originCenter, Vector2.down, rayDistance, groundMask);
+        RaycastHit2D hitRight = Physics2D.Raycast(originRight, Vector2.down, rayDistance, groundMask);
+        
+        return hitLeft.collider != null || hitCenter.collider != null || hitRight.collider != null;
     }
 
     public override void FixedUpdate()
     {
         // Horizontal movement
-        rb.linearVelocity = new Vector2(input.HorizontalInput * moveSpeed, rb.linearVelocityY);
+        rb.linearVelocity = new Vector2(input.HorizontalInput * moveSpeed, rb.linearVelocity.y);
     }
 }

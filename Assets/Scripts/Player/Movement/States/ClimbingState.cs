@@ -15,7 +15,7 @@ public class ClimbingState : PlayerState
     public override void Enter()
     {
         rb.gravityScale = 0;
-        //animator.SetBool("IsClimbing", true);
+        animator.SetBool("climbing", true);
         
         // Snap to ladder center
         Vector2 newPosition = new Vector2(

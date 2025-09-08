@@ -5,7 +5,7 @@ public abstract class PlayerState
     protected StateMachine stateMachine;
     protected GameObject player;
     protected Rigidbody2D rb;
-    //protected Animator animator;
+    protected Animator animator;
     protected PlayerInput input;
 
     public PlayerState(StateMachine stateMachine)
@@ -13,7 +13,7 @@ public abstract class PlayerState
         this.stateMachine = stateMachine;
         player = stateMachine.gameObject;
         rb = player.GetComponent<Rigidbody2D>();
-        //animator = player.GetComponent<Animator>();
+        animator = player.GetComponent<Animator>();
         input = player.GetComponent<PlayerInput>();
     }
 
