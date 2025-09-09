@@ -23,9 +23,14 @@ public class JumpingState : PlayerState
     public override void Update()
     {
         airTimer += Time.deltaTime;
-        
-        // Handle movement
+
         rb.linearVelocity = new Vector2(input.HorizontalInput * moveSpeed, rb.linearVelocity.y);
+
+        if (input.JumpReleased && rb.linearVelocity.y > 0.1)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+        }
+        
         
         // Only check for ground after minimum air time to prevent immediate switching
         if (airTimer >= minAirTime && IsGrounded())

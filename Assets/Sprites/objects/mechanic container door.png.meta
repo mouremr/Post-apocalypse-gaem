@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7dbab5b216cb1304c8d776e32b4c860c
+guid: 23900e9f984c5c3449498de919b4d134
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7137829554230698472
-    second: mechanic container_0
+      213: -6171940548265919478
+    second: mechanic container door_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mechanic container_0
+      name: mechanic container door_0
       rect:
         serializedVersion: 2
-        x: 141
-        y: 96
-        width: 251
-        height: 117
+        x: 323
+        y: 0
+        width: 113
+        height: 213
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8e1a437692aae0360800000000000000
-      internalID: 7137829554230698472
+      spriteID: a0cb7cd85ccd85aa0800000000000000
+      internalID: -6171940548265919478
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: cd4b4cb82e2fea34d904756d7b9dc258
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      mechanic container_0: 7137829554230698472
+      mechanic container door_0: -6171940548265919478
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

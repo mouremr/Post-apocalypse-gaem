@@ -20,17 +20,17 @@ public class InteractionDetector : MonoBehaviour
     private void DetectInteractibles()
     {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(
-            transform.position, 
-            detectionRadius, 
+            transform.position,
+            detectionRadius,
             interactibleLayer
         );
-        
+
         // Debug: Show how many colliders detected
         //Debug.Log($"Detected {hitColliders.Length} colliders in layer {LayerMask.LayerToName(6)}");
-        
+
         // Clear previous list
         nearbyInteractibles.Clear();
-        
+
         // Add new interactibles
         foreach (var collider in hitColliders)
         {
@@ -41,7 +41,7 @@ public class InteractionDetector : MonoBehaviour
             }
             if (interactible != null)
             {
-                //Debug.Log($"Found interactible: {interactible.name}");
+                Debug.Log($"Found interactible: {interactible.name}");
                 nearbyInteractibles.Add(interactible);
             }
         }
