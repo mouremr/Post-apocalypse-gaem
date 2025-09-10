@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class GroundedState : PlayerState
 {
-    private float moveSpeed = 5f;
+    private float moveSpeed = 5.5f;
     private InteractionDetector interactionDetector;
     private float groundCheckCooldown = 0.1f;
     private float groundCheckTimer = 0f;
+    private float movementSmoothing = 10f;
 
-    public GroundedState(StateMachine stateMachine) : base(stateMachine) 
+    public GroundedState(StateMachine stateMachine) : base(stateMachine)
     {
         interactionDetector = stateMachine.InteractionDetector;
     }
@@ -50,7 +51,18 @@ public class GroundedState : PlayerState
 
     public override void FixedUpdate()
     {
-        // Horizontal movement
-        rb.linearVelocity = new Vector2(input.HorizontalInput * moveSpeed, rb.linearVelocity.y);
+        float targetVelocityX = input.HorizontalInput * moveSpeed;
+        float velocityDifferenceX = targetVelocityX - rb.linearVelocity.x;
+        
+        // Apply force to reach target velocity (scaled by mass for consistency)
+        rb.AddForce(new Vector2(velocityDifferenceX * movementSmoothing * rb.mass, 0f), ForceMode2D.Force);
+        
+        // Add friction when no input is pressed
+        if (Mathf.Abs(input.HorizontalInput) < 0.1f)
+        {
+            float frictionForce = -rb.linearVelocity.x * movementSmoothing * rb.mass;
+            rb.AddForce(new Vector2(frictionForce, 0f), ForceMode2D.Force);
+        }
+    
     }
 }
