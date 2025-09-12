@@ -181,7 +181,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1346,7 +1346,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -6171940548265919478, guid: 23900e9f984c5c3449498de919b4d134, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.6156863}
   m_FlipX: 0
@@ -1372,6 +1372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MechanicDoorInteractible
   interactionText: Interact
   sceneToLoad: Home Scene
+  spawnPointName: SpawnPoint
 --- !u!61 &1640529256
 BoxCollider2D:
   m_ObjectHideFlags: 0

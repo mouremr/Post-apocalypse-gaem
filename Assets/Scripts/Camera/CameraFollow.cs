@@ -9,26 +9,36 @@ public class CameraFollow : MonoBehaviour
 
     void Awake()
     {
-        // Subscribe to scene loaded
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+private bool snapNextFrame = true;
+
+void FixedUpdate()
+{
+    if (target != null)
+    {
+        Vector3 targetPosition = target.position + offset;
+
+        if (snapNextFrame)
+        {
+            transform.position = targetPosition;
+            snapNextFrame = false;
+        }
+        else
+        {
+            transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing * Time.deltaTime);
+        }
+    }
+}
+
     void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
     {
-        // Look for the persistent player whenever a new scene loads
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
         {
             target = player.transform;
-        }
-    }
-
-    void FixedUpdate()
-    {
-        if (target != null)
-        {
-            Vector3 targetPosition = target.position + offset;
-            transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing * Time.deltaTime);
+            snapNextFrame = true; 
         }
     }
 
