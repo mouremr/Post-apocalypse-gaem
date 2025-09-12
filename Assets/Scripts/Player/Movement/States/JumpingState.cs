@@ -15,8 +15,7 @@ public class JumpingState : PlayerState
     {
         animator.SetBool("jumping", true);
         rb.gravityScale = 1;
-        //rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-        rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(jumpForce * input.HorizontalInput*0.15f, jumpForce), ForceMode2D.Impulse); //slight push in moving direction
         airTimer = 0f; // Reset timer
         rb.gravityScale = 1;
 
@@ -27,9 +26,9 @@ public class JumpingState : PlayerState
         airTimer += Time.deltaTime;
 
 
-        rb.linearVelocity = new Vector2(input.HorizontalInput * moveSpeed, rb.linearVelocity.y);
+        //rb.linearVelocity = new Vector2(input.HorizontalInput * moveSpeed, rb.linearVelocity.y);
 
-        if (input.JumpReleased && rb.linearVelocity.y > 0.1)
+        if (input.JumpReleased && rb.linearVelocity.y > 0.1) //jujmp cut
         {
             rb.AddForce(new Vector2(0f, -rb.linearVelocity.y * 0.5f), ForceMode2D.Impulse);
         }
