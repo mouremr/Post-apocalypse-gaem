@@ -15,7 +15,7 @@ public class JumpingState : PlayerState
     {
         animator.SetBool("jumping", true);
         rb.gravityScale = 1;
-        rb.AddForce(new Vector2(jumpForce * input.HorizontalInput*0.15f, jumpForce), ForceMode2D.Impulse); //slight push in moving direction
+        rb.AddForce(new Vector2(jumpForce * input.HorizontalInput*0.15f, jumpForce), ForceMode2D.Impulse); //slight push in moving direction    
         airTimer = 0f; // Reset timer
         rb.gravityScale = 1;
 
