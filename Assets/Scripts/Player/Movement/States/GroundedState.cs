@@ -8,6 +8,11 @@ public class GroundedState : PlayerState
     private float groundCheckTimer = 0f;
     private float movementSmoothing = 10f;
 
+    //gracePeriod you can jump while being not grounded 
+    private float gracePeriod = 0.2f; // makes this 0.2f 
+
+    private float coyoteTimer = 0f; 
+
     public GroundedState(StateMachine stateMachine) : base(stateMachine)
     {
         interactionDetector = stateMachine.InteractionDetector;
@@ -22,10 +27,21 @@ public class GroundedState : PlayerState
     public override void Update()
     {
         groundCheckTimer -= Time.deltaTime;
+
+        if (IsGrounded())
+        {
+            coyoteTimer = gracePeriod;
+        }
+        else 
+        {
+            coyoteTimer -= Time.deltaTime;
+        }
+
         
         // Handle jumping - only check if cooldown is complete
-        if (input.JumpPressed && groundCheckTimer <= 0f && IsGrounded())
+        if ((input.JumpPressed && groundCheckTimer <= 0f && IsGrounded()) || (input.JumpPressed && groundCheckTimer <= 0f && coyoteTimer > 0f))
         {
+
             stateMachine.ChangeState(new JumpingState(stateMachine, 5f));
         }
     }
@@ -55,6 +71,6 @@ public class GroundedState : PlayerState
         float velocityDifferenceX = targetVelocityX - rb.linearVelocity.x;
         
         // Apply force to reach target velocity
-        rb.AddForce(new Vector2(velocityDifferenceX * movementSmoothing * rb.mass * .1f, 0f), ForceMode2D.Force);
+        rb.AddForce(new Vector2(velocityDifferenceX * movementSmoothing * rb.mass * .5f, 0f), ForceMode2D.Force);
     }
 }

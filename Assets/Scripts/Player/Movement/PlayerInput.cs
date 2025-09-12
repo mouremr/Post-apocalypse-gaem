@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+
+    void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
     public float HorizontalInput { get; private set; }
     public bool JumpPressed { get; private set; }
     public bool InteractPressed { get; private set; }

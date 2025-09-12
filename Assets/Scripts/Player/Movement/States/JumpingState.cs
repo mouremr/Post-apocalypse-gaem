@@ -6,7 +6,6 @@ public class JumpingState : PlayerState
     private float jumpForce;
     private float minAirTime = 0.1f; // Minimum time before checking for ground
     private float airTimer = 0f;
-
     public JumpingState(StateMachine stateMachine, float specificForce) : base(stateMachine)
     {
         this.jumpForce = specificForce;
@@ -19,11 +18,14 @@ public class JumpingState : PlayerState
         //rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
         airTimer = 0f; // Reset timer
+        rb.gravityScale = 1;
+
     }
 
     public override void Update()
     {
         airTimer += Time.deltaTime;
+
 
         rb.linearVelocity = new Vector2(input.HorizontalInput * moveSpeed, rb.linearVelocity.y);
 
@@ -31,9 +33,13 @@ public class JumpingState : PlayerState
         {
             rb.AddForce(new Vector2(0f, -rb.linearVelocity.y * 0.5f), ForceMode2D.Impulse);
         }
-        
-        
-        // Only check for ground after minimum air time to prevent immediate switching
+
+        if (rb.linearVelocity.y < -0.05f) //if falling, iuncrease gravity a little bit
+        {
+            rb.gravityScale = 1.3f;
+        }
+
+
         if (airTimer >= minAirTime && IsGrounded())
         {
             animator.SetBool("jumping", false);
