@@ -1080,7 +1080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   target: {fileID: 1937048908}
-  smoothing: 10
+  smoothing: 20
   offset: {x: 0, y: 1, z: -10}
 --- !u!114 &519420035
 MonoBehaviour:
