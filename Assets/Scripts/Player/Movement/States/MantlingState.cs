@@ -31,10 +31,9 @@ public class MantlingState : PlayerState
             topLedgeY = hipHit.collider.bounds.max.y;
         }
 
-        float feetToHipHeight = headOrigin.y - player.transform.position.y;
-
-        targetMantlePosition = new Vector2(player.transform.position.x + (facingDirection * 0.75f), topLedgeY); //+feet to hip height on the y
-        rb.AddForce(Vector2.up * 2f, ForceMode2D.Impulse);
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;   // Freeze completely
+        targetMantlePosition = new Vector2(player.transform.position.x + (facingDirection * 0.6f), topLedgeY+0.5f); //+feet to hip height on the y
+        //rb.AddForce(Vector2.up * 3f, ForceMode2D.Impulse);
         mantleTimer = 0f;
         isMantleComplete = false;
         
@@ -42,28 +41,27 @@ public class MantlingState : PlayerState
 
     public override void Update()
     {
+
+        Debug.DrawRay(targetMantlePosition, Vector2.up * 0.2f, Color.green);
+
         mantleTimer += Time.deltaTime;
                 
-        // Automatically finish mantle after duration
         if (mantleTimer >= MANTLE_DURATION && !isMantleComplete)
         {
-            FinishMantle();
+            rb.MovePosition(targetMantlePosition);
+
+            isMantleComplete = true;
+            animator.SetBool("mantling", false);
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation; 
+
+
+            Debug.Log("Mantle completed");
         }
         
-        // Transition to idle after mantle is complete
         if (isMantleComplete)
         {
             stateMachine.ChangeState(new GroundedState(stateMachine));
         }
     }
 
-    private void FinishMantle()
-    {
-        rb.position = targetMantlePosition;
-
-        isMantleComplete = true;
-        animator.SetBool("mantling", false);
-
-        Debug.Log("Mantle completed");
-    }
 }
