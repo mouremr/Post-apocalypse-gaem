@@ -19,7 +19,7 @@ public class JumpingState : PlayerState
         facingDirection = spriteRenderer.flipX ? -1f : 1f;
 
         animator.SetBool("jumping", true);
-        rb.gravityScale = 1;
+        //rb.gravityScale = 1;
         rb.AddForce(new Vector2(jumpForce * input.HorizontalInput * 0.15f, jumpForce), ForceMode2D.Impulse); //slight push in moving direction    
         airTimer = 0f; // Reset timer
         rb.gravityScale = 1;
@@ -29,12 +29,12 @@ public class JumpingState : PlayerState
 
     private bool canMantle(RaycastHit2D hipHit, RaycastHit2D headHit)
     {
-        Debug.Log($"Hip hit: {(hipHit.collider != null ? hipHit.collider.name : "none")}");
-        Debug.Log($"Head hit: {(headHit.collider != null ? headHit.collider.name : "none")}");
+        //Debug.Log($"Hip hit: {(hipHit.collider != null ? hipHit.collider.name : "none")}");
+        //Debug.Log($"Head hit: {(headHit.collider != null ? headHit.collider.name : "none")}");
 
         Vector2 castDir = input.HorizontalInput >= 0 ? Vector2.right : Vector2.left;
         //you can only mantle if head ray detects nothing but hip ray detects an obstacle
-        if (headHit.collider == null && hipHit.collider != null)
+        if (headHit.collider == null && hipHit.collider != null && hipHit.collider.CompareTag("Mantleable"))
         {
             return true;
         }

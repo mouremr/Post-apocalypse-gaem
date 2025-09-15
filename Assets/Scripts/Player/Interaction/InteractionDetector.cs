@@ -41,7 +41,7 @@ public class InteractionDetector : MonoBehaviour
             }
             if (interactible != null)
             {
-                Debug.Log($"Found interactible: {interactible.name}");
+                //Debug.Log($"Found interactible: {interactible.name}");
                 nearbyInteractibles.Add(interactible);
             }
         }

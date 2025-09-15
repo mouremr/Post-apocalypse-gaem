@@ -7,6 +7,7 @@ public class MantlingState : PlayerState
     private float facingDirection;
     
     private Vector2 targetMantlePosition;
+    private Vector2 mantleBoost = new Vector2(0.5f, 2f);
     private float topLedgeY;
     private bool isMantleComplete = false;
     private float mantleTimer = 0f;
@@ -21,7 +22,11 @@ public class MantlingState : PlayerState
 
     public override void Enter()
     {
-                // Set animator parameters
+        rb.linearVelocity = new Vector2(rb.linearVelocityX, 0f);
+        Debug.Log(facingDirection); 
+        rb.AddForce(mantleBoost, ForceMode2D.Impulse);
+
+        // Set animator parameters
         animator.SetBool("mantling", true);
         animator.SetBool("running", false);
         
@@ -32,7 +37,7 @@ public class MantlingState : PlayerState
         }
 
         targetMantlePosition = new Vector2(player.transform.position.x + (facingDirection * 0.6f), topLedgeY+1.3f); //+feet to hip height on the y
-        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        //rb.constraints = RigidbodyConstraints2D.FreezeAll;
         mantleTimer = 0f;
         isMantleComplete = false;
         
@@ -54,10 +59,10 @@ public class MantlingState : PlayerState
 
             isMantleComplete = true;
             animator.SetBool("mantling", false);
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation; 
+            //rb.constraints = RigidbodyConstraints2D.FreezeRotation; 
+            rb.AddForce(-1 * mantleBoost, ForceMode2D.Impulse);
 
-
-            Debug.Log("Mantle completed");
+            //Debug.Log("Mantle completed");
         }
         
         if (isMantleComplete)
