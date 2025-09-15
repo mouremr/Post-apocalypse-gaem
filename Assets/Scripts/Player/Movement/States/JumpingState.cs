@@ -27,9 +27,10 @@ public class JumpingState : PlayerState
 
     }
 
-    private bool canMantle(RaycastHit2D headHit, RaycastHit2D hipHit)
+    private bool canMantle(RaycastHit2D hipHit, RaycastHit2D headHit)
     {
-        //Debug.Log($"Hip hit: {(hipHit.collider != null ? hipHit.collider.name : "none")}");
+        Debug.Log($"Hip hit: {(hipHit.collider != null ? hipHit.collider.name : "none")}");
+        Debug.Log($"Head hit: {(headHit.collider != null ? headHit.collider.name : "none")}");
 
         Vector2 castDir = input.HorizontalInput >= 0 ? Vector2.right : Vector2.left;
         //you can only mantle if head ray detects nothing but hip ray detects an obstacle
@@ -51,16 +52,17 @@ public class JumpingState : PlayerState
         float targetVelocityX = input.HorizontalInput * moveSpeed;
         float velocityDiff = targetVelocityX - rb.linearVelocity.x;
 
-        Vector2 hipOrigin = (Vector2)player.transform.position;
-        Vector2 headOrigin = hipOrigin + Vector2.up * 0.6f;
+        Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up *0.4f;
+        Vector2 headOrigin = hipOrigin + Vector2.up * 0.8f;
 
         Vector2 castDir = input.HorizontalInput >= 0 ? Vector2.right : Vector2.left;
         float rayLength = 0.5f;
         RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength);
         RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength);
 
-        Debug.DrawRay(hipOrigin, castDir * 0.5f, Color.red);
-        Debug.DrawRay(headOrigin, castDir * 0.5f, Color.blue);
+
+        Debug.DrawRay(hipOrigin, castDir * rayLength, Color.red);
+        Debug.DrawRay(headOrigin, castDir * rayLength, Color.blue);
 
         rb.AddForce(new Vector2(velocityDiff * 5f, 0f)); // "5f" = air acceleration factor
 
@@ -68,18 +70,19 @@ public class JumpingState : PlayerState
         {
             rb.AddForce(new Vector2(0f, -rb.linearVelocity.y * 0.5f), ForceMode2D.Impulse);
         }
-
-        if (rb.linearVelocity.y < -0.05f) //if falling, iuncrease gravity a little bit
-        {
-            rb.gravityScale = 1.3f;
-        }
-
+        
         if (canMantle(hipHit,headHit))
         {
             animator.SetBool("jumping", false);
             stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin,facingDirection));
 
         }
+
+        if (rb.linearVelocity.y < -0.05f) //if falling, iuncrease gravity a little bit
+        {
+            rb.gravityScale = 1.3f;
+        }
+
 
         if (airTimer >= minAirTime && IsGrounded())
         {

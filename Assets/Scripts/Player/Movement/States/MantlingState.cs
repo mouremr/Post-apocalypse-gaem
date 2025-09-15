@@ -31,9 +31,8 @@ public class MantlingState : PlayerState
             topLedgeY = hipHit.collider.bounds.max.y;
         }
 
-        rb.constraints = RigidbodyConstraints2D.FreezeAll;   // Freeze completely
-        targetMantlePosition = new Vector2(player.transform.position.x + (facingDirection * 0.6f), topLedgeY+0.5f); //+feet to hip height on the y
-        //rb.AddForce(Vector2.up * 3f, ForceMode2D.Impulse);
+        targetMantlePosition = new Vector2(player.transform.position.x + (facingDirection * 0.6f), topLedgeY+1.3f); //+feet to hip height on the y
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
         mantleTimer = 0f;
         isMantleComplete = false;
         
@@ -41,6 +40,8 @@ public class MantlingState : PlayerState
 
     public override void Update()
     {
+        
+        // rb.constraints = RigidbodyConstraints2D.FreezeAll;   // Freeze completely
 
         Debug.DrawRay(targetMantlePosition, Vector2.up * 0.2f, Color.green);
 
@@ -48,6 +49,7 @@ public class MantlingState : PlayerState
                 
         if (mantleTimer >= MANTLE_DURATION && !isMantleComplete)
         {
+            // rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             rb.MovePosition(targetMantlePosition);
 
             isMantleComplete = true;
