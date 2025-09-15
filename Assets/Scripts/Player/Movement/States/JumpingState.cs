@@ -6,27 +6,63 @@ public class JumpingState : PlayerState
     private float jumpForce;
     private float minAirTime = 0.1f; // Minimum time before checking for ground
     private float airTimer = 0f;
+
+    private float facingDirection; //-1 if it facing right, 1 if facing left
     public JumpingState(StateMachine stateMachine, float specificForce) : base(stateMachine)
     {
         this.jumpForce = specificForce;
+
     }
 
     public override void Enter()
     {
+        facingDirection = spriteRenderer.flipX ? -1f : 1f;
+
         animator.SetBool("jumping", true);
         rb.gravityScale = 1;
-        rb.AddForce(new Vector2(jumpForce * input.HorizontalInput*0.15f, jumpForce), ForceMode2D.Impulse); //slight push in moving direction    
+        rb.AddForce(new Vector2(jumpForce * input.HorizontalInput * 0.15f, jumpForce), ForceMode2D.Impulse); //slight push in moving direction    
         airTimer = 0f; // Reset timer
         rb.gravityScale = 1;
+        facingDirection = Mathf.Sign(input.HorizontalInput);
 
+    }
+
+    private bool canMantle(RaycastHit2D headHit, RaycastHit2D hipHit)
+    {
+        //Debug.Log($"Hip hit: {(hipHit.collider != null ? hipHit.collider.name : "none")}");
+
+        Vector2 castDir = input.HorizontalInput >= 0 ? Vector2.right : Vector2.left;
+        //you can only mantle if head ray detects nothing but hip ray detects an obstacle
+        if (headHit.collider == null && hipHit.collider != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
     }
 
     public override void Update()
     {
         airTimer += Time.deltaTime;
 
+        float targetVelocityX = input.HorizontalInput * moveSpeed;
+        float velocityDiff = targetVelocityX - rb.linearVelocity.x;
 
-        //rb.linearVelocity = new Vector2(input.HorizontalInput * moveSpeed, rb.linearVelocity.y);
+        Vector2 hipOrigin = (Vector2)player.transform.position;
+        Vector2 headOrigin = hipOrigin + Vector2.up * 0.6f;
+
+        Vector2 castDir = input.HorizontalInput >= 0 ? Vector2.right : Vector2.left;
+        float rayLength = 0.5f;
+        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength);
+        RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength);
+
+        Debug.DrawRay(hipOrigin, castDir * 0.5f, Color.red);
+        Debug.DrawRay(headOrigin, castDir * 0.5f, Color.blue);
+
+        rb.AddForce(new Vector2(velocityDiff * 5f, 0f)); // "5f" = air acceleration factor
 
         if (input.JumpReleased && rb.linearVelocity.y > 0.1) //jujmp cut
         {
@@ -38,12 +74,23 @@ public class JumpingState : PlayerState
             rb.gravityScale = 1.3f;
         }
 
+        if (canMantle(hipHit,headHit))
+        {
+            animator.SetBool("jumping", false);
+            stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin,facingDirection));
+
+        }
 
         if (airTimer >= minAirTime && IsGrounded())
         {
             animator.SetBool("jumping", false);
             stateMachine.ChangeState(new GroundedState(stateMachine));
         }
+
+
+
+
+
     }
 
     private bool IsGrounded()

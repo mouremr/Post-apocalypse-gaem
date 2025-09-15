@@ -69,8 +69,15 @@ public class GroundedState : PlayerState
     {
         float targetVelocityX = input.HorizontalInput * moveSpeed;
         float velocityDifferenceX = targetVelocityX - rb.linearVelocity.x;
-        
+
         // Apply force to reach target velocity
-        rb.AddForce(new Vector2(velocityDifferenceX * movementSmoothing * rb.mass * .5f, 0f), ForceMode2D.Force);
+        rb.AddForce(new Vector2(velocityDifferenceX * movementSmoothing * rb.mass * .75f, 0f), ForceMode2D.Force);
+
+        if (Mathf.Abs(input.HorizontalInput) < 0.01)
+        {
+            float amount = Mathf.Min(Mathf.Abs(rb.linearVelocity.x),0.5f); //reverse direction 
+            amount *= Mathf.Sign(rb.linearVelocity.x);
+            rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
+        }
     }
 }

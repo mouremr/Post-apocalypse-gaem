@@ -7,6 +7,8 @@ public abstract class PlayerState
     protected Rigidbody2D rb;
     protected Animator animator;
     protected PlayerInput input;
+    protected SpriteRenderer spriteRenderer;
+
 
     public PlayerState(StateMachine stateMachine)
     {
@@ -15,6 +17,8 @@ public abstract class PlayerState
         rb = player.GetComponent<Rigidbody2D>();
         animator = player.GetComponent<Animator>();
         input = player.GetComponent<PlayerInput>();
+        spriteRenderer = player.GetComponent<SpriteRenderer>();
+
     }
 
     public virtual void Enter() { }

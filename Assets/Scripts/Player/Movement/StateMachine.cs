@@ -38,6 +38,6 @@ public class StateMachine : MonoBehaviour
     }
     private void OnGUI()
     {
-        GUI.Label(new Rect(10, 10, 200, 20), $"State: {_currentState?.GetType().Name}");
+        //GUI.Label(new Rect(10, 10, 200, 20), $"State: {_currentState?.GetType().Name}");
     }
 }
