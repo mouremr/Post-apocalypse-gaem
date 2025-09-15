@@ -10,7 +10,7 @@ public class MantlingState : PlayerState
     private float topLedgeY;
     private bool isMantleComplete = false;
     private float mantleTimer = 0f;
-    private const float MANTLE_DURATION = 0.24999f;
+    private const float MANTLE_DURATION = 0.25f;
 
     public MantlingState(StateMachine stateMachine, RaycastHit2D hipHit, Vector2 headOrigin, float facingDirection) : base(stateMachine)
     {
