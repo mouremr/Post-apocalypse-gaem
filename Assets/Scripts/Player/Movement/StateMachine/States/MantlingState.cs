@@ -55,7 +55,7 @@ public class MantlingState : PlayerState
         if (mantleTimer >= MANTLE_DURATION && !isMantleComplete)
         {
             // rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-            rb.MovePosition(targetMantlePosition);
+           // rb.MovePosition(targetMantlePosition);
 
             isMantleComplete = true;
             animator.SetBool("mantling", false);
