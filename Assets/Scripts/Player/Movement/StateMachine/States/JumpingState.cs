@@ -52,8 +52,8 @@ public class JumpingState : PlayerState
         float targetVelocityX = input.HorizontalInput * moveSpeed;
         float velocityDiff = targetVelocityX - rb.linearVelocity.x;
 
-        Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up *0.4f;
-        Vector2 headOrigin = hipOrigin + Vector2.up * 0.8f;
+        Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up *1f;
+        Vector2 headOrigin = hipOrigin + Vector2.up * 1f;
 
         Vector2 castDir = input.HorizontalInput >= 0 ? Vector2.right : Vector2.left;
         float rayLength = 0.5f;
@@ -64,7 +64,7 @@ public class JumpingState : PlayerState
         Debug.DrawRay(hipOrigin, castDir * rayLength, Color.red);
         Debug.DrawRay(headOrigin, castDir * rayLength, Color.blue);
 
-        rb.AddForce(new Vector2(velocityDiff * 5f, 0f)); // "5f" = air acceleration factor
+        rb.AddForce(new Vector2(velocityDiff * jumpForce, 0f)); // "5f" = air acceleration factor
 
         if (input.JumpReleased && rb.linearVelocity.y > 0.1) //jujmp cut
         {

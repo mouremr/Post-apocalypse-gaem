@@ -955,7 +955,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 0
-  orthographic size: 4.21875
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1328,6 +1328,14 @@ PrefabInstance:
     - target: {fileID: 6741379889716471056, guid: c364ea2e8d2944a4fb54ae3aa706af94, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801056161780792345, guid: c364ea2e8d2944a4fb54ae3aa706af94, type: 3}
+      propertyPath: m_Size.y
+      value: 2.3098752
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801056161780792345, guid: c364ea2e8d2944a4fb54ae3aa706af94, type: 3}
+      propertyPath: m_Offset.y
+      value: 1.166474
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1738182819395528014, guid: c364ea2e8d2944a4fb54ae3aa706af94, type: 3}
@@ -3099,7 +3107,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1993537763
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3477,11 +3485,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2881845079888401096, guid: dd78dd6415900bc40994b298cd9d010e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -47.9
+      value: -76.44
       objectReference: {fileID: 0}
     - target: {fileID: 2881845079888401096, guid: dd78dd6415900bc40994b298cd9d010e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.0419998
+      value: -2.4
       objectReference: {fileID: 0}
     - target: {fileID: 2881845079888401096, guid: dd78dd6415900bc40994b298cd9d010e, type: 3}
       propertyPath: m_LocalPosition.z

@@ -7,11 +7,17 @@ public class MantlingState : PlayerState
     private float facingDirection;
     
     private Vector2 targetMantlePosition;
-    private Vector2 mantleBoost = new Vector2(0.5f, 2f);
+
+    private Vector2 intermediatePosition;
     private float topLedgeY;
+    private float topLedgeX;
+
     private bool isMantleComplete = false;
     private float mantleTimer = 0f;
     private const float MANTLE_DURATION = 0.25f;
+
+    private Vector2 oldSize;
+    private Vector2 oldOffset;
 
     public MantlingState(StateMachine stateMachine, RaycastHit2D hipHit, Vector2 headOrigin, float facingDirection) : base(stateMachine)
     {
@@ -22,53 +28,56 @@ public class MantlingState : PlayerState
 
     public override void Enter()
     {
-        rb.linearVelocity = new Vector2(rb.linearVelocityX, 0f);
-        Debug.Log(facingDirection); 
-        rb.AddForce(mantleBoost, ForceMode2D.Impulse);
+        // Save original collider size/offset
+        oldSize = boxCollider.size;
+        oldOffset = boxCollider.offset;
 
-        // Set animator parameters
-        animator.SetBool("mantling", true);
-        animator.SetBool("running", false);
-        
+
 
         if (hipHit.collider != null)
         {
-            topLedgeY = hipHit.collider.bounds.max.y;
+            topLedgeY = hipHit.collider.bounds.max.y; //assuming a approach from left 
+            Debug.Log(facingDirection);
+            if (facingDirection > 0) // moving right
+                topLedgeX = hipHit.collider.bounds.min.x;
+            else // moving left
+                topLedgeX = hipHit.collider.bounds.max.x;
         }
 
-        targetMantlePosition = new Vector2(player.transform.position.x + (facingDirection * 0.6f), topLedgeY+1.3f); //+feet to hip height on the y
+        targetMantlePosition = new Vector2(player.transform.position.x+0.2f, topLedgeY + 1.3f);
 
-        Vector2 mantleBoost = new Vector2(0.5f, 2.7f); 
-        rb.AddForce(mantleBoost, ForceMode2D.Impulse);
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
         mantleTimer = 0f;
         isMantleComplete = false;
-        
+        animator.SetBool("mantling", true);
+        animator.SetBool("running", false);
     }
 
     public override void Update()
     {
+        player.transform.position = new Vector2(topLedgeX, topLedgeY);
         
-        // rb.constraints = RigidbodyConstraints2D.FreezeAll;   // Freeze completely
-
         Debug.DrawRay(targetMantlePosition, Vector2.up * 0.2f, Color.green);
 
         mantleTimer += Time.deltaTime;
-                
-        if (mantleTimer >= MANTLE_DURATION && !isMantleComplete)
+
+        boxCollider.size = spriteRenderer.bounds.size;
+        boxCollider.offset = spriteRenderer.bounds.center - player.transform.position;
+       
+        if (mantleTimer >= MANTLE_DURATION)
         {
-            // rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-            rb.MovePosition(targetMantlePosition);
+            animator.SetBool("mantling", false);
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
             isMantleComplete = true;
-            animator.SetBool("mantling", false);
-            //rb.constraints = RigidbodyConstraints2D.FreezeRotation; 
-            rb.AddForce(-1 * mantleBoost, ForceMode2D.Impulse);
 
-            //Debug.Log("Mantle completed");
         }
         
         if (isMantleComplete)
         {
+           // rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            boxCollider.size = oldSize;
+            boxCollider.offset = oldOffset;
             stateMachine.ChangeState(new GroundedState(stateMachine));
         }
     }

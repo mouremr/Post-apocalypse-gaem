@@ -9,6 +9,7 @@ public abstract class PlayerState
     protected PlayerInput input;
     protected SpriteRenderer spriteRenderer;
 
+    protected BoxCollider2D boxCollider;
 
     public PlayerState(StateMachine stateMachine)
     {
@@ -18,11 +19,15 @@ public abstract class PlayerState
         animator = player.GetComponent<Animator>();
         input = player.GetComponent<PlayerInput>();
         spriteRenderer = player.GetComponent<SpriteRenderer>();
+        boxCollider = player.GetComponent<BoxCollider2D>();
 
     }
 
     public virtual void Enter() { }
-    public virtual void Update() { }
+    public virtual void Update()
+    { 
+
+    }
     public virtual void FixedUpdate() { }
     public virtual void Exit() { }
 }
