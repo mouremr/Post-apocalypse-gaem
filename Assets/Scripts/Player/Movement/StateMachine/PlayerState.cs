@@ -11,6 +11,9 @@ public abstract class PlayerState
 
     protected BoxCollider2D boxCollider;
 
+    protected CameraFollow camera;
+
+
     public PlayerState(StateMachine stateMachine)
     {
         this.stateMachine = stateMachine;
@@ -20,6 +23,8 @@ public abstract class PlayerState
         input = player.GetComponent<PlayerInput>();
         spriteRenderer = player.GetComponent<SpriteRenderer>();
         boxCollider = player.GetComponent<BoxCollider2D>();
+        camera = Camera.main.GetComponent<CameraFollow>();
+
 
     }
 

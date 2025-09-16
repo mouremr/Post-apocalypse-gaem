@@ -45,6 +45,7 @@ public class MantlingState : PlayerState
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         mantleTimer = 0f;
         isMantleComplete = false;
+        camera.smoothTime = 0.3f;
         animator.SetBool("mantling", true);
         animator.SetBool("running", false);
     }
@@ -71,7 +72,9 @@ public class MantlingState : PlayerState
         
         if (isMantleComplete)
         {
-           // rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            // rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            camera.smoothTime = 0.2f;
+
             boxCollider.size = oldSize;
             boxCollider.offset = oldOffset;
             stateMachine.ChangeState(new GroundedState(stateMachine));
