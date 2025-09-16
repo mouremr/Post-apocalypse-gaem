@@ -37,7 +37,9 @@ public class MantlingState : PlayerState
         }
 
         targetMantlePosition = new Vector2(player.transform.position.x + (facingDirection * 0.6f), topLedgeY+1.3f); //+feet to hip height on the y
-        //rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+        Vector2 mantleBoost = new Vector2(0.5f, 2.7f); 
+        rb.AddForce(mantleBoost, ForceMode2D.Impulse);
         mantleTimer = 0f;
         isMantleComplete = false;
         
@@ -55,7 +57,7 @@ public class MantlingState : PlayerState
         if (mantleTimer >= MANTLE_DURATION && !isMantleComplete)
         {
             // rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-           // rb.MovePosition(targetMantlePosition);
+            rb.MovePosition(targetMantlePosition);
 
             isMantleComplete = true;
             animator.SetBool("mantling", false);
