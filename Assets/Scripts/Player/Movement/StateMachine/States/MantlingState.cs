@@ -36,12 +36,8 @@ public class MantlingState : PlayerState
 
         if (hipHit.collider != null)
         {
-            topLedgeY = hipHit.collider.bounds.max.y; //assuming a approach from left 
-            Debug.Log(facingDirection);
-            if (facingDirection > 0) // moving right
-                topLedgeX = hipHit.collider.bounds.min.x;
-            else // moving left
-                topLedgeX = hipHit.collider.bounds.max.x;
+            topLedgeY = hipHit.collider.bounds.max.y; // top of the ledge
+            topLedgeX = hipHit.point.x; // exact hit point
         }
 
         targetMantlePosition = new Vector2(player.transform.position.x+0.2f, topLedgeY + 1.3f);

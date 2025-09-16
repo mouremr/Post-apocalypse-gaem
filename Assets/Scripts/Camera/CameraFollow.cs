@@ -3,42 +3,43 @@ using UnityEngine.SceneManagement;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target;          
-    public float smoothing = 5f;      
+    public Transform target;
+    public float followSpeed = 10f; // higher = snappier
     public Vector3 offset = new Vector3(0f, 0f, -10f);
+
+    private bool snapNextFrame = true;
 
     void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-private bool snapNextFrame = true;
-
-void FixedUpdate()
-{
-    if (target != null)
+    void FixedUpdate()
     {
-        Vector3 targetPosition = target.position + offset;
+        if (target != null)
+        {
+            Vector3 targetPosition = target.position + offset;
 
-        if (snapNextFrame)
-        {
-            transform.position = targetPosition;
-            snapNextFrame = false;
-        }
-        else
-        {
-            transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing * Time.deltaTime);
+            if (snapNextFrame)
+            {
+                transform.position = targetPosition; // instant on first frame
+                snapNextFrame = false;
+            }
+            else
+            {
+                // Interpolate towards target each FixedUpdate
+                transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.fixedDeltaTime);
+            }
         }
     }
-}
 
-    void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
         {
             target = player.transform;
-            snapNextFrame = true; 
+            snapNextFrame = true;
         }
     }
 
