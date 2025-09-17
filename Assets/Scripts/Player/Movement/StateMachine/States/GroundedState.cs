@@ -20,6 +20,7 @@ public class GroundedState : PlayerState
 
     public override void Enter()
     {
+        animator.SetBool("grounded", true);
         animator.SetBool("running", true);
         groundCheckTimer = groundCheckCooldown; // Start with cooldown
     }
@@ -32,17 +33,24 @@ public class GroundedState : PlayerState
         {
             coyoteTimer = gracePeriod;
         }
-        else 
+        else
         {
             coyoteTimer -= Time.deltaTime;
         }
 
-        
+
         // Handle jumping - only check if cooldown is complete
         if ((input.JumpPressed && groundCheckTimer <= 0f && IsGrounded()) || (input.JumpPressed && groundCheckTimer <= 0f && coyoteTimer > 0f))
         {
 
-            stateMachine.ChangeState(new JumpingState(stateMachine, 5f));
+            stateMachine.ChangeState(new JumpingState(stateMachine, 5f,true));
+        }
+
+        if (!IsGrounded())
+        {
+            //Debug.Log("not grounded");
+
+            stateMachine.ChangeState(new JumpingState(stateMachine, 0f,false));
         }
     }
 

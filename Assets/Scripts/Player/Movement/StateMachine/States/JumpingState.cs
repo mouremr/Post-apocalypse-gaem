@@ -6,11 +6,18 @@ public class JumpingState : PlayerState
     private float jumpForce;
     private float minAirTime = 0.1f; // Minimum time before checking for ground
     private float airTimer = 0f;
+    private bool applyImpulse;
+
+    private float airControl = 5f; 
+
+
 
     private float facingDirection; //-1 if it facing right, 1 if facing left
-    public JumpingState(StateMachine stateMachine, float specificForce) : base(stateMachine)
+    public JumpingState(StateMachine stateMachine, float specificForce,bool applyImpulse=true) : base(stateMachine)
     {
         this.jumpForce = specificForce;
+        this.applyImpulse = applyImpulse;
+
 
     }
 
@@ -20,7 +27,9 @@ public class JumpingState : PlayerState
 
         animator.SetBool("jumping", true);
         //rb.gravityScale = 1;
-        rb.AddForce(new Vector2(jumpForce * input.HorizontalInput * 0.15f, jumpForce), ForceMode2D.Impulse); //slight push in moving direction    
+        if (applyImpulse) {
+            rb.AddForce(new Vector2(jumpForce * input.HorizontalInput * 0.15f, jumpForce), ForceMode2D.Impulse);
+        }        
         airTimer = 0f; // Reset timer
         rb.gravityScale = 1;
         facingDirection = Mathf.Sign(input.HorizontalInput);
@@ -61,7 +70,7 @@ public class JumpingState : PlayerState
         Debug.DrawRay(hipOrigin, castDir * rayLength, Color.red);
         Debug.DrawRay(headOrigin, castDir * rayLength, Color.blue);
 
-        rb.AddForce(new Vector2(velocityDiff * jumpForce, 0f)); // "5f" = air acceleration factor
+        rb.AddForce(new Vector2(velocityDiff * airControl, 0f));
 
         if (input.JumpReleased && rb.linearVelocity.y > 0.1) //jujmp cut
         {
