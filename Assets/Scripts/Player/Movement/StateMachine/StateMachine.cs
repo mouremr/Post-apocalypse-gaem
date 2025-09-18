@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
+
+    [SerializeField] private LayerMask climbable;
+
     private PlayerState _currentState;
     private InteractionDetector interactionDetector;
 

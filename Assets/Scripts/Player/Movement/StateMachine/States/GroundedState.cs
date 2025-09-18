@@ -12,9 +12,16 @@ public class GroundedState : PlayerState
     private float gracePeriod = 0.2f; // makes this 0.2f 
 
     private float coyoteTimer = 0f; 
+    float facingDirection;
+
+    private float wallRegrabCooldown = 0.1f; // how long until you can re-grab wall
+    private float wallRegrabTimer = 0f;
+
 
     public GroundedState(StateMachine stateMachine) : base(stateMachine)
     {
+        facingDirection = spriteRenderer.flipX ? -1f : 1f;
+
         interactionDetector = stateMachine.InteractionDetector;
     }
 
@@ -27,6 +34,9 @@ public class GroundedState : PlayerState
 
     public override void Update()
     {
+        if (wallRegrabTimer > 0f)
+            wallRegrabTimer -= Time.deltaTime;
+
         groundCheckTimer -= Time.deltaTime;
 
         if (IsGrounded())
@@ -39,20 +49,31 @@ public class GroundedState : PlayerState
         }
 
 
-        // Handle jumping - only check if cooldown is complete
         if ((input.JumpPressed && groundCheckTimer <= 0f && IsGrounded()) || (input.JumpPressed && groundCheckTimer <= 0f && coyoteTimer > 0f))
         {
+            wallRegrabTimer = wallRegrabCooldown;
 
-            stateMachine.ChangeState(new JumpingState(stateMachine, 5f,true));
+
+            stateMachine.ChangeState(new JumpingState(stateMachine, 5f, true));
         }
 
-        if (!IsGrounded())
+        if (wallRegrabTimer <= 0f && IsWalled() && Mathf.Sign(input.HorizontalInput) == facingDirection)
         {
-            //Debug.Log("not grounded");
-
-            stateMachine.ChangeState(new JumpingState(stateMachine, 0f,false));
+            Debug.Log("is walled");
+            wallRegrabTimer = wallRegrabCooldown;
+            stateMachine.ChangeState(new WallClimbingState(stateMachine));
         }
+
+
     }
+        
+    
+    private bool IsWalled()
+    {
+        //get position of wallcheck obejct
+        return Physics2D.OverlapBox(wallCheck.position, new Vector2(0.05f, 0.5f), 0, climbable);
+    }
+
 
     private bool IsGrounded()
     {
@@ -62,14 +83,14 @@ public class GroundedState : PlayerState
         Vector2 originLeft = new Vector2(bounds.min.x + 0.1f, bounds.min.y);
         Vector2 originCenter = new Vector2(bounds.center.x, bounds.min.y);
         Vector2 originRight = new Vector2(bounds.max.x - 0.1f, bounds.min.y);
-        
+
         float rayDistance = 0.1f;
         LayerMask groundMask = LayerMask.GetMask("Ground");
-        
+
         RaycastHit2D hitLeft = Physics2D.Raycast(originLeft, Vector2.down, rayDistance, groundMask);
         RaycastHit2D hitCenter = Physics2D.Raycast(originCenter, Vector2.down, rayDistance, groundMask);
         RaycastHit2D hitRight = Physics2D.Raycast(originRight, Vector2.down, rayDistance, groundMask);
-        
+
         return hitLeft.collider != null || hitCenter.collider != null || hitRight.collider != null;
     }
 

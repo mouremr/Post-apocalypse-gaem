@@ -7,18 +7,12 @@ public class JumpingState : PlayerState
     private float minAirTime = 0.1f; // Minimum time before checking for ground
     private float airTimer = 0f;
     private bool applyImpulse;
-
     private float airControl = 5f; 
-
-
-
     private float facingDirection; //-1 if it facing right, 1 if facing left
     public JumpingState(StateMachine stateMachine, float specificForce,bool applyImpulse=true) : base(stateMachine)
     {
         this.jumpForce = specificForce;
         this.applyImpulse = applyImpulse;
-
-
     }
 
     public override void Enter()
@@ -50,6 +44,12 @@ public class JumpingState : PlayerState
         }
         
     }
+    private bool IsWalled()
+    {
+        //get position of wallcheck obejct
+        return Physics2D.OverlapBox(wallCheck.position, new Vector2(0.2f, 0.5f) , 0, climbable);
+    }
+
 
     public override void Update()
     {
@@ -58,7 +58,7 @@ public class JumpingState : PlayerState
         float targetVelocityX = input.HorizontalInput * moveSpeed;
         float velocityDiff = targetVelocityX - rb.linearVelocity.x;
 
-        Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up *1f;
+        Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
         Vector2 headOrigin = hipOrigin + Vector2.up * 1f;
 
         Vector2 castDir = input.HorizontalInput >= 0 ? Vector2.right : Vector2.left;
@@ -76,8 +76,8 @@ public class JumpingState : PlayerState
         {
             rb.AddForce(new Vector2(0f, -rb.linearVelocity.y * 0.5f), ForceMode2D.Impulse);
         }
-        
-        if (canMantle(hipHit,headHit))
+
+        if (canMantle(hipHit, headHit))
         {
             animator.SetBool("jumping", false);
             stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin, facingDirection));
@@ -94,12 +94,17 @@ public class JumpingState : PlayerState
         if (airTimer >= minAirTime && IsGrounded())
         {
             animator.SetBool("jumping", false);
+            animator.SetBool("grounded", true);
+
             stateMachine.ChangeState(new GroundedState(stateMachine));
         }
 
+        if (IsWalled())
+        {
+            Debug.Log("is walled");
+            stateMachine.ChangeState(new WallClimbingState(stateMachine));
 
-
-
+        }
 
     }
 
