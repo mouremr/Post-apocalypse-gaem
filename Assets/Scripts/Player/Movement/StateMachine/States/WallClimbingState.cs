@@ -21,11 +21,38 @@ public class WallClimbingState : PlayerState
         animator.SetBool("jumping", false);
 
     }
+    private bool canMantle(RaycastHit2D hipHit, RaycastHit2D headHit)
+    {
+        Vector2 castDir = input.HorizontalInput >= 0 ? Vector2.right : Vector2.left;
+        //you can only mantle if head ray detects nothing but hip ray detects an obstacle
+        if (headHit.collider == null && hipHit.collider != null )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+    }
 
     public override void Update()
     {
-        float slideSpeed = -2f; // units per second
-        rb.linearVelocity = new Vector2(0f, slideSpeed);
+        float currentY=2f; // units per second
+
+        Debug.Log("wall climbing state");
+
+        if (!Input.GetKey(KeyCode.W))
+        {
+            currentY = -1.2f;
+        }
+        else if (Input.GetKey(KeyCode.W))
+        {
+            currentY = Mathf.Lerp(currentY, -2f, Time.deltaTime);
+        }
+
+        rb.linearVelocity = new Vector2(0f, currentY);
+
 
         if (wallExitTimer > 0f)
             wallExitTimer -= Time.deltaTime;
@@ -36,13 +63,53 @@ public class WallClimbingState : PlayerState
             stateMachine.ChangeState(new GroundedState(stateMachine));
         }
 
+        Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
+        Vector2 headOrigin = hipOrigin + Vector2.up * 1f;
+
+        Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right; 
+        float rayLength = 0.5f;
+        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength);
+        RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength);
+
+        if (canMantle(hipHit, headHit))
+        {
+            animator.SetBool("jumping", false);
+            stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin));
+
+        }
+
+
     }
 
+    // private bool IsWalled()
+    // {
+    //     //get position of wallcheck obejct
+    //     return Physics2D.OverlapBox(wallCheck.position, new Vector2(0.05f, 0.5f) , 0, climbable);
+    // }
     private bool IsWalled()
     {
-        //get position of wallcheck obejct
-        return Physics2D.OverlapBox(wallCheck.position, new Vector2(0.05f, 0.5f) , 0, climbable);
+        Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
+        Vector2 headOrigin = hipOrigin + Vector2.up * 1f;
+
+        Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
+        float rayLength = 0.3f;
+        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength);
+        RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength);
+
+
+        Debug.DrawRay(hipOrigin, castDir * rayLength, Color.red);
+        Debug.DrawRay(headOrigin, castDir * rayLength, Color.blue);
+        if (headHit.collider != null && hipHit.collider != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
     }
+
 
     private bool IsGrounded()
     {

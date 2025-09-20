@@ -19,11 +19,10 @@ public class MantlingState : PlayerState
     private Vector2 oldSize;
     private Vector2 oldOffset;
 
-    public MantlingState(StateMachine stateMachine, RaycastHit2D hipHit, Vector2 headOrigin, float facingDirection) : base(stateMachine)
+    public MantlingState(StateMachine stateMachine, RaycastHit2D hipHit, Vector2 headOrigin) : base(stateMachine)
     {
         this.hipHit = hipHit;
         this.headOrigin = headOrigin;
-        this.facingDirection = facingDirection;
     }
 
     public override void Enter()

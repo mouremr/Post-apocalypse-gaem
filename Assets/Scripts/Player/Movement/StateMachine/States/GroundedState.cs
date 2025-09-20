@@ -10,7 +10,6 @@ public class GroundedState : PlayerState
 
     //gracePeriod you can jump while being not grounded 
     private float gracePeriod = 0.2f; // makes this 0.2f 
-
     private float coyoteTimer = 0f; 
     float facingDirection;
 
@@ -59,19 +58,33 @@ public class GroundedState : PlayerState
 
         if (wallRegrabTimer <= 0f && IsWalled() && Mathf.Sign(input.HorizontalInput) == facingDirection)
         {
-            Debug.Log("is walled");
             wallRegrabTimer = wallRegrabCooldown;
             stateMachine.ChangeState(new WallClimbingState(stateMachine));
         }
-
-
     }
-        
-    
+
     private bool IsWalled()
     {
-        //get position of wallcheck obejct
-        return Physics2D.OverlapBox(wallCheck.position, new Vector2(0.05f, 0.5f), 0, climbable);
+        Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
+        Vector2 headOrigin = hipOrigin + Vector2.up * 1f;
+
+        Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
+        float rayLength = 0.3f;
+        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength);
+        RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength);
+
+
+        Debug.DrawRay(hipOrigin, castDir * rayLength, Color.red);
+        Debug.DrawRay(headOrigin, castDir * rayLength, Color.blue);
+        if (headHit.collider != null && hipHit.collider != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
     }
 
 

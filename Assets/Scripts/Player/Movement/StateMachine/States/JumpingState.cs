@@ -44,12 +44,35 @@ public class JumpingState : PlayerState
         }
         
     }
+    // private bool IsWalled()
+    // {
+    //     //get position of wallcheck obejct
+    //     return Physics2D.OverlapBox(wallCheck.position, new Vector2(0.2f, 0.5f) , 0, climbable);
+    // }
+
     private bool IsWalled()
     {
-        //get position of wallcheck obejct
-        return Physics2D.OverlapBox(wallCheck.position, new Vector2(0.2f, 0.5f) , 0, climbable);
-    }
+        Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
+        Vector2 headOrigin = hipOrigin + Vector2.up * 1f;
 
+        Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
+        float rayLength = 0.4f;
+        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength);
+        RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength);
+
+
+        Debug.DrawRay(hipOrigin, castDir * rayLength, Color.red);
+        Debug.DrawRay(headOrigin, castDir * rayLength, Color.blue);
+        if (headHit.collider != null && hipHit.collider != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
 
     public override void Update()
     {
@@ -80,7 +103,7 @@ public class JumpingState : PlayerState
         if (canMantle(hipHit, headHit))
         {
             animator.SetBool("jumping", false);
-            stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin, facingDirection));
+            stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin));
             Debug.Log("facing direction is " + facingDirection);
 
         }
@@ -101,7 +124,6 @@ public class JumpingState : PlayerState
 
         if (IsWalled())
         {
-            Debug.Log("is walled");
             stateMachine.ChangeState(new WallClimbingState(stateMachine));
 
         }

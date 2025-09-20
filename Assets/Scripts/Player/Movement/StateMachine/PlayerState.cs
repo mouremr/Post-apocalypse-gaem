@@ -15,7 +15,7 @@ public abstract class PlayerState
 
     protected LayerMask climbable; // assign in inspector
 
-    protected Transform wallCheck;
+    //protected Transform wallCheck;
 
     public PlayerState(StateMachine stateMachine)
     {
@@ -28,8 +28,7 @@ public abstract class PlayerState
         boxCollider = player.GetComponent<BoxCollider2D>();
         camera = Camera.main.GetComponent<CameraFollow>();
         climbable = LayerMask.GetMask("Climbable"); // Or whatever your layer is called
-
-        wallCheck = player.transform.Find("WallCheck");
+        //wallCheck = player.transform.Find("WallCheck");
 
 
     }
