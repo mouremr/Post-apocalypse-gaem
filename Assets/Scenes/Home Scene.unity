@@ -956,7 +956,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 0
-  orthographic size: 6
+  orthographic size: 4.21875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1365,9 +1365,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6741379889716471056, guid: c364ea2e8d2944a4fb54ae3aa706af94, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1937048931}
-    - targetCorrespondingSourceObject: {fileID: 6741379889716471056, guid: c364ea2e8d2944a4fb54ae3aa706af94, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1937048942}
   m_SourcePrefab: {fileID: 100100000, guid: c364ea2e8d2944a4fb54ae3aa706af94, type: 3}
 --- !u!1 &939111391
 GameObject:
@@ -1383,7 +1380,7 @@ GameObject:
   - component: {fileID: 939111393}
   - component: {fileID: 939111397}
   - component: {fileID: 939111396}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Climbable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3050,18 +3047,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dedf5618bb99fa642816c86a786a189c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnHandler
---- !u!114 &1937048942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 977485807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af9e06a80e34c3842a594d36a8b68e81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!1 &1956027576
 GameObject:
   m_ObjectHideFlags: 0
@@ -3771,7 +3756,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MechanicDoorInteractible
   interactionText: Interact
   sceneToLoad: ContainerInside
-  spawnPointName: SpawnPoint
 --- !u!1 &2087504014
 GameObject:
   m_ObjectHideFlags: 0
@@ -3912,7 +3896,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SceneSwitcher
   interactionText: Interact
   sceneToLoad: ContainerInside
-  spawnPointName: SpawnPoint
 --- !u!61 &2133550395
 BoxCollider2D:
   m_ObjectHideFlags: 0

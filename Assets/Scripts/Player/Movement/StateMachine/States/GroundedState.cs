@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 public class GroundedState : PlayerState
 {
     private float moveSpeed = 5f;
+    private float slideSpeed = 15f;
     private InteractionDetector interactionDetector;
     private float groundCheckCooldown = 0.1f;
     private float groundCheckTimer = 0f;
@@ -47,7 +49,7 @@ public class GroundedState : PlayerState
             coyoteTimer -= Time.deltaTime;
         }
 
-
+        //check if possible to change state
         if ((input.JumpPressed && groundCheckTimer <= 0f && IsGrounded()) || (input.JumpPressed && groundCheckTimer <= 0f && coyoteTimer > 0f))
         {
             wallRegrabTimer = wallRegrabCooldown;
@@ -61,6 +63,16 @@ public class GroundedState : PlayerState
             wallRegrabTimer = wallRegrabCooldown;
             stateMachine.ChangeState(new WallClimbingState(stateMachine));
         }
+        if (input.SlidePressed && IsGrounded())
+        {
+            slide();
+        }
+    }
+
+    private void slide()
+    {
+        //animator.SetBool("sliding", true);
+        rb.AddForce(new Vector2(slideSpeed * input.HorizontalInput, 0), ForceMode2D.Impulse);
     }
 
     private bool IsWalled()
@@ -76,7 +88,7 @@ public class GroundedState : PlayerState
 
         Debug.DrawRay(hipOrigin, castDir * rayLength, Color.red);
         Debug.DrawRay(headOrigin, castDir * rayLength, Color.blue);
-        if (headHit.collider != null && hipHit.collider != null)
+        if (headHit.collider != null && hipHit.collider != null && headHit.collider.gameObject.layer == LayerMask.NameToLayer("Climbable"))
         {
             return true;
         }

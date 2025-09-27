@@ -44,11 +44,6 @@ public class JumpingState : PlayerState
         }
         
     }
-    // private bool IsWalled()
-    // {
-    //     //get position of wallcheck obejct
-    //     return Physics2D.OverlapBox(wallCheck.position, new Vector2(0.2f, 0.5f) , 0, climbable);
-    // }
 
     private bool IsWalled()
     {
@@ -63,7 +58,7 @@ public class JumpingState : PlayerState
 
         Debug.DrawRay(hipOrigin, castDir * rayLength, Color.red);
         Debug.DrawRay(headOrigin, castDir * rayLength, Color.blue);
-        if (headHit.collider != null && hipHit.collider != null)
+        if (headHit.collider != null && hipHit.collider != null && headHit.collider.gameObject.layer == LayerMask.NameToLayer("Climbable"))
         {
             return true;
         }
@@ -104,7 +99,7 @@ public class JumpingState : PlayerState
         {
             animator.SetBool("jumping", false);
             stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin));
-            Debug.Log("facing direction is " + facingDirection);
+            //Debug.Log("facing direction is " + facingDirection);
 
         }
 
