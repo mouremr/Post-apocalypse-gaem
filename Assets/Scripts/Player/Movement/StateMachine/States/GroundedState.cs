@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class GroundedState : PlayerState
@@ -17,6 +18,7 @@ public class GroundedState : PlayerState
 
     private float wallRegrabCooldown = 0.1f; // how long until you can re-grab wall
     private float wallRegrabTimer = 0f;
+    private bool sliding = false;
 
 
     public GroundedState(StateMachine stateMachine) : base(stateMachine)
@@ -63,16 +65,25 @@ public class GroundedState : PlayerState
             wallRegrabTimer = wallRegrabCooldown;
             stateMachine.ChangeState(new WallClimbingState(stateMachine));
         }
-        if (input.SlidePressed && IsGrounded())
+        if (input.SlidePressed && IsGrounded() && !sliding)
         {
             slide();
+        }
+        if (sliding && math.abs(rb.linearVelocityX) <= moveSpeed + .5f)
+        {
+            Debug.Log("not sliding");
+            animator.SetBool("sliding", false);
+            sliding = false;
         }
     }
 
     private void slide()
     {
-        //animator.SetBool("sliding", true);
+        sliding = true;
+        Debug.Log("sliding");
+        animator.SetBool("sliding", true);
         rb.AddForce(new Vector2(slideSpeed * input.HorizontalInput, 0), ForceMode2D.Impulse);
+
     }
 
     private bool IsWalled()
