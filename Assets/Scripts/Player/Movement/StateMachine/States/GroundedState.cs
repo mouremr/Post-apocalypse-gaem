@@ -18,7 +18,6 @@ public class GroundedState : PlayerState
 
     private float wallRegrabCooldown = 0.1f; // how long until you can re-grab wall
     private float wallRegrabTimer = 0f;
-    private bool sliding = false;
 
 
     public GroundedState(StateMachine stateMachine) : base(stateMachine)
@@ -57,7 +56,12 @@ public class GroundedState : PlayerState
             wallRegrabTimer = wallRegrabCooldown;
 
 
-            stateMachine.ChangeState(new JumpingState(stateMachine, 5f, true));
+            stateMachine.ChangeState(new JumpingState(stateMachine, 5f, player.transform.position.y + 1f, slideSpeed));
+        }
+
+        if (!IsGrounded())
+        {
+            stateMachine.ChangeState(new JumpingState(stateMachine, 0f, player.transform.position.y, slideSpeed));
         }
 
         if (wallRegrabTimer <= 0f && IsWalled() && Mathf.Sign(input.HorizontalInput) == facingDirection)
@@ -65,25 +69,17 @@ public class GroundedState : PlayerState
             wallRegrabTimer = wallRegrabCooldown;
             stateMachine.ChangeState(new WallClimbingState(stateMachine));
         }
-        if (input.SlidePressed && IsGrounded() && !sliding)
+        
+        if (input.SlidePressed && IsGrounded() && !animator.GetBool("sliding"))
         {
-            slide();
+            animator.SetBool("sliding", true);
+            rb.AddForce(new Vector2(slideSpeed * input.HorizontalInput, 0), ForceMode2D.Impulse);
         }
-        if (sliding && math.abs(rb.linearVelocityX) <= moveSpeed + .5f)
+        if (animator.GetBool("sliding") && math.abs(rb.linearVelocityX) <= moveSpeed + .5f)
         {
             Debug.Log("not sliding");
             animator.SetBool("sliding", false);
-            sliding = false;
         }
-    }
-
-    private void slide()
-    {
-        sliding = true;
-        Debug.Log("sliding");
-        animator.SetBool("sliding", true);
-        rb.AddForce(new Vector2(slideSpeed * input.HorizontalInput, 0), ForceMode2D.Impulse);
-
     }
 
     private bool IsWalled()

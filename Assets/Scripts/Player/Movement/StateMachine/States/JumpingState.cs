@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class JumpingState : PlayerState
@@ -6,28 +7,24 @@ public class JumpingState : PlayerState
     private float jumpForce;
     private float minAirTime = 0.1f; // Minimum time before checking for ground
     private float airTimer = 0f;
-    private bool applyImpulse;
     private float airControl = 5f; 
-    private float facingDirection; //-1 if it facing right, 1 if facing left
-    public JumpingState(StateMachine stateMachine, float specificForce,bool applyImpulse=true) : base(stateMachine)
+    private float yval;
+    private float slideSpeed = 0;
+    private float rollHeightCutoff = 4f;
+    public JumpingState(StateMachine stateMachine, float jumpForce, float yval, float slideSpeed) : base(stateMachine)
     {
-        this.jumpForce = specificForce;
-        this.applyImpulse = applyImpulse;
+        this.jumpForce = jumpForce;
+        this.yval = yval;
+        this.slideSpeed = slideSpeed;
     }
 
     public override void Enter()
     {
-        facingDirection = spriteRenderer.flipX ? -1f : 1f;
-
         animator.SetBool("jumping", true);
         //rb.gravityScale = 1;
-        if (applyImpulse) {
-            rb.AddForce(new Vector2(jumpForce * input.HorizontalInput * 0.15f, jumpForce), ForceMode2D.Impulse);
-        }        
+        rb.AddForce(new Vector2(jumpForce * input.HorizontalInput * 0.15f, jumpForce), ForceMode2D.Impulse);
         airTimer = 0f; // Reset timer
         rb.gravityScale = 1;
-        facingDirection = Mathf.Sign(input.HorizontalInput);
-
     }
 
     private bool canMantle(RaycastHit2D hipHit, RaycastHit2D headHit)
@@ -90,7 +87,7 @@ public class JumpingState : PlayerState
 
         rb.AddForce(new Vector2(velocityDiff * airControl, 0f));
 
-        if (input.JumpReleased && rb.linearVelocity.y > 0.1) //jujmp cut
+        if (input.JumpReleased && rb.linearVelocity.y > 0.1) //jump cut
         {
             rb.AddForce(new Vector2(0f, -rb.linearVelocity.y * 0.5f), ForceMode2D.Impulse);
         }
@@ -99,7 +96,6 @@ public class JumpingState : PlayerState
         {
             animator.SetBool("jumping", false);
             stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin));
-            //Debug.Log("facing direction is " + facingDirection);
 
         }
 
@@ -112,8 +108,15 @@ public class JumpingState : PlayerState
         if (airTimer >= minAirTime && IsGrounded())
         {
             animator.SetBool("jumping", false);
-            animator.SetBool("grounded", true);
-
+            if (yval-player.transform.position.y > rollHeightCutoff)
+            {
+                animator.SetBool("sliding", true);
+                rb.AddForce(new Vector2(slideSpeed * input.HorizontalInput, 0), ForceMode2D.Impulse);
+            }
+            else
+            {
+                animator.SetBool("grounded", true);
+            }
             stateMachine.ChangeState(new GroundedState(stateMachine));
         }
 
