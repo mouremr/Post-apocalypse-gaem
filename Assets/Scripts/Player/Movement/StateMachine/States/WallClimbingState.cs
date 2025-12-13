@@ -42,6 +42,14 @@ public class WallClimbingState : PlayerState
 
         Debug.Log("wall climbing state");
 
+        if (input.JumpPressed)
+        {
+            stateMachine.ChangeState(new WallPushOffState(stateMachine));
+            return; //very important, otherwise it gets overriden by below rb.linearVelocity = new Vector2(0f, currentY);
+
+
+        }
+
         if (!Input.GetKey(KeyCode.W))
         {
             currentY = -1.2f;
@@ -63,6 +71,8 @@ public class WallClimbingState : PlayerState
             stateMachine.ChangeState(new GroundedState(stateMachine));
         }
 
+        
+
         Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
         Vector2 headOrigin = hipOrigin + Vector2.up * 1f;
 
@@ -81,34 +91,7 @@ public class WallClimbingState : PlayerState
 
     }
 
-    // private bool IsWalled()
-    // {
-    //     //get position of wallcheck obejct
-    //     return Physics2D.OverlapBox(wallCheck.position, new Vector2(0.05f, 0.5f) , 0, climbable);
-    // }
-    private bool IsWalled()
-    {
-        Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
-        Vector2 headOrigin = hipOrigin + Vector2.up * 1f;
 
-        Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
-        float rayLength = 0.3f;
-        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength);
-        RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength);
-
-
-        Debug.DrawRay(hipOrigin, castDir * rayLength, Color.red);
-        Debug.DrawRay(headOrigin, castDir * rayLength, Color.blue);
-        if (headHit.collider != null && hipHit.collider != null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-
-    }
 
 
     private bool IsGrounded()

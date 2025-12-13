@@ -51,8 +51,10 @@ public class MantlingState : PlayerState
 
     public override void Update()
     {
-        player.transform.position = new Vector2(topLedgeX, topLedgeY);
-        
+        if (!isMantleComplete)
+        {
+            player.transform.position = new Vector2(topLedgeX, topLedgeY);
+        }        
         Debug.DrawRay(targetMantlePosition, Vector2.up * 0.2f, Color.green);
 
         mantleTimer += Time.deltaTime;

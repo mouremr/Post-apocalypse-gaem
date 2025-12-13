@@ -1,29 +1,43 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class JumpingState : PlayerState
+public class WallPushOffState : PlayerState
 {
     private float moveSpeed = 5f;
-    private float jumpForce;
     private float minAirTime = 0.1f; // Minimum time before checking for ground
     private float airTimer = 0f;
     private float airControl = 5f; 
-    private float yval;
-    private float slideSpeed = 0;
-    private float rollHeightCutoff = 4f;
-    public JumpingState(StateMachine stateMachine, float jumpForce, float yval, float slideSpeed) : base(stateMachine)
+
+    private float wallDir;
+    private float wallAttachLockout;
+    private float wallAttachLockoutTime = 0.2f;
+    public WallPushOffState(StateMachine stateMachine) : base(stateMachine)
     {
-        this.jumpForce = jumpForce;
-        this.yval = yval;
-        this.slideSpeed = slideSpeed;
+
+
     }
 
     public override void Enter()
     {
         animator.SetBool("jumping", true);
-        //rb.gravityScale = 1;
-        rb.AddForce(new Vector2(jumpForce * input.HorizontalInput * 0.15f, jumpForce), ForceMode2D.Impulse);
-        airTimer = 0f; // Reset timer
+        wallAttachLockout = wallAttachLockoutTime;
+
+        if (!IsWalled(out wallDir))
+        {
+            wallDir = spriteRenderer.flipX ? -1f : 1f;
+        }
+    
+        float pushX = 8f * -wallDir; //push opposite from wall
+        float pushY= 5f;
+
+        rb.linearVelocity = Vector2.zero;
+
+        rb.AddForce(new Vector2(pushX,pushY), ForceMode2D.Impulse);
+
+        spriteRenderer.flipX = (wallDir == 1);
+
+
+        airTimer = 0f; 
         rb.gravityScale = 1;
     }
 
@@ -71,7 +85,9 @@ public class JumpingState : PlayerState
 
     public override void Update()
     {
-        Debug.Log("jumping state");
+        animator.SetBool("jumping", true );
+
+        Debug.Log("wall push off state");
         airTimer += Time.deltaTime;
         animator.SetFloat("yVelocity", rb.linearVelocity.y);
 
@@ -86,55 +102,37 @@ public class JumpingState : PlayerState
         RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength);
         RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength);
 
-
-        Debug.DrawRay(hipOrigin, castDir * rayLength, Color.red);
-        Debug.DrawRay(headOrigin, castDir * rayLength, Color.blue);
-
+        if (wallAttachLockout > 0f)
+            wallAttachLockout -= Time.deltaTime;
         rb.AddForce(new Vector2(velocityDiff * airControl, 0f));
 
-        if (input.JumpReleased && rb.linearVelocity.y > 0.1) //jump cut
+        if (input.JumpReleased && rb.linearVelocity.y > 0f)
         {
-            rb.AddForce(new Vector2(0f, -rb.linearVelocity.y * 0.5f), ForceMode2D.Impulse);
+            rb.AddForce(Vector2.down * rb.linearVelocity.y * 0.5f, ForceMode2D.Impulse);
         }
 
-        if (canMantle(hipHit, headHit))
-        {
-            animator.SetBool("jumping", false);
-            stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin));
-
-        }
-
-        if (rb.linearVelocity.y < -0.05f) //if falling, iuncrease gravity a little bit
-        {
+        if (rb.linearVelocity.y < -0.05f)
             rb.gravityScale = 1.3f;
-        }
-
-        if (IsGrounded())
-        {
-            Debug.Log("is grounded!1");
-        }
 
         if (airTimer >= minAirTime && IsGrounded())
         {
             animator.SetBool("jumping", false);
-            if (yval-player.transform.position.y > rollHeightCutoff)
-            {
-                animator.SetBool("sliding", true);
-                rb.AddForce(new Vector2(slideSpeed * input.HorizontalInput, 0), ForceMode2D.Impulse);
-            }
-            else
-            {
-                animator.SetBool("grounded", true);
-            }
+            animator.SetBool("grounded", true);
             stateMachine.ChangeState(new GroundedState(stateMachine));
             return;
         }
 
-        if (IsWalled(out float wallDir))
+        if (wallAttachLockout <= 0f && IsWalled(out _))
         {
             stateMachine.ChangeState(new WallClimbingState(stateMachine));
-            return;
         }
+
+        if (canMantle(hipHit, headHit))
+         {
+            animator.SetBool("jumping", false);
+            stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin));
+        }
+
         if (rb.linearVelocity.x > 0.1f)
         {
             spriteRenderer.flipX = false;
@@ -143,9 +141,8 @@ public class JumpingState : PlayerState
         {
             spriteRenderer.flipX = true;
         }
-
-
     }
+
 
     private bool IsGrounded()
     {

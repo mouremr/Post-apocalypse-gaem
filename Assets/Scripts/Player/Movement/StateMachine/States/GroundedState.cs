@@ -85,13 +85,12 @@ public class GroundedState : PlayerState
             Debug.Log("not sliding");
             animator.SetBool("sliding", false);
         }
-        if (rb.linearVelocity.x > 0.1f)
+
+
+
+        if (Mathf.Abs(input.HorizontalInput) > 0.01f)
         {
-            spriteRenderer.flipX = false;
-        }
-        else if (rb.linearVelocity.x < -0.1f)
-        {
-            spriteRenderer.flipX = true;
+            spriteRenderer.flipX = input.HorizontalInput < 0;
         }
 
     }
