@@ -35,11 +35,16 @@ public class GroundedState : PlayerState
     }
 
     public override void Update()
-    {
+    {   
+        Debug.Log("grounded state");
         if (wallRegrabTimer > 0f)
             wallRegrabTimer -= Time.deltaTime;
 
         groundCheckTimer -= Time.deltaTime;
+        
+        animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x));
+
+        animator.SetBool("running", Mathf.Abs(rb.linearVelocity.x) > 0.1f);
 
         if (IsGrounded())
         {
@@ -80,6 +85,15 @@ public class GroundedState : PlayerState
             Debug.Log("not sliding");
             animator.SetBool("sliding", false);
         }
+        if (rb.linearVelocity.x > 0.1f)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (rb.linearVelocity.x < -0.1f)
+        {
+            spriteRenderer.flipX = true;
+        }
+
     }
 
     private bool IsWalled()

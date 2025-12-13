@@ -69,6 +69,7 @@ public class JumpingState : PlayerState
     public override void Update()
     {
         airTimer += Time.deltaTime;
+        animator.SetFloat("yVelocity", rb.linearVelocity.y);
 
         float targetVelocityX = input.HorizontalInput * moveSpeed;
         float velocityDiff = targetVelocityX - rb.linearVelocity.x;
@@ -125,6 +126,15 @@ public class JumpingState : PlayerState
             stateMachine.ChangeState(new WallClimbingState(stateMachine));
 
         }
+        if (rb.linearVelocity.x > 0.1f)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (rb.linearVelocity.x < -0.1f)
+        {
+            spriteRenderer.flipX = true;
+        }
+
 
     }
 

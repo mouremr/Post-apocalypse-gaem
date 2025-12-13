@@ -49,6 +49,16 @@ public class ClimbingState : PlayerState
         {
             stateMachine.ChangeState(new GroundedState(stateMachine));
         }
+
+        if (rb.linearVelocity.x > 0.1f)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (rb.linearVelocity.x < -0.1f)
+        {
+            spriteRenderer.flipX = true;
+        }
+
     }
 
     public override void FixedUpdate()
