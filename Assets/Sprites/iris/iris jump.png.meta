@@ -116,13 +116,13 @@ TextureImporter:
       name: iris jump_0
       rect:
         serializedVersion: 2
-        x: 9
+        x: 10
         y: 2
-        width: 43
+        width: 41
         height: 69
       alignment: 7
       pivot: {x: 0.5, y: 0}
-      border: {x: 14, y: 0, z: 10, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []

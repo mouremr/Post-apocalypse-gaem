@@ -1,8 +1,15 @@
 # Post-apocalypse-gaem
 
+12/14/2025
+
+Movement suite complete?
+
 12/13/2025 part 2
 uncommented roll logic and fixed a climb flipping bug
-fixed everything, movement suite complete 
+movement suite complete  minus roll
+
+todo list:
+put roll logic into its own state
 
 
 fixed mantle from jumping and wall climb!
