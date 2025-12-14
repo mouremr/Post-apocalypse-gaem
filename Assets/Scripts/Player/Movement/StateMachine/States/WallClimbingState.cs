@@ -18,13 +18,12 @@ public class WallClimbingState : PlayerState
 
     public override void Enter()
     {
-        animator.SetBool("jumping", false);
+        animator.SetBool("climbing", true);
 
     }
     private bool canMantle(RaycastHit2D hipHit, RaycastHit2D headHit)
     {
-        Vector2 castDir = input.HorizontalInput >= 0 ? Vector2.right : Vector2.left;
-        //you can only mantle if head ray detects nothing but hip ray detects an obstacle
+        Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
         if (headHit.collider == null && hipHit.collider != null )
         {
             return true;
@@ -44,10 +43,10 @@ public class WallClimbingState : PlayerState
 
         if (input.JumpPressed)
         {
+            animator.SetBool("climbing", false);
+
             stateMachine.ChangeState(new WallPushOffState(stateMachine));
-            return; //very important, otherwise it gets overriden by below rb.linearVelocity = new Vector2(0f, currentY);
-
-
+            return; //very important,
         }
 
         if (!Input.GetKey(KeyCode.W))
@@ -65,13 +64,11 @@ public class WallClimbingState : PlayerState
         if (wallExitTimer > 0f)
             wallExitTimer -= Time.deltaTime;
 
-        if (wallExitTimer <= 0f && Mathf.Sign(input.HorizontalInput) != facingDirection && input.HorizontalInput != 0)
-        {
-            animator.SetBool("grounded", true);
+        if (wallExitTimer <= 0f &&   input.HorizontalInput != 0 && Mathf.Sign(input.HorizontalInput) != facingDirection && IsGrounded())        {
+            animator.SetBool("climbing", false);
             stateMachine.ChangeState(new GroundedState(stateMachine));
+            return;
         }
-
-        
 
         Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
         Vector2 headOrigin = hipOrigin + Vector2.up * 1f;
@@ -83,16 +80,11 @@ public class WallClimbingState : PlayerState
 
         if (canMantle(hipHit, headHit))
         {
-            animator.SetBool("jumping", false);
+            animator.SetBool("climbing", false);
             stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin));
-
+            return;
         }
-
-
     }
-
-
-
 
     private bool IsGrounded()
     {

@@ -85,7 +85,6 @@ public class WallPushOffState : PlayerState
 
     public override void Update()
     {
-        animator.SetBool("jumping", true );
 
         Debug.Log("wall push off state");
         airTimer += Time.deltaTime;
@@ -114,23 +113,34 @@ public class WallPushOffState : PlayerState
         if (rb.linearVelocity.y < -0.05f)
             rb.gravityScale = 1.3f;
 
-        if (airTimer >= minAirTime && IsGrounded())
-        {
-            animator.SetBool("jumping", false);
-            animator.SetBool("grounded", true);
-            stateMachine.ChangeState(new GroundedState(stateMachine));
-            return;
-        }
-
-        if (wallAttachLockout <= 0f && IsWalled(out _))
-        {
-            stateMachine.ChangeState(new WallClimbingState(stateMachine));
-        }
 
         if (canMantle(hipHit, headHit))
          {
             animator.SetBool("jumping", false);
             stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin));
+            return;
+        }
+
+
+        if (wallAttachLockout <= 0f && IsWalled(out _))
+        {
+            animator.SetBool("jumping", false);
+            animator.SetBool("climbing", true);
+
+            stateMachine.ChangeState(new WallClimbingState(stateMachine));
+            return;
+
+
+        }
+
+
+        if (airTimer >= minAirTime && IsGrounded())
+        {
+            animator.SetBool("jumping", false);
+            animator.SetBool("climbing", false);
+
+            stateMachine.ChangeState(new GroundedState(stateMachine));
+            return;
         }
 
         if (rb.linearVelocity.x > 0.1f)

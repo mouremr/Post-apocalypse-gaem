@@ -30,8 +30,7 @@ public class MantlingState : PlayerState
         // Save original collider size/offset
         oldSize = boxCollider.size;
         oldOffset = boxCollider.offset;
-
-
+        animator.SetBool("mantling", true);
 
         if (hipHit.collider != null)
         {
@@ -45,8 +44,6 @@ public class MantlingState : PlayerState
         mantleTimer = 0f;
         isMantleComplete = false;
         camera.smoothTime = 0.3f;
-        animator.SetBool("mantling", true);
-        animator.SetBool("running", false);
     }
 
     public override void Update()
@@ -64,10 +61,11 @@ public class MantlingState : PlayerState
        
         if (mantleTimer >= MANTLE_DURATION)
         {
-            animator.SetBool("mantling", false);
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
             isMantleComplete = true;
+            animator.SetBool("mantling", false);
+
 
         }
         
@@ -75,10 +73,12 @@ public class MantlingState : PlayerState
         {
             // rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             camera.smoothTime = 0.2f;
+            animator.SetBool("mantling", false);
 
             boxCollider.size = oldSize;
             boxCollider.offset = oldOffset;
             stateMachine.ChangeState(new GroundedState(stateMachine));
+            return;
         }
     }
 

@@ -21,7 +21,10 @@ public class JumpingState : PlayerState
     public override void Enter()
     {
         animator.SetBool("jumping", true);
+
         //rb.gravityScale = 1;
+        rb.linearVelocity = Vector2.zero;
+        rb.gravityScale = 0f;
         rb.AddForce(new Vector2(jumpForce * input.HorizontalInput * 0.15f, jumpForce), ForceMode2D.Impulse);
         airTimer = 0f; // Reset timer
         rb.gravityScale = 1;
@@ -29,9 +32,9 @@ public class JumpingState : PlayerState
 
     private bool canMantle(RaycastHit2D hipHit, RaycastHit2D headHit)
     {
-        Vector2 castDir = input.HorizontalInput >= 0 ? Vector2.right : Vector2.left;
+        Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
         //you can only mantle if head ray detects nothing but hip ray detects an obstacle
-        if (headHit.collider == null && hipHit.collider != null && hipHit.collider.CompareTag("Mantleable"))
+        if (headHit.collider == null && hipHit.collider != null)
         {
             return true;
         }
@@ -81,7 +84,7 @@ public class JumpingState : PlayerState
         Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
         Vector2 headOrigin = hipOrigin + Vector2.up * 1f;
 
-        Vector2 castDir = input.HorizontalInput >= 0 ? Vector2.right : Vector2.left;
+        Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
         float rayLength = 0.5f;
         RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength);
         RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength);
@@ -92,31 +95,39 @@ public class JumpingState : PlayerState
 
         rb.AddForce(new Vector2(velocityDiff * airControl, 0f));
 
+
         if (input.JumpReleased && rb.linearVelocity.y > 0.1) //jump cut
         {
             rb.AddForce(new Vector2(0f, -rb.linearVelocity.y * 0.5f), ForceMode2D.Impulse);
         }
-
-        if (canMantle(hipHit, headHit))
-        {
-            animator.SetBool("jumping", false);
-            stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin));
-
-        }
-
         if (rb.linearVelocity.y < -0.05f) //if falling, iuncrease gravity a little bit
         {
             rb.gravityScale = 1.3f;
         }
 
-        if (IsGrounded())
-        {
-            Debug.Log("is grounded!1");
-        }
 
-        if (airTimer >= minAirTime && IsGrounded())
+        if (canMantle(hipHit, headHit))
         {
             animator.SetBool("jumping", false);
+            Debug.Log("moving into mantling from jump state");
+
+            stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin));
+            return;
+        }
+        else if (IsWalled(out float wallDir))
+        {
+            animator.SetBool("jumping", false);
+
+            stateMachine.ChangeState(new WallClimbingState(stateMachine));
+
+            return;
+        }
+
+        else if (airTimer >= minAirTime && IsGrounded())
+        {
+            animator.SetBool("jumping", false);
+            animator.SetBool("grounded", true);
+
             if (yval-player.transform.position.y > rollHeightCutoff)
             {
                 animator.SetBool("sliding", true);
@@ -130,11 +141,7 @@ public class JumpingState : PlayerState
             return;
         }
 
-        if (IsWalled(out float wallDir))
-        {
-            stateMachine.ChangeState(new WallClimbingState(stateMachine));
-            return;
-        }
+
         if (rb.linearVelocity.x > 0.1f)
         {
             spriteRenderer.flipX = false;
