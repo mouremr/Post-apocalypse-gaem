@@ -109,8 +109,10 @@ public class JumpingState : PlayerState
         if (canMantle(hipHit, headHit))
         {
             animator.SetBool("jumping", false);
-            Debug.Log("moving into mantling from jump state");
+            animator.SetBool("climbing", false);
+            animator.SetBool("mantling", true);
 
+            Debug.Log("moving into mantling from jump state");
             stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin));
             return;
         }
