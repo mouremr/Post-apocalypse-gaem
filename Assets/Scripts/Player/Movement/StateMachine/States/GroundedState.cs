@@ -83,16 +83,16 @@ public class GroundedState : PlayerState
 
             stateMachine.ChangeState(new JumpingState(stateMachine, 0, player.transform.position.y + 1f, slideSpeed));
         }
-        // }else if  (input.SlidePressed && IsGrounded() && !animator.GetBool("sliding"))
-        // {
-        //     animator.SetBool("sliding", true);
-        //     rb.AddForce(new Vector2(slideSpeed * input.HorizontalInput, 0), ForceMode2D.Impulse);
-        // }
-        // else if (animator.GetBool("sliding") && math.abs(rb.linearVelocityX) <= moveSpeed + .5f)
-        // {
-        //     Debug.Log("not sliding");
-        //     animator.SetBool("sliding", false);
-        // }
+        else if  (input.SlidePressed && IsGrounded() && !animator.GetBool("sliding"))
+        {
+            animator.SetBool("sliding", true);
+            rb.AddForce(new Vector2(slideSpeed * input.HorizontalInput, 0), ForceMode2D.Impulse);
+        }
+        else if (animator.GetBool("sliding") && math.abs(rb.linearVelocityX) <= moveSpeed + .5f)
+        {
+            Debug.Log("not sliding");
+            animator.SetBool("sliding", false);
+        }
      
         else
         {

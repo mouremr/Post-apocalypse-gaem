@@ -20,6 +20,27 @@ public class WallClimbingState : PlayerState
     {
         animator.SetBool("climbing", true);
 
+        int wallSide = GetWallSide();
+        if (wallSide == -1)
+            spriteRenderer.flipX = false; // face right
+        else if (wallSide == 1)
+            spriteRenderer.flipX = true;  // face left
+
+        facingDirection = wallSide;
+
+    }
+    private int GetWallSide()
+    {
+        Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
+        float rayLength = 0.4f;
+
+        if (Physics2D.Raycast(hipOrigin, Vector2.left, rayLength))
+            return 1; // wall on left
+
+        if (Physics2D.Raycast(hipOrigin, Vector2.right, rayLength))
+            return -1; // wall on right
+
+        return 0;
     }
     private bool canMantle(RaycastHit2D hipHit, RaycastHit2D headHit)
     {
