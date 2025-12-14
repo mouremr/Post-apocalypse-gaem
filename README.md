@@ -1,6 +1,15 @@
 # Post-apocalypse-gaem
 
-12/13/2025
+12/13/2025 part 2
+uncommented roll logic and fixed a climb flipping bug
+fixed everything, movement suite complete 
+
+
+fixed mantle from jumping and wall climb!
+known issues:
+should have a seperate animation when the player slides down the wall with no upward input
+
+12/13/2025 part 1
 added climbing animation and cleaned up more visual bugs
 
 known issues
