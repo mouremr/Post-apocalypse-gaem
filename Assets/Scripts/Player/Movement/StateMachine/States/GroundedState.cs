@@ -31,8 +31,11 @@ public class GroundedState : PlayerState
     {
         animator.SetBool("grounded", true);
         animator.SetBool("running", true);
+        input.ConsumeRoll();
 
         groundCheckTimer = groundCheckCooldown; // Start with cooldown
+        if (animator.GetBool("rolling"))
+            return;
     }
 
     public override void Update()
@@ -83,8 +86,9 @@ public class GroundedState : PlayerState
 
             stateMachine.ChangeState(new JumpingState(stateMachine, 0, player.transform.position.y + 1f, slideSpeed));
         }
-        else if (input.SlidePressed && IsGrounded())
+        else if (input.RollPressed && IsGrounded())
         {   
+            animator.SetBool("grounded", false);
             Debug.Log("moving to rollingstate");
             stateMachine.ChangeState(new RollingState(stateMachine,moveSpeed));
         }
@@ -92,7 +96,6 @@ public class GroundedState : PlayerState
         {
             animator.SetBool("running", Mathf.Abs(rb.linearVelocity.x) > 0.1f);
         }
-
 
 
         if (Mathf.Abs(input.HorizontalInput) > 0.01f)

@@ -61,6 +61,8 @@ public class WallClimbingState : PlayerState
         float currentY=2f; // units per second
 
         Debug.Log("wall climbing state");
+        animator.SetFloat("yVelocity",rb.linearVelocity.y);
+        
 
         if (input.JumpPressed)
         {

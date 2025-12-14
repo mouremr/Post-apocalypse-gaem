@@ -21,6 +21,7 @@ public class JumpingState : PlayerState
     public override void Enter()
     {
         animator.SetBool("jumping", true);
+        input.ConsumeRoll();
 
         //rb.gravityScale = 1;
         rb.linearVelocity = Vector2.zero;
@@ -74,6 +75,9 @@ public class JumpingState : PlayerState
 
     public override void Update()
     {
+
+        input.ConsumeRoll();//kill buffered rolls
+
         Debug.Log("jumping state");
         airTimer += Time.deltaTime;
         animator.SetFloat("yVelocity", rb.linearVelocity.y);
@@ -129,16 +133,6 @@ public class JumpingState : PlayerState
         {
             animator.SetBool("jumping", false);
             animator.SetBool("grounded", true);
-
-            if (yval-player.transform.position.y > rollHeightCutoff)
-            {
-                animator.SetBool("sliding", true);
-                rb.AddForce(new Vector2(slideSpeed * input.HorizontalInput, 0), ForceMode2D.Impulse);
-            }
-            else
-            {
-                animator.SetBool("grounded", true);
-            }
             stateMachine.ChangeState(new GroundedState(stateMachine));
             return;
         }

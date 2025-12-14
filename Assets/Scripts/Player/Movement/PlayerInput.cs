@@ -11,7 +11,7 @@ public class PlayerInput : MonoBehaviour
     public bool JumpPressed { get; private set; }
     public bool InteractPressed { get; private set; }
     public bool JumpReleased { get; private set; }
-    public bool SlidePressed { get; private set; }
+    public bool RollPressed { get; private set; }
 
 
     private void Update()
@@ -19,8 +19,12 @@ public class PlayerInput : MonoBehaviour
         InteractPressed = Input.GetKeyDown(KeyCode.E);
         JumpPressed = Input.GetButtonDown("Jump");
         JumpReleased = Input.GetButtonUp("Jump");
-        SlidePressed = Input.GetKeyDown(KeyCode.LeftShift);
+        RollPressed = Input.GetKeyDown(KeyCode.LeftShift);
 
         HorizontalInput = Input.GetAxis("Horizontal");
+    }
+    public void ConsumeRoll()
+    {
+        RollPressed = false;
     }
 }

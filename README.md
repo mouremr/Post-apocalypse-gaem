@@ -2,7 +2,10 @@
 
 12/14/2025
 
-Movement suite complete?
+Movement suite complete!
+added blend tree to include a wall slide animation
+jump, wall climb, wall jump, no sticky walls, roll, roll input buffering, mantle
+
 
 12/13/2025 part 2
 uncommented roll logic and fixed a climb flipping bug
