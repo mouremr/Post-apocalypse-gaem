@@ -64,13 +64,22 @@ public class WallClimbingState : PlayerState
         animator.SetFloat("yVelocity",rb.linearVelocity.y);
         
 
-        if (input.JumpPressed)
+        if (input.JumpPressed && Mathf.Sign(input.HorizontalInput) != GetWallSide())
         {
-            animator.SetBool("climbing", false);
+            Debug.Log("cant jump facing wall");
+            animator.SetBool("climbing", true);
 
-            stateMachine.ChangeState(new WallPushOffState(stateMachine));
             return; //very important,
         }
+        else if  (input.JumpPressed && Mathf.Sign(input.HorizontalInput) == GetWallSide())
+        {
+            animator.SetBool("climbing", false);
+            stateMachine.ChangeState(new WallPushOffState(stateMachine));
+            return; //very important,
+
+        }
+        
+
 
         if (!Input.GetKey(KeyCode.W))
         {
