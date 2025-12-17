@@ -1,4 +1,9 @@
 # Post-apocalypse-gaem
+12/17/2025
+
+jumping into wall disabled
+but should this be a feature? what if the player is trying to jump up and wall climb more quickly
+
 
 12/14/2025
 
