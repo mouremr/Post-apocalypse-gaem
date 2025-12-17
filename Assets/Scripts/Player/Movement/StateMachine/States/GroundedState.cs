@@ -9,6 +9,8 @@ public class GroundedState : PlayerState
     private InteractionDetector interactionDetector;
     private float groundCheckCooldown = 0.1f;
     private float groundCheckTimer = 0f;
+    private float rollCheckCooldown = 1f;
+    private float rollCheckTimer = 0f;
     private float movementSmoothing = 10f;
 
     //gracePeriod you can jump while being not grounded 
@@ -34,6 +36,8 @@ public class GroundedState : PlayerState
         input.ConsumeRoll();
 
         groundCheckTimer = groundCheckCooldown; // Start with cooldown
+        rollCheckTimer = rollCheckCooldown;
+
         if (animator.GetBool("rolling"))
             return;
     }
@@ -47,6 +51,7 @@ public class GroundedState : PlayerState
             wallRegrabTimer -= Time.deltaTime;
 
         groundCheckTimer -= Time.deltaTime;
+        rollCheckTimer -= Time.deltaTime;
         
 
         animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x));
@@ -86,8 +91,9 @@ public class GroundedState : PlayerState
 
             stateMachine.ChangeState(new JumpingState(stateMachine, 0, player.transform.position.y + 1f, slideSpeed));
         }
-        else if (input.RollPressed && IsGrounded())
+        else if (input.RollPressed && IsGrounded() && rollCheckTimer <= 0f)
         {   
+            rollCheckTimer = rollCheckCooldown;
             animator.SetBool("grounded", false);
             Debug.Log("moving to rollingstate");
             stateMachine.ChangeState(new RollingState(stateMachine,moveSpeed));
