@@ -50,8 +50,8 @@ public class GroundedState : PlayerState
         if (wallRegrabTimer > 0f)
             wallRegrabTimer -= Time.deltaTime;
 
-        groundCheckTimer -= Time.deltaTime;
-        rollCheckTimer -= Time.deltaTime;
+        groundCheckTimer = Mathf.Max(0f, groundCheckTimer - Time.deltaTime);
+        rollCheckTimer = Mathf.Max(0f, rollCheckTimer - Time.deltaTime);
         
 
         animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x));
