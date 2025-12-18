@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ public class WallPushOffState : PlayerState
     private float wallDir;
     private float wallAttachLockout;
     private float wallAttachLockoutTime = 0.2f;
+
+    private float pushX;
+    private float pushY;
     public WallPushOffState(StateMachine stateMachine) : base(stateMachine)
     {
 
@@ -26,9 +30,16 @@ public class WallPushOffState : PlayerState
         {
             wallDir = spriteRenderer.flipX ? -1f : 1f;
         }
-    
-        float pushX = 8f * -wallDir; //push opposite from wall
-        float pushY= 5f;
+
+        if(Math.Sign(Input.GetAxis("Horizontal")) == Math.Sign(-wallDir)){
+            //push away from wall
+            pushX = 20f * -wallDir; 
+            pushY= 6f;
+        } else {
+            //push up
+            pushX = 0;
+            pushY = 8f;            
+        }
 
         rb.linearVelocity = Vector2.zero;
 
@@ -86,7 +97,7 @@ public class WallPushOffState : PlayerState
     public override void Update()
     {
 
-        Debug.Log("wall push off state");
+        //Debug.Log("wall push off state");
         airTimer += Time.deltaTime;
         animator.SetFloat("yVelocity", rb.linearVelocity.y);
 

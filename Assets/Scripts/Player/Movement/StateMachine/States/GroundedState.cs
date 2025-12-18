@@ -9,12 +9,12 @@ public class GroundedState : PlayerState
     private InteractionDetector interactionDetector;
     private float groundCheckCooldown = 0.1f;
     private float groundCheckTimer = 0f;
-    private float rollCheckCooldown = 1f;
+    private float rollCheckCooldown = .6f;
     private float rollCheckTimer = 0f;
     private float movementSmoothing = 10f;
 
     //gracePeriod you can jump while being not grounded 
-    private float gracePeriod = 0.2f; // makes this 0.2f 
+    private float gracePeriod = 0.2f;
     private float coyoteTimer = 0f; 
     float facingDirection;
 
@@ -46,7 +46,7 @@ public class GroundedState : PlayerState
     {   
         facingDirection = spriteRenderer.flipX ? -1f : 1f;
 
-        Debug.Log("grounded state");
+        //Debug.Log("grounded state");
         if (wallRegrabTimer > 0f)
             wallRegrabTimer -= Time.deltaTime;
 

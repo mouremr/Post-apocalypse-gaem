@@ -10,7 +10,7 @@ public class JumpingState : PlayerState
     private float airControl = 5f; 
     private float yval;
     private float slideSpeed = 0;
-    private float rollHeightCutoff = 4f;
+    // private float rollHeightCutoff = 4f;
     public JumpingState(StateMachine stateMachine, float jumpForce, float yval, float slideSpeed) : base(stateMachine)
     {
         this.jumpForce = jumpForce;
@@ -78,7 +78,7 @@ public class JumpingState : PlayerState
 
         input.ConsumeRoll();//kill buffered rolls
 
-        Debug.Log("jumping state");
+        //Debug.Log("jumping state");
         airTimer += Time.deltaTime;
         animator.SetFloat("yVelocity", rb.linearVelocity.y);
 
@@ -98,6 +98,8 @@ public class JumpingState : PlayerState
         Debug.DrawRay(headOrigin, castDir * rayLength, Color.blue);
 
         rb.AddForce(new Vector2(velocityDiff * airControl, 0f));
+
+        
 
 
         if (input.JumpReleased && rb.linearVelocity.y > 0.1) //jump cut

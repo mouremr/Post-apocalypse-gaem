@@ -9,6 +9,7 @@ public class WallClimbingState : PlayerState
 
     private float wallExitCooldown = 0.2f;
     private float wallExitTimer = 0f;
+    private float dynoCooldownTimer = .6f;
     public WallClimbingState(StateMachine stateMachine) : base(stateMachine)
     {
         facingDirection = spriteRenderer.flipX ? -1f : 1f;
@@ -60,28 +61,28 @@ public class WallClimbingState : PlayerState
     {
         float currentY=2f; // units per second
 
-        Debug.Log("wall climbing state");
+        //Debug.Log("wall climbing state");
         animator.SetFloat("yVelocity",rb.linearVelocity.y);
         
 
-        if (input.JumpPressed && Mathf.Sign(input.HorizontalInput) != GetWallSide())
-        {
-            Debug.Log("cant jump facing wall");
-            animator.SetBool("climbing", true);
+        // if (input.JumpPressed && Mathf.Sign(input.HorizontalInput) != GetWallSide())
+        // {
+        //     Debug.Log("cant jump facing wall");
+        //     animator.SetBool("climbing", true);
 
-            return; //very important,
-        }
-        else if  (input.JumpPressed && Mathf.Sign(input.HorizontalInput) == GetWallSide())
+        //     return;
+        // }
+        if  (input.JumpPressed && dynoCooldownTimer <= 0)
         {
             animator.SetBool("climbing", false);
             stateMachine.ChangeState(new WallPushOffState(stateMachine));
-            return; //very important,
+            return;
 
         }
         
 
 
-        if (!Input.GetKey(KeyCode.W))
+        if (!(Input.GetAxis("Vertical") == 1))
         {
             currentY = -1.2f;
         }
@@ -95,6 +96,8 @@ public class WallClimbingState : PlayerState
 
         if (wallExitTimer > 0f)
             wallExitTimer -= Time.deltaTime;
+        dynoCooldownTimer = Mathf.Max(0f, dynoCooldownTimer - Time.deltaTime);
+
 
         if (wallExitTimer <= 0f &&   input.HorizontalInput != 0 && Mathf.Sign(input.HorizontalInput) != facingDirection && IsGrounded())        {
             animator.SetBool("climbing", false);
