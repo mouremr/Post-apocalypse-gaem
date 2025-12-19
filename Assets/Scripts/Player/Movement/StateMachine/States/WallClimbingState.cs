@@ -8,12 +8,14 @@ public class WallClimbingState : PlayerState
     float facingDirection;
 
     private float wallExitCooldown = 0.2f;
+    private LayerMask climbableMask;
     private float wallExitTimer = 0f;
     private float dynoCooldownTimer = .6f;
     public WallClimbingState(StateMachine stateMachine) : base(stateMachine)
     {
         facingDirection = spriteRenderer.flipX ? -1f : 1f;
         wallExitTimer = wallExitCooldown; // start timer
+        climbableMask = LayerMask.GetMask("Climbable");
 
     }
 
@@ -35,10 +37,10 @@ public class WallClimbingState : PlayerState
         Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
         float rayLength = 0.4f;
 
-        if (Physics2D.Raycast(hipOrigin, Vector2.left, rayLength))
+        if (Physics2D.Raycast(hipOrigin, Vector2.left, rayLength,climbableMask))
             return 1; // wall on left
 
-        if (Physics2D.Raycast(hipOrigin, Vector2.right, rayLength))
+        if (Physics2D.Raycast(hipOrigin, Vector2.right, rayLength,climbableMask))
             return -1; // wall on right
 
         return 0;
@@ -63,7 +65,6 @@ public class WallClimbingState : PlayerState
 
         //Debug.Log("wall climbing state");
         animator.SetFloat("yVelocity",rb.linearVelocity.y);
-        
 
         // if (input.JumpPressed && Mathf.Sign(input.HorizontalInput) != GetWallSide())
         // {
@@ -110,8 +111,8 @@ public class WallClimbingState : PlayerState
 
         Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right; 
         float rayLength = 0.5f;
-        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength);
-        RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength);
+        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength,climbableMask);
+        RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength,climbableMask);
 
         if (canMantle(hipHit, headHit))
         {
@@ -119,6 +120,14 @@ public class WallClimbingState : PlayerState
             stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin));
             return;
         }
+
+        if (headHit.collider == null)
+        {
+            animator.SetBool("climbing", false);
+            stateMachine.ChangeState(new JumpingState(stateMachine, 0,0,0));
+
+        }
+
     }
 
     private bool IsGrounded()

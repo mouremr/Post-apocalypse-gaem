@@ -10,12 +10,18 @@ public class JumpingState : PlayerState
     private float airControl = 5f; 
     private float yval;
     private float slideSpeed = 0;
-    // private float rollHeightCutoff = 4f;
+    private float rollHeightCutoff = 4f;
+
+    private LayerMask climbableMask;
+    private LayerMask manteableMask;
+
     public JumpingState(StateMachine stateMachine, float jumpForce, float yval, float slideSpeed) : base(stateMachine)
     {
         this.jumpForce = jumpForce;
         this.yval = yval;
         this.slideSpeed = slideSpeed;
+        climbableMask = LayerMask.GetMask("Climbable");
+        manteableMask = LayerMask.GetMask("Mantleable");
     }
 
     public override void Enter()
@@ -35,12 +41,16 @@ public class JumpingState : PlayerState
     {
         Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
         //you can only mantle if head ray detects nothing but hip ray detects an obstacle
-        if (headHit.collider == null && hipHit.collider != null)
+        if (hipHit.collider != null && hipHit.collider.CompareTag("Mantleable") && headHit.collider == null)    
         {
+            Debug.Log("can mantle");
+
             return true;
+
         }
         else
         {
+            Debug.Log("cant mantle");
             return false;
         }
         
@@ -51,8 +61,8 @@ public class JumpingState : PlayerState
         Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
         float rayLength = 0.4f;
 
-        RaycastHit2D left = Physics2D.Raycast(hipOrigin, Vector2.left, rayLength);
-        RaycastHit2D right = Physics2D.Raycast(hipOrigin, Vector2.right, rayLength);
+        RaycastHit2D left = Physics2D.Raycast(hipOrigin, Vector2.left, rayLength,climbableMask);
+        RaycastHit2D right = Physics2D.Raycast(hipOrigin, Vector2.right, rayLength,climbableMask);
 
         Debug.DrawRay(hipOrigin, Vector2.left * rayLength, Color.red);
         Debug.DrawRay(hipOrigin, Vector2.right * rayLength, Color.blue);
@@ -164,11 +174,10 @@ public class JumpingState : PlayerState
         
         float rayDistance = 0.1f;
         LayerMask groundMask = LayerMask.GetMask("Ground");
-        
-        RaycastHit2D hitLeft = Physics2D.Raycast(originLeft, Vector2.down, rayDistance, groundMask);
-        RaycastHit2D hitCenter = Physics2D.Raycast(originCenter, Vector2.down, rayDistance, groundMask);
-        RaycastHit2D hitRight = Physics2D.Raycast(originRight, Vector2.down, rayDistance, groundMask);
-        
-        return hitLeft.collider != null || hitCenter.collider != null || hitRight.collider != null;
+
+        RaycastHit2D hitGround = Physics2D.Raycast(originCenter, Vector2.down, rayDistance, groundMask);
+        RaycastHit2D hitClimbable = Physics2D.Raycast(originCenter, Vector2.down, rayDistance, climbableMask);
+
+        return hitGround.collider != null || hitClimbable.collider != null ;
     }
 }

@@ -21,12 +21,15 @@ public class GroundedState : PlayerState
     private float wallRegrabCooldown = 0.1f; // how long until you can re-grab wall
     private float wallRegrabTimer = 0f;
 
+    private LayerMask climbableMask;
+
 
     public GroundedState(StateMachine stateMachine) : base(stateMachine)
     {
         facingDirection = spriteRenderer.flipX ? -1f : 1f;
 
         interactionDetector = stateMachine.InteractionDetector;
+        climbableMask = LayerMask.GetMask("Climbable");
     }
 
     public override void Enter()
@@ -144,18 +147,18 @@ public class GroundedState : PlayerState
         Collider2D col = player.GetComponent<Collider2D>();
         Bounds bounds = col.bounds;
 
+        // Use multiple raycasts for better detection
         Vector2 originLeft = new Vector2(bounds.min.x + 0.1f, bounds.min.y);
         Vector2 originCenter = new Vector2(bounds.center.x, bounds.min.y);
         Vector2 originRight = new Vector2(bounds.max.x - 0.1f, bounds.min.y);
-
+        
         float rayDistance = 0.1f;
         LayerMask groundMask = LayerMask.GetMask("Ground");
 
-        RaycastHit2D hitLeft = Physics2D.Raycast(originLeft, Vector2.down, rayDistance, groundMask);
-        RaycastHit2D hitCenter = Physics2D.Raycast(originCenter, Vector2.down, rayDistance, groundMask);
-        RaycastHit2D hitRight = Physics2D.Raycast(originRight, Vector2.down, rayDistance, groundMask);
+        RaycastHit2D hitGround = Physics2D.Raycast(originCenter, Vector2.down, rayDistance, groundMask);
+        RaycastHit2D hitClimbable = Physics2D.Raycast(originCenter, Vector2.down, rayDistance, climbableMask);
 
-        return hitLeft.collider != null || hitCenter.collider != null || hitRight.collider != null;
+        return hitGround.collider != null || hitClimbable.collider != null ;
     }
 
     public override void FixedUpdate()

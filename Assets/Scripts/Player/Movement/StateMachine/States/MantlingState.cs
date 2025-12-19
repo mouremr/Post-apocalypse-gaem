@@ -5,7 +5,8 @@ public class MantlingState : PlayerState
     private RaycastHit2D hipHit;
     private Vector2 headOrigin;
     private float facingDirection;
-    
+    private LayerMask climbableMask;
+
     private Vector2 targetMantlePosition;
 
     private Vector2 intermediatePosition;
@@ -23,6 +24,7 @@ public class MantlingState : PlayerState
     {
         this.hipHit = hipHit;
         this.headOrigin = headOrigin;
+        climbableMask=LayerMask.GetMask("Climbable");
     }
 
     public override void Enter()
@@ -32,7 +34,7 @@ public class MantlingState : PlayerState
         oldOffset = boxCollider.offset;
         animator.SetBool("mantling", true);
 
-        if (hipHit.collider != null)
+        if (hipHit.collider != null )
         {
             topLedgeY = hipHit.collider.bounds.max.y; // top of the ledge
             topLedgeX = hipHit.point.x; // exact hit point

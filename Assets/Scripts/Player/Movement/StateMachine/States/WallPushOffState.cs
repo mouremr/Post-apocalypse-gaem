@@ -8,6 +8,7 @@ public class WallPushOffState : PlayerState
     private float minAirTime = 0.1f; // Minimum time before checking for ground
     private float airTimer = 0f;
     private float airControl = 5f; 
+    private LayerMask climbableMask;
 
     private float wallDir;
     private float wallAttachLockout;
@@ -17,6 +18,7 @@ public class WallPushOffState : PlayerState
     private float pushY;
     public WallPushOffState(StateMachine stateMachine) : base(stateMachine)
     {
+        climbableMask = LayerMask.GetMask("Climbable");
 
 
     }
@@ -72,8 +74,8 @@ public class WallPushOffState : PlayerState
         Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
         float rayLength = 0.4f;
 
-        RaycastHit2D left = Physics2D.Raycast(hipOrigin, Vector2.left, rayLength);
-        RaycastHit2D right = Physics2D.Raycast(hipOrigin, Vector2.right, rayLength);
+        RaycastHit2D left = Physics2D.Raycast(hipOrigin, Vector2.left, rayLength,climbableMask);
+        RaycastHit2D right = Physics2D.Raycast(hipOrigin, Vector2.right, rayLength,climbableMask);
 
         Debug.DrawRay(hipOrigin, Vector2.left * rayLength, Color.red);
         Debug.DrawRay(hipOrigin, Vector2.right * rayLength, Color.blue);
@@ -107,10 +109,10 @@ public class WallPushOffState : PlayerState
         Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
         Vector2 headOrigin = hipOrigin + Vector2.up * 1f;
 
-        Vector2 castDir = input.HorizontalInput >= 0 ? Vector2.right : Vector2.left;
+        Vector2 castDir = new Vector2(-wallDir, 0f); 
         float rayLength = 0.5f;
-        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength);
-        RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength);
+        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength,climbableMask);
+        RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength,climbableMask);
 
         if (wallAttachLockout > 0f)
             wallAttachLockout -= Time.deltaTime;

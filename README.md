@@ -1,6 +1,20 @@
 # Post-apocalypse-gaem
-12/17/2025
+12/19/2025
+arrhbhh matey
 
+added scout assets and animation state machine, code not tested
+
+moving iris her own player layer and off the ignore raycast layer
+this created alot of problems
+set scaffolding, pillars to climbable layer mask
+
+important: had to change IsGrounded() to count the "climbable" and "ground" layers to both count as ground, otherwise not able to jump off tops of pillars or scaffolding.
+not sure if this is the best way 
+
+
+
+12/17/2025
+ahoy
 jumping into wall disabled
 but should this be a feature? what if the player is trying to jump up and wall climb more quickly
 
