@@ -130,24 +130,7 @@ public class WallClimbingState : PlayerState
 
     }
 
-    private bool IsGrounded()
-    {
-        Collider2D col = player.GetComponent<Collider2D>();
-        Bounds bounds = col.bounds;
 
-        Vector2 originLeft = new Vector2(bounds.min.x + 0.1f, bounds.min.y);
-        Vector2 originCenter = new Vector2(bounds.center.x, bounds.min.y);
-        Vector2 originRight = new Vector2(bounds.max.x - 0.1f, bounds.min.y);
-
-        float rayDistance = 0.1f;
-        LayerMask groundMask = LayerMask.GetMask("Ground");
-
-        RaycastHit2D hitLeft = Physics2D.Raycast(originLeft, Vector2.down, rayDistance, groundMask);
-        RaycastHit2D hitCenter = Physics2D.Raycast(originCenter, Vector2.down, rayDistance, groundMask);
-        RaycastHit2D hitRight = Physics2D.Raycast(originRight, Vector2.down, rayDistance, groundMask);
-
-        return hitLeft.collider != null || hitCenter.collider != null || hitRight.collider != null;
-    }
 
     public override void FixedUpdate()
     {
