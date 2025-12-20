@@ -87,26 +87,12 @@ public class WallClimbingState : PlayerState
             return;
         }
 
-        Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
-        Vector2 headOrigin = hipOrigin + Vector2.up * 1f;
 
-        Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right; 
-        float rayLength = 0.5f;
-        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength,climbableMask);
-        RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength,climbableMask);
-
-        if (canMantle(hipHit, headHit))
+        if (canMantle())
         {
             animator.SetBool("climbing", false);
-            stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin));
+            stateMachine.ChangeState(new MantlingState(stateMachine));
             return;
-        }
-
-        if (headHit.collider == null)
-        {
-            animator.SetBool("climbing", false);
-            stateMachine.ChangeState(new JumpingState(stateMachine, 0,0,0));
-
         }
 
     }

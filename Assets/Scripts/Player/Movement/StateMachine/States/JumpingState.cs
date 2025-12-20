@@ -50,17 +50,7 @@ public class JumpingState : PlayerState
         float targetVelocityX = input.HorizontalInput * moveSpeed;
         float velocityDiff = targetVelocityX - rb.linearVelocity.x;
 
-        Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
-        Vector2 headOrigin = hipOrigin + Vector2.up * 1f;
 
-        Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
-        float rayLength = 0.5f;
-        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength);
-        RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength);
-
-
-        Debug.DrawRay(hipOrigin, castDir * rayLength, Color.red);
-        Debug.DrawRay(headOrigin, castDir * rayLength, Color.blue);
 
         rb.AddForce(new Vector2(velocityDiff * airControl, 0f));
 
@@ -76,14 +66,14 @@ public class JumpingState : PlayerState
         }
 
 
-        if (canMantle(hipHit, headHit))
+        if (canMantle())
         {
             animator.SetBool("jumping", false);
             animator.SetBool("climbing", false);
             animator.SetBool("mantling", true);
 
             Debug.Log("moving into mantling from jump state");
-            stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin));
+            stateMachine.ChangeState(new MantlingState(stateMachine));
             return;
         }
         else if (IsWalled(out float wallDir))

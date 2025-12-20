@@ -62,13 +62,6 @@ public class WallPushOffState : PlayerState
         float targetVelocityX = input.HorizontalInput * moveSpeed;
         float velocityDiff = targetVelocityX - rb.linearVelocity.x;
 
-        Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
-        Vector2 headOrigin = hipOrigin + Vector2.up * 1f;
-
-        Vector2 castDir = new Vector2(-wallDir, 0f); 
-        float rayLength = 0.5f;
-        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength,climbableMask);
-        RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength,climbableMask);
 
         if (wallAttachLockout > 0f)
             wallAttachLockout -= Time.deltaTime;
@@ -83,10 +76,10 @@ public class WallPushOffState : PlayerState
             rb.gravityScale = 1.3f;
 
 
-        if (canMantle(hipHit, headHit))
+        if (canMantle())
          {
             animator.SetBool("jumping", false);
-            stateMachine.ChangeState(new MantlingState(stateMachine, hipHit, headOrigin));
+            stateMachine.ChangeState(new MantlingState(stateMachine));
             return;
         }
 
