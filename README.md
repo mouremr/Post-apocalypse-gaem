@@ -1,5 +1,8 @@
 # Post-apocalypse-gaem
+19/20/2025
 
+basic enemy added, moves towards iris, uses one raycast to detect sight and another to detect how close to punch
+no attack logic for iris or hurt logic for enemies 
 
 12/19/2025
 arrhbhh matey

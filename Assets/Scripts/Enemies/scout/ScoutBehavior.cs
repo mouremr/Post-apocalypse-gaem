@@ -7,98 +7,99 @@ public class ScoutBehavior : MonoBehaviour
     private Rigidbody2D rb;
 
     public float moveSpeed = 3f;
+    public float attackRayLength = 0.5f; // player must be within 1 unit to begin attack
 
-    public Transform rayCast;
-    public float rayCastLength = 2f;
-    public LayerMask raycastMask;
+    public float detectRayLength=6; // 6 units of sight
 
-    private RaycastHit2D hit;
+    [SerializeField] private Transform detectRayOrigin;
+    [SerializeField] private Transform attackRayOrigin;
+
+    private LayerMask playerMask;
+
+    private LayerMask climbableMask;
 
     private bool playerInSight;
-    private bool canAttack;
-    private bool chasingPlayer;
+    private bool isAttacking;
 
     void Awake()
     {
         anim = GetComponent<Animator>();
-        raycastMask = LayerMask.GetMask("Player");
         rb = GetComponent<Rigidbody2D>();
-
+        playerMask = LayerMask.GetMask("Player"); 
+        climbableMask = LayerMask.GetMask("Climbable"); 
     }
 
     void Update()
     {
-
-        if (!playerInSight || target == null)
-            return;
-
-        ChasePlayer();
-
-        if (canAttack)
-            AttackPlayer();
-                
-    }
-
-    void OnTriggerEnter2D(Collider2D trig)
-    {
-        Debug.Log("ENTER: " );
-
-        if (trig.CompareTag("Player"))
-        {
-            target = trig.gameObject;
-            playerInSight = true;
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D trig)
-    {
-        Debug.Log("EXIT: ");
-
-        if (trig.CompareTag("Player"))
-        {
-            playerInSight = false;
-            chasingPlayer = false;
-            canAttack = false;
+        if (isAttacking){ //if attacking, finish attack 
+            rb.linearVelocity = Vector2.zero;
             anim.SetBool("chasePlayer", false);
+            Debug.Log("I must finish attacking");
+            return;
         }
-    }
 
-    void ChasePlayer()
-    {
-        hit = Physics2D.Raycast( rayCast.position,Vector2.left,rayCastLength,raycastMask );
+        playerInSight = playerIsInSight();
 
-        if (hit.collider != null)
-        {
-            chasingPlayer = true;
-            anim.SetBool("chasePlayer", true);
+        if(playerInSight){
+            Debug.Log("I can see player!1");
+            float facing = GetComponent<SpriteRenderer>().flipX ? -1f : 1f;
 
-            float distance = Vector2.Distance(
-                transform.position,
-                target.transform.position
-            );
-            Vector2 direction = (target.transform.position - transform.position).normalized;
-            rb.linearVelocity = new Vector2(direction.x * moveSpeed, rb.linearVelocity.y);
+            Vector2 direction = Vector2.right * facing;
 
-            canAttack = distance < 1.2f;
+            RaycastHit2D hit = Physics2D.Raycast(attackRayOrigin.position, direction, attackRayLength, playerMask);
+            Debug.DrawRay(attackRayOrigin.position, direction * attackRayLength, Color.green);
+            
+            if (hit.collider==null) //if hit doesnt connect
+            {
+                anim.SetBool("chasePlayer", true); //chase
+                anim.SetBool("attackPlayer", false);
+                isAttacking = false; 
+
+                rb.linearVelocity = new Vector2(facing * moveSpeed, rb.linearVelocity.y);
+                GetComponent<SpriteRenderer>().flipX = facing < 0;
+            }
+            else
+            {
+                rb.linearVelocity = Vector2.zero;
+                anim.SetBool("chasePlayer", false);
+                anim.SetBool("attackPlayer", true);
+                isAttacking = true; 
+            }
         }
-        else
+
+        if (!playerInSight)
         {
             rb.linearVelocity = Vector2.zero;
-            chasingPlayer = false;
-            canAttack = false;
-            anim.   SetBool("chasePlayer", false);
+            anim.SetBool("chasePlayer", false);
+            anim.SetBool("attackPlayer", false);
+            Debug.Log("I cannot see player"); 
+            return;
         }
-    }
-    void AttackPlayer()
-    {
-        rb.linearVelocity = Vector2.zero;
-        chasingPlayer = false;
-        anim.SetBool("chasePlayer", false);
-        anim.SetBool("attackPlayer", true);
 
     }
-    void toggleCanAttack() // called by animation event trigger at the end of the punch animation to stop attack
+
+    bool playerIsInSight()
     {
-        canAttack=false;
+        Vector2 facing = GetComponent<SpriteRenderer>().flipX ? Vector2.left : Vector2.right;
+        RaycastHit2D hit = Physics2D.Raycast(
+            detectRayOrigin.position,
+            facing,
+            detectRayLength,
+            playerMask | climbableMask
+        );
+        Debug.DrawRay(
+           detectRayOrigin.position,              
+            (Vector3)(facing * detectRayLength), 
+            Color.blue
+        );
+        return hit.collider != null && ((1 << hit.collider.gameObject.layer) & playerMask) != 0; //return true if something is hit, and the first object hit is the player
+    }
+
+    // Call this from an animation event at the end of the punch
+    public void toggleCanAttack()
+    {
+        Debug.Log("animation ended, stop attacking");
+        isAttacking = false;
+        anim.SetBool("attackPlayer", false);
     }
 }

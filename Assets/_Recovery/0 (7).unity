@@ -395,6 +395,37 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &71826132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 71826133}
+  m_Layer: 0
+  m_Name: attackRay
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &71826133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71826132}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.498, y: 1.427, z: 0}
+  m_LocalScale: {x: 1.0354, y: 1.0354, z: 1.0354}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1063428488}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &197273583
 GameObject:
   m_ObjectHideFlags: 0
@@ -1512,17 +1543,7 @@ Tilemap:
   m_GameObject: {fileID: 939111391}
   m_Enabled: 1
   m_Tiles:
-  - first: {x: -83, y: -2, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 1
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: -67, y: -2, z: 0}
+  - first: {x: -69, y: -3, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 1
@@ -1536,13 +1557,13 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 2
+  - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 5fd5b74a1368852449cf154e4e4c90c9, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 2
+  - m_RefCount: 1
     m_Data: {fileID: 4269108728175869260, guid: ec42a92df0b8d2245af687a1e34cc823, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 2
+  - m_RefCount: 1
     m_Data:
       e00: 1
       e01: 0
@@ -1561,13 +1582,13 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 2
+  - m_RefCount: 1
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -83, y: -2, z: 0}
-  m_Size: {x: 83, y: 13, z: 1}
+  m_Origin: {x: -72, y: -3, z: 0}
+  m_Size: {x: 72, y: 14, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
@@ -1628,32 +1649,20 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 939111393}
     m_ColliderPaths:
-    - - X: -659687488
-        Y: 17656250
-      - X: -670312512
-        Y: 17656250
-      - X: -670312512
-        Y: -47656248
-      - X: -659687488
-        Y: -47656248
-    - - X: -819687488
-        Y: 17656250
-      - X: -830312512
-        Y: 17656250
-      - X: -830312512
-        Y: -47656248
-      - X: -819687488
-        Y: -47656248
+    - - X: -679687488
+        Y: 7656250
+      - X: -690312512
+        Y: 7656250
+      - X: -690312512
+        Y: -57656248
+      - X: -679687488
+        Y: -57656248
   m_CompositePaths:
     m_Paths:
-    - - {x: -65.96878, y: -4.765625}
-      - {x: -65.96878, y: 1.765625}
-      - {x: -67.03125, y: 1.7655957}
-      - {x: -67.03122, y: -4.765625}
-    - - {x: -81.96878, y: -4.765625}
-      - {x: -81.96878, y: 1.765625}
-      - {x: -83.03125, y: 1.7655957}
-      - {x: -83.03122, y: -4.765625}
+    - - {x: -67.96878, y: -5.765625}
+      - {x: -67.96878, y: 0.765625}
+      - {x: -69.03125, y: 0.76559573}
+      - {x: -69.03122, y: -5.765625}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
@@ -1724,10 +1733,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoutBehavior
   moveSpeed: 3
-  attackRayLength: 2
-  detectRayLength: 10
-  detectRayOrigin: {fileID: 1562573509}
-  attackRayOrigin: {fileID: 1305822901}
+  attackRayLength: 1
+  detectRayLength: 1
+  detectRayOrigin: {fileID: 1305822901}
+  attackRayOrigin: {fileID: 71826133}
 --- !u!50 &1063428486
 Rigidbody2D:
   serializedVersion: 5
@@ -1822,12 +1831,12 @@ Transform:
   m_GameObject: {fileID: 1063428484}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -79.336, y: -3.91, z: 0}
+  m_LocalPosition: {x: -73.74, y: -3.91, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1562573509}
   - {fileID: 1305822901}
+  - {fileID: 71826133}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1063428489
@@ -2208,11 +2217,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2881845079888401096, guid: dd78dd6415900bc40994b298cd9d010e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -75.92
+      value: -77.71
       objectReference: {fileID: 0}
     - target: {fileID: 2881845079888401096, guid: dd78dd6415900bc40994b298cd9d010e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.13
+      value: -2.9
       objectReference: {fileID: 0}
     - target: {fileID: 2881845079888401096, guid: dd78dd6415900bc40994b298cd9d010e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2269,7 +2278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1305822901}
   m_Layer: 0
-  m_Name: attack ray
+  m_Name: detectRay
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2284,7 +2293,7 @@ Transform:
   m_GameObject: {fileID: 1305822900}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.04, y: 1.21, z: 0}
+  m_LocalPosition: {x: 0.684, y: 1.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2695,37 +2704,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1562573508
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1562573509}
-  m_Layer: 0
-  m_Name: detect ray
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1562573509
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1562573508}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.144, y: 1.041, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1063428488}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1619948108
 GameObject:
   m_ObjectHideFlags: 0
