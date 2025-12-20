@@ -21,7 +21,6 @@ public class GroundedState : PlayerState
     private float wallRegrabCooldown = 0.1f; // how long until you can re-grab wall
     private float wallRegrabTimer = 0f;
 
-    private LayerMask climbableMask;
 
 
     public GroundedState(StateMachine stateMachine) : base(stateMachine)
@@ -29,7 +28,6 @@ public class GroundedState : PlayerState
         facingDirection = spriteRenderer.flipX ? -1f : 1f;
 
         interactionDetector = stateMachine.InteractionDetector;
-        climbableMask = LayerMask.GetMask("Climbable");
     }
 
     public override void Enter()

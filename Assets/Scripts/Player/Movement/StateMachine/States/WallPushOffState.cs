@@ -18,8 +18,6 @@ public class WallPushOffState : PlayerState
     private float pushY;
     public WallPushOffState(StateMachine stateMachine) : base(stateMachine)
     {
-        climbableMask = LayerMask.GetMask("Climbable");
-
 
     }
 

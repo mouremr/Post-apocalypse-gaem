@@ -13,9 +13,10 @@ public abstract class PlayerState
 
     protected CameraFollow camera;
 
-    protected LayerMask climbable; // assign in inspector
+    protected LayerMask climbableMask; // assign in inspector
 
     //protected Transform wallCheck;
+    protected LayerMask groundMask; // assign in inspector
 
     public PlayerState(StateMachine stateMachine)
     {
@@ -27,9 +28,8 @@ public abstract class PlayerState
         spriteRenderer = player.GetComponent<SpriteRenderer>();
         boxCollider = player.GetComponent<BoxCollider2D>();
         camera = Camera.main.GetComponent<CameraFollow>();
-        climbable = LayerMask.GetMask("Climbable"); 
-        //wallCheck = player.transform.Find("WallCheck");
-
+        groundMask = LayerMask.GetMask("Ground");
+        climbableMask = LayerMask.GetMask("Climbable");
 
     }
 
@@ -53,13 +53,11 @@ public abstract class PlayerState
         Vector2 originRight = new Vector2(bounds.max.x - 0.1f, bounds.min.y);
 
         float rayDistance = 0.1f;
-        LayerMask groundMask = LayerMask.GetMask("Ground");
 
-        RaycastHit2D hitLeft = Physics2D.Raycast(originLeft, Vector2.down, rayDistance, groundMask);
-        RaycastHit2D hitCenter = Physics2D.Raycast(originCenter, Vector2.down, rayDistance, groundMask);
-        RaycastHit2D hitRight = Physics2D.Raycast(originRight, Vector2.down, rayDistance, groundMask);
+        RaycastHit2D hitGrounded = Physics2D.Raycast(originCenter, Vector2.down, rayDistance, groundMask);
+        RaycastHit2D hitClimbable = Physics2D.Raycast(originCenter, Vector2.down, rayDistance, climbableMask);
 
-        return hitLeft.collider != null || hitCenter.collider != null || hitRight.collider != null;
+        return hitGrounded.collider != null || hitClimbable.collider != null;
     }
 
     protected bool IsWalled(out float direction)
@@ -67,8 +65,8 @@ public abstract class PlayerState
         Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
         float rayLength = 0.4f;
 
-        RaycastHit2D left = Physics2D.Raycast(hipOrigin, Vector2.left, rayLength);
-        RaycastHit2D right = Physics2D.Raycast(hipOrigin, Vector2.right, rayLength);
+        RaycastHit2D left = Physics2D.Raycast(hipOrigin, Vector2.left, rayLength,climbableMask);
+        RaycastHit2D right = Physics2D.Raycast(hipOrigin, Vector2.right, rayLength,climbableMask);
 
         Debug.DrawRay(hipOrigin, Vector2.left * rayLength, Color.red);
         Debug.DrawRay(hipOrigin, Vector2.right * rayLength, Color.blue);

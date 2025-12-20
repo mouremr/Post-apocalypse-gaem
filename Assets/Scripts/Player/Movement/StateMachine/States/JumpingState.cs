@@ -12,7 +12,6 @@ public class JumpingState : PlayerState
     private float slideSpeed = 0;
     private float rollHeightCutoff = 4f;
 
-    private LayerMask climbableMask;
     private LayerMask manteableMask;
 
     public JumpingState(StateMachine stateMachine, float jumpForce, float yval, float slideSpeed) : base(stateMachine)
@@ -20,7 +19,6 @@ public class JumpingState : PlayerState
         this.jumpForce = jumpForce;
         this.yval = yval;
         this.slideSpeed = slideSpeed;
-        climbableMask = LayerMask.GetMask("Climbable");
         manteableMask = LayerMask.GetMask("Mantleable");
     }
 
@@ -56,32 +54,6 @@ public class JumpingState : PlayerState
         
     }
 
-    private bool IsWalled(out float direction)
-    {
-        Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
-        float rayLength = 0.4f;
-
-        RaycastHit2D left = Physics2D.Raycast(hipOrigin, Vector2.left, rayLength,climbableMask);
-        RaycastHit2D right = Physics2D.Raycast(hipOrigin, Vector2.right, rayLength,climbableMask);
-
-        Debug.DrawRay(hipOrigin, Vector2.left * rayLength, Color.red);
-        Debug.DrawRay(hipOrigin, Vector2.right * rayLength, Color.blue);
-
-        if (left.collider != null)
-        {
-            direction = -1;
-            return true;
-        }
-
-        if (right.collider != null)
-        {
-            direction = 1;
-            return true;
-        }
-
-        direction = 0;
-        return false;
-    }
 
     public override void Update()
     {
@@ -109,8 +81,7 @@ public class JumpingState : PlayerState
 
         rb.AddForce(new Vector2(velocityDiff * airControl, 0f));
 
-        
-
+    
 
         if (input.JumpReleased && rb.linearVelocity.y > 0.1) //jump cut
         {
@@ -162,22 +133,4 @@ public class JumpingState : PlayerState
 
     }
 
-    private bool IsGrounded()
-    {
-        Collider2D col = player.GetComponent<Collider2D>();
-        Bounds bounds = col.bounds;
-
-        // Use multiple raycasts for better detection
-        Vector2 originLeft = new Vector2(bounds.min.x + 0.1f, bounds.min.y);
-        Vector2 originCenter = new Vector2(bounds.center.x, bounds.min.y);
-        Vector2 originRight = new Vector2(bounds.max.x - 0.1f, bounds.min.y);
-        
-        float rayDistance = 0.1f;
-        LayerMask groundMask = LayerMask.GetMask("Ground");
-
-        RaycastHit2D hitGround = Physics2D.Raycast(originCenter, Vector2.down, rayDistance, groundMask);
-        RaycastHit2D hitClimbable = Physics2D.Raycast(originCenter, Vector2.down, rayDistance, climbableMask);
-
-        return hitGround.collider != null || hitClimbable.collider != null ;
-    }
 }
