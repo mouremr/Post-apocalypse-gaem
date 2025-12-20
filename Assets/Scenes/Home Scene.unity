@@ -1384,9 +1384,9 @@ GameObject:
   - component: {fileID: 939111393}
   - component: {fileID: 939111397}
   - component: {fileID: 939111396}
-  m_Layer: 3
+  m_Layer: 7
   m_Name: Climbable
-  m_TagString: Untagged
+  m_TagString: Mantleable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

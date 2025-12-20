@@ -35,24 +35,7 @@ public class JumpingState : PlayerState
         rb.gravityScale = 1;
     }
 
-    private bool canMantle(RaycastHit2D hipHit, RaycastHit2D headHit)
-    {
-        Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
-        //you can only mantle if head ray detects nothing but hip ray detects an obstacle
-        if (hipHit.collider != null && hipHit.collider.CompareTag("Mantleable") && headHit.collider == null)    
-        {
-            Debug.Log("can mantle");
 
-            return true;
-
-        }
-        else
-        {
-            Debug.Log("cant mantle");
-            return false;
-        }
-        
-    }
 
 
     public override void Update()

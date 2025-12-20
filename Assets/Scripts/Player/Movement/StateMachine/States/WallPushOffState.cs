@@ -8,7 +8,7 @@ public class WallPushOffState : PlayerState
     private float minAirTime = 0.1f; // Minimum time before checking for ground
     private float airTimer = 0f;
     private float airControl = 5f; 
-    private LayerMask climbableMask;
+    //private LayerMask climbableMask;
 
     private float wallDir;
     private float wallAttachLockout;
@@ -50,21 +50,6 @@ public class WallPushOffState : PlayerState
 
         airTimer = 0f; 
         rb.gravityScale = 1;
-    }
-
-    private bool canMantle(RaycastHit2D hipHit, RaycastHit2D headHit)
-    {
-        Vector2 castDir = input.HorizontalInput >= 0 ? Vector2.right : Vector2.left;
-        //you can only mantle if head ray detects nothing but hip ray detects an obstacle
-        if (headHit.collider == null && hipHit.collider != null && hipHit.collider.CompareTag("Mantleable"))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-        
     }
 
     public override void Update()

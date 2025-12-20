@@ -5,7 +5,7 @@ public class MantlingState : PlayerState
     private RaycastHit2D hipHit;
     private Vector2 headOrigin;
     private float facingDirection;
-    private LayerMask climbableMask;
+    //private LayerMask climbableMask;
 
     private Vector2 targetMantlePosition;
 

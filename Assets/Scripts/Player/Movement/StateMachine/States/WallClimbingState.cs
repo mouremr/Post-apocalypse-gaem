@@ -8,7 +8,7 @@ public class WallClimbingState : PlayerState
     float facingDirection;
 
     private float wallExitCooldown = 0.2f;
-    private LayerMask climbableMask;
+    //private LayerMask climbableMask;
     private float wallExitTimer = 0f;
     private float dynoCooldownTimer = .6f;
     public WallClimbingState(StateMachine stateMachine) : base(stateMachine)
@@ -44,19 +44,6 @@ public class WallClimbingState : PlayerState
             return -1; // wall on right
 
         return 0;
-    }
-    private bool canMantle(RaycastHit2D hipHit, RaycastHit2D headHit)
-    {
-        Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
-        if (headHit.collider == null && hipHit.collider != null )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-        
     }
 
     public override void Update()
