@@ -5,8 +5,6 @@ public class MantlingState : PlayerState
     private RaycastHit2D hipHit;
     private Vector2 headOrigin;
     private float facingDirection;
-    private LayerMask climbableMask;
-
     private Vector2 targetMantlePosition;
 
     private Vector2 intermediatePosition;
@@ -22,20 +20,19 @@ public class MantlingState : PlayerState
 
     public MantlingState(StateMachine stateMachine) : base(stateMachine)
     {
-        this.hipHit = hipHit;
-        this.headOrigin = headOrigin;
-        climbableMask=LayerMask.GetMask("Climbable");
+
     }
 
     public override void Enter()
     {
 
         Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
-        Vector2 headOrigin = hipOrigin + Vector2.up * 1f;
 
         Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
         float rayLength = 0.5f;
-        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength);
+    
+        headOrigin = hipOrigin + Vector2.up * 1f;
+        hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength,climbableMask);
         
         // Save original collider size/offset
         oldSize = boxCollider.size;
@@ -48,7 +45,7 @@ public class MantlingState : PlayerState
             topLedgeX = hipHit.point.x; // exact hit point
         }
 
-        targetMantlePosition = new Vector2(player.transform.position.x+0.2f, topLedgeY);
+        targetMantlePosition = new Vector2(player.transform.position.x+0.4f, topLedgeY);
 
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         mantleTimer = 0f;
@@ -75,7 +72,6 @@ public class MantlingState : PlayerState
 
             isMantleComplete = true;
             animator.SetBool("mantling", false);
-
 
         }
         

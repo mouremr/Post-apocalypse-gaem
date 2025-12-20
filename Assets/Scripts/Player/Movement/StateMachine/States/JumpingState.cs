@@ -65,6 +65,7 @@ public class JumpingState : PlayerState
             rb.gravityScale = 1.3f;
         }
 
+        
 
         if (canMantle())
         {

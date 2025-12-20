@@ -86,27 +86,6 @@ public abstract class PlayerState
         direction = 0;
         return false;
     }
-    // protected bool canMantle(RaycastHit2D hipHit, RaycastHit2D headHit)
-    // {
-
-
-        
-    //     Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
-    //     //you can only mantle if head ray detects nothing but hip ray detects an obstacle
-    //     if (hipHit.collider != null && hipHit.collider.CompareTag("Mantleable") && headHit.collider == null)    
-    //     {
-    //         Debug.Log("can mantle");
-    //         return true;
-
-    //     }
-    //     else
-    //     {
-    //         Debug.Log("cant mantle");
-    //         return false;
-    //     }
-        
-    // }
-
     protected bool canMantle()
     {
         Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
@@ -114,21 +93,20 @@ public abstract class PlayerState
 
         Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
         float rayLength = 0.5f;
-        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength);
-        RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength);
-
+        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength,climbableMask);
+        RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength,climbableMask);
 
         Debug.DrawRay(hipOrigin, castDir * rayLength, Color.red);
         Debug.DrawRay(headOrigin, castDir * rayLength, Color.blue);
+
+
         if (hipHit.collider != null && hipHit.collider.CompareTag("Mantleable") && headHit.collider == null)    
         {
-            Debug.Log("can mantle");
             return true;
 
         }
         else
         {
-            Debug.Log("cant mantle");
             return false;
         }
         

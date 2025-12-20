@@ -1,4 +1,6 @@
 # Post-apocalypse-gaem
+
+
 12/19/2025
 arrhbhh matey
 
@@ -10,6 +12,9 @@ set scaffolding, pillars to climbable layer mask
 
 important: had to change IsGrounded() to count the "climbable" and "ground" layers to both count as ground, otherwise not able to jump off tops of pillars or scaffolding.
 not sure if this is the best way 
+
+refactored and put most raycasts and wall and grounded checks into playerstate.cs as protected functions
+
 
 
 
