@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class PlayerState
@@ -11,12 +12,22 @@ public abstract class PlayerState
 
     protected BoxCollider2D boxCollider;
 
-    protected CameraFollow camera;
+    protected new CameraFollow camera;
 
     protected LayerMask climbableMask; // assign in inspector
 
     //protected Transform wallCheck;
     protected LayerMask groundMask; // assign in inspector
+    protected static int maxStamina = 20;
+
+    protected static float staminaRegenTimer = 0f;
+    protected static float staminaRegenDelay = .5f;
+    protected static float staminaRegenRate = 5f;
+    private static float staminaRegenBuffer = 0f;
+
+
+    protected static int currentStamina = maxStamina;
+    
 
     public PlayerState(StateMachine stateMachine)
     {
@@ -36,8 +47,26 @@ public abstract class PlayerState
     public virtual void Enter() { }
     public virtual void Update()
     { 
-
+        RegenStamina();
     }
+
+    private void RegenStamina()
+    {
+        if (currentStamina < maxStamina)
+        {
+            // Regen in stamina-per-second
+            staminaRegenBuffer += staminaRegenRate * Time.deltaTime;
+
+            if (staminaRegenBuffer >= 1f)
+            {
+                int regen = Mathf.FloorToInt(staminaRegenBuffer);
+                staminaRegenBuffer -= regen;
+
+                currentStamina = Mathf.Min(maxStamina, currentStamina + regen);
+            }
+        }
+    }
+
     public virtual void FixedUpdate() { }
     public virtual void Exit() { }
 
@@ -111,4 +140,24 @@ public abstract class PlayerState
         }
         
     }
+    public bool CanConsumeStamina(int cost)
+    {
+        if (currentStamina >= cost)
+        {
+            currentStamina -= cost;
+            return true;
+        }
+        return false;
+    }
+
+    public static float GetCurrentStamina()
+    {
+        return currentStamina;
+    }
+
+    public static float GetMaxStamina()
+    {
+        return maxStamina;
+    }
+
 }

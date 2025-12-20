@@ -21,6 +21,8 @@ public class GroundedState : PlayerState
     private float wallRegrabCooldown = 0.1f; // how long until you can re-grab wall
     private float wallRegrabTimer = 0f;
 
+    private int rollCost = 5;
+
 
 
     public GroundedState(StateMachine stateMachine) : base(stateMachine)
@@ -45,6 +47,7 @@ public class GroundedState : PlayerState
 
     public override void Update()
     {   
+        base.Update();
         facingDirection = spriteRenderer.flipX ? -1f : 1f;
 
         //Debug.Log("grounded state");
@@ -92,11 +95,9 @@ public class GroundedState : PlayerState
 
             stateMachine.ChangeState(new JumpingState(stateMachine, 0, player.transform.position.y + 1f, slideSpeed));
         }
-        else if (input.RollPressed && IsGrounded() && rollCheckTimer <= 0f)
+        else if (input.RollPressed && IsGrounded() && CanConsumeStamina(rollCost))
         {   
-            rollCheckTimer = rollCheckCooldown;
             animator.SetBool("grounded", false);
-            Debug.Log("moving to rollingstate");
             stateMachine.ChangeState(new RollingState(stateMachine,moveSpeed));
         }
         else

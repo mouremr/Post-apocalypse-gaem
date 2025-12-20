@@ -32,7 +32,7 @@ public class RollingState: PlayerState
 
         if (rollTimer <= 0f )
         {
-            Debug.Log("end roll");
+            //Debug.Log("end roll");
             animator.SetBool("rolling", false);
             stateMachine.ChangeState(new GroundedState(stateMachine));
             return;

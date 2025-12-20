@@ -11,6 +11,8 @@ public class WallClimbingState : PlayerState
     //private LayerMask climbableMask;
     private float wallExitTimer = 0f;
     private float dynoCooldownTimer = .6f;
+
+    private int dynoCost = 10;
     public WallClimbingState(StateMachine stateMachine) : base(stateMachine)
     {
         facingDirection = spriteRenderer.flipX ? -1f : 1f;
@@ -54,7 +56,7 @@ public class WallClimbingState : PlayerState
         animator.SetFloat("yVelocity",rb.linearVelocity.y);
 
 
-        if  (input.JumpPressed && dynoCooldownTimer <= 0)
+        if  (input.JumpPressed && CanConsumeStamina(dynoCost))
         {
             animator.SetBool("climbing", false);
             stateMachine.ChangeState(new WallPushOffState(stateMachine));
@@ -99,8 +101,5 @@ public class WallClimbingState : PlayerState
 
 
 
-    public override void FixedUpdate()
-    {
-        
-    }
+
 }
