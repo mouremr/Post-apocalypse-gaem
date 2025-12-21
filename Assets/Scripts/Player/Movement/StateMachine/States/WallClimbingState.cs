@@ -1,5 +1,6 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
-
 public class WallClimbingState : PlayerState
 {
 
@@ -11,7 +12,6 @@ public class WallClimbingState : PlayerState
     //private LayerMask climbableMask;
     private float wallExitTimer = 0f;
     private float dynoCooldownTimer = .6f;
-
     private int dynoCost = 10;
     public WallClimbingState(StateMachine stateMachine) : base(stateMachine)
     {
@@ -44,7 +44,6 @@ public class WallClimbingState : PlayerState
 
         if (Physics2D.Raycast(hipOrigin, Vector2.right, rayLength,climbableMask))
             return -1; // wall on right
-
         return 0;
     }
 
@@ -52,21 +51,32 @@ public class WallClimbingState : PlayerState
     {
         float currentY=2f; // units per second
 
-        //Debug.Log("wall climbing state");
         animator.SetFloat("yVelocity",rb.linearVelocity.y);
 
 
-        if  (input.JumpPressed && CanConsumeStamina(dynoCost))
+        if  (input.JumpPressed && CanConsumeStamina(dynoCost)) // dyno up
         {
             animator.SetBool("climbing", false);
-            stateMachine.ChangeState(new WallPushOffState(stateMachine));
+            float wallDir = spriteRenderer.flipX ? -1f : 1f;
+            if(Math.Sign(Input.GetAxis("Horizontal")) == Math.Sign(-wallDir)){
+                Debug.Log("push away from wall");
+                float pushX = 6f * -wallDir; 
+                float pushY= 6f;
+                stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(pushX,pushY)));
+
+            } else {
+                float pushX = 0;
+                float pushY = 8f;    
+                stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(pushX,pushY)));
+        
+            }
             return;
 
         }
-        
 
 
-        if (!(Input.GetAxis("Vertical") == 1))
+    
+        if (!(Input.GetAxis("Vertical") == 1)) //fall or climb normally
         {
             currentY = -1.2f;
         }

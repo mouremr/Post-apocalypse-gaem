@@ -8,17 +8,20 @@ public class JumpingState : PlayerState
     private float minAirTime = 0.1f; // Minimum time before checking for ground
     private float airTimer = 0f;
     private float airControl = 5f; 
-    private float yval;
     private float slideSpeed = 0;
     private float rollHeightCutoff = 4f;
+    private Vector2 jumpVector;
+
+    private float wallRegrabCooldown = 0.15f;
+    private float wallRegrabTimer = 0f;
+
 
     private LayerMask manteableMask;
 
-    public JumpingState(StateMachine stateMachine, float jumpForce, float yval, float slideSpeed) : base(stateMachine)
+    public JumpingState(StateMachine stateMachine, Vector2 jumpVector ) : base(stateMachine)
     {
-        this.jumpForce = jumpForce;
-        this.yval = yval;
-        this.slideSpeed = slideSpeed;
+        this.jumpVector= jumpVector;
+
         manteableMask = LayerMask.GetMask("Mantleable");
     }
 
@@ -26,17 +29,12 @@ public class JumpingState : PlayerState
     {
         animator.SetBool("jumping", true);
         input.ConsumeRoll();
-
-        //rb.gravityScale = 1;
-        rb.linearVelocity = Vector2.zero;
+        wallRegrabTimer = wallRegrabCooldown;
         rb.gravityScale = 0f;
-        rb.AddForce(new Vector2(jumpForce * input.HorizontalInput * 0.15f, jumpForce), ForceMode2D.Impulse);
+        rb.AddForce(jumpVector, ForceMode2D.Impulse);
         airTimer = 0f; // Reset timer
         rb.gravityScale = 1;
     }
-
-
-
 
     public override void Update()
     {
@@ -49,8 +47,6 @@ public class JumpingState : PlayerState
 
         float targetVelocityX = input.HorizontalInput * moveSpeed;
         float velocityDiff = targetVelocityX - rb.linearVelocity.x;
-
-
 
         rb.AddForce(new Vector2(velocityDiff * airControl, 0f));
 
@@ -65,8 +61,7 @@ public class JumpingState : PlayerState
             rb.gravityScale = 1.3f;
         }
 
-        
-
+    
         if (canMantle())
         {
             animator.SetBool("jumping", false);
@@ -77,12 +72,12 @@ public class JumpingState : PlayerState
             stateMachine.ChangeState(new MantlingState(stateMachine));
             return;
         }
-        else if (IsWalled(out float wallDir))
+        wallRegrabTimer -= Time.deltaTime;
+
+        if (wallRegrabTimer <= 0f && IsWalled(out float wallDir))
         {
             animator.SetBool("jumping", false);
-
             stateMachine.ChangeState(new WallClimbingState(stateMachine));
-
             return;
         }
 

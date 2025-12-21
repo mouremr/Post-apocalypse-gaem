@@ -86,14 +86,14 @@ public class GroundedState : PlayerState
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
 
-            stateMachine.ChangeState(new JumpingState(stateMachine, 5f, player.transform.position.y + 1f, slideSpeed));
+            stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(0f,5f)));
             return;
         }
         else if(!IsGrounded()){
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
 
-            stateMachine.ChangeState(new JumpingState(stateMachine, 0, player.transform.position.y + 1f, slideSpeed));
+            stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(0,0f)));
         }
         else if (input.RollPressed && IsGrounded() && CanConsumeStamina(rollCost))
         {   

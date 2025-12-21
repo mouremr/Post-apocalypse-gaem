@@ -18,7 +18,7 @@ public abstract class PlayerState
 
     //protected Transform wallCheck;
     protected LayerMask groundMask; // assign in inspector
-    protected static int maxStamina = 20;
+    protected static int maxStamina = 50;
 
     protected static float staminaRegenTimer = 0f;
     protected static float staminaRegenDelay = .5f;

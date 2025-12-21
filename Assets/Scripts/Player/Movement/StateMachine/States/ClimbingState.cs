@@ -33,7 +33,7 @@ public class ClimbingState : PlayerState
     {
         if (Input.GetButtonDown("Jump"))
         {
-            stateMachine.ChangeState(new JumpingState(stateMachine, 7f, player.transform.position.y, 15f)); // Or appropriate state
+            stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(0f,7f))); // Or appropriate state
             return;
         }
         
