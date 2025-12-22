@@ -54,28 +54,28 @@ public class WallClimbingState : PlayerState
         animator.SetFloat("yVelocity",rb.linearVelocity.y);
 
 
-        if  (input.JumpPressed && CanConsumeStamina(dynoCost)) // dyno up
-        {
+        float wallDir = spriteRenderer.flipX ? -1f : 1f;
+        if(Math.Sign(Input.GetAxis("Horizontal")) == Math.Sign(-wallDir) && input.JumpPressed){
             animator.SetBool("climbing", false);
-            float wallDir = spriteRenderer.flipX ? -1f : 1f;
-            if(Math.Sign(Input.GetAxis("Horizontal")) == Math.Sign(-wallDir)){
-                Debug.Log("push away from wall");
-                float pushX = 6f * -wallDir; 
-                float pushY= 6f;
-                stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(pushX,pushY)));
-
-            } else {
-                float pushX = 0;
-                float pushY = 8f;    
-                stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(pushX,pushY)));
-        
-            }
+            Debug.Log("push away from wall");
+            float pushX = 6f * -wallDir; 
+            float pushY= 6f;
+            stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(pushX,pushY)));
             return;
 
         }
 
+        if  (input.JumpPressed && CanConsumeStamina(dynoCost) && Mathf.Abs(Input.GetAxis("Horizontal")) < 0.01f) // dyno up
+        {
+            animator.SetBool("climbing", false);
+            float pushX = 0;
+            float pushY = 8f;    
+            stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(pushX,pushY)));   
+            return;
+        }
 
-    
+
+
         if (!(Input.GetAxis("Vertical") == 1)) //fall or climb normally
         {
             currentY = -1.2f;
@@ -85,11 +85,12 @@ public class WallClimbingState : PlayerState
             currentY = Mathf.Lerp(currentY, -2f, Time.deltaTime);
         }
 
-        rb.linearVelocity = new Vector2(0f, currentY);
+        rb.linearVelocity = new Vector2(0f, currentY); //prevent horizontal movement
 
 
         if (wallExitTimer > 0f)
             wallExitTimer -= Time.deltaTime;
+            
         dynoCooldownTimer = Mathf.Max(0f, dynoCooldownTimer - Time.deltaTime);
 
 

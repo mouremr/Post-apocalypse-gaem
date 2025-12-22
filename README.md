@@ -18,9 +18,6 @@ not sure if this is the best way
 
 refactored and put most raycasts and wall and grounded checks into playerstate.cs as protected functions
 
-
-
-
 12/17/2025
 ahoy
 jumping into wall disabled

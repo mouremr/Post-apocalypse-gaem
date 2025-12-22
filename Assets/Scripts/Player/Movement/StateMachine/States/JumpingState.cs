@@ -12,7 +12,7 @@ public class JumpingState : PlayerState
     private float rollHeightCutoff = 4f;
     private Vector2 jumpVector;
 
-    private float wallRegrabCooldown = 0.15f;
+    private float wallRegrabCooldown = 0.08f;
     private float wallRegrabTimer = 0f;
 
 
