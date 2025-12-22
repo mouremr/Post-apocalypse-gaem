@@ -8,7 +8,7 @@ public class WallClimbingState : PlayerState
 
     float facingDirection;
 
-    private float wallExitCooldown = 0.2f;
+    private float wallExitCooldown = 0.07f;
     //private LayerMask climbableMask;
     private float wallExitTimer = 0f;
     private float dynoCooldownTimer = .6f;
@@ -54,6 +54,20 @@ public class WallClimbingState : PlayerState
         animator.SetFloat("yVelocity",rb.linearVelocity.y);
 
 
+        if (!Input.GetKey(KeyCode.W)) //fall or climb normally
+        {
+            currentY = -1.2f;
+            rb.linearVelocity = new Vector2(0f, currentY); //prevent horizontal movement
+
+        }
+        else if (Input.GetKey(KeyCode.W))
+        {
+            currentY = Mathf.Lerp(currentY, -2f, Time.deltaTime);
+            rb.linearVelocity = new Vector2(0f, currentY); //prevent horizontal movement
+
+        }
+
+
         float wallDir = spriteRenderer.flipX ? -1f : 1f;
         if(Math.Sign(Input.GetAxis("Horizontal")) == Math.Sign(-wallDir) && input.JumpPressed){
             animator.SetBool("climbing", false);
@@ -74,18 +88,6 @@ public class WallClimbingState : PlayerState
             return;
         }
 
-
-
-        if (!(Input.GetAxis("Vertical") == 1)) //fall or climb normally
-        {
-            currentY = -1.2f;
-        }
-        else if (Input.GetKey(KeyCode.W))
-        {
-            currentY = Mathf.Lerp(currentY, -2f, Time.deltaTime);
-        }
-
-        rb.linearVelocity = new Vector2(0f, currentY); //prevent horizontal movement
 
 
         if (wallExitTimer > 0f)

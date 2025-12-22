@@ -1,4 +1,10 @@
 # Post-apocalypse-gaem
+12/22/2025
+
+wall push off uses no stamina
+stamina bar added
+bug: delay on entering climbing state before being able to climb
+
 19/20/2025
 
 basic enemy added, moves towards iris, uses one raycast to detect sight and another to detect how close to punch
