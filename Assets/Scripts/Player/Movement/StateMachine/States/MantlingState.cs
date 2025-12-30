@@ -39,10 +39,23 @@ public class MantlingState : PlayerState
         oldOffset = boxCollider.offset;
         animator.SetBool("mantling", true);
 
-        if (hipHit.collider != null )
+        if (hipHit.collider != null)
         {
-            topLedgeY = hipHit.collider.bounds.max.y; // top of the ledge
-            topLedgeX = hipHit.point.x; // exact hit point
+            topLedgeX = hipHit.point.x;
+
+            //raycast down from above ledge to find top
+            Vector2 downCastOrigin = hipHit.point + Vector2.up * 1.0f;
+            RaycastHit2D downHit = Physics2D.Raycast(
+                downCastOrigin,
+                Vector2.down,
+                2f,
+                climbableMask
+            );
+
+            if (downHit)
+            {
+                topLedgeY = downHit.point.y;
+            }
         }
 
         targetMantlePosition = new Vector2(player.transform.position.x+0.4f, topLedgeY);
