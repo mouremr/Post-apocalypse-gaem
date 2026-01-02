@@ -77,16 +77,23 @@ public abstract class PlayerState
         Collider2D col = player.GetComponent<Collider2D>();
         Bounds bounds = col.bounds;
 
-        Vector2 originLeft = new Vector2(bounds.min.x + 0.1f, bounds.min.y);
-        Vector2 originCenter = new Vector2(bounds.center.x, bounds.min.y);
-        Vector2 originRight = new Vector2(bounds.max.x - 0.1f, bounds.min.y);
+        Vector2[] origins =
+        {
+            new Vector2(bounds.min.x + 0.1f, bounds.min.y),
+            new Vector2(bounds.center.x, bounds.min.y),
+            new Vector2(bounds.max.x - 0.1f, bounds.min.y)
+        };
 
         float rayDistance = 0.1f;
+        LayerMask groundAndClimbable = groundMask | climbableMask;
 
-        RaycastHit2D hitGrounded = Physics2D.Raycast(originCenter, Vector2.down, rayDistance, groundMask);
-        RaycastHit2D hitClimbable = Physics2D.Raycast(originCenter, Vector2.down, rayDistance, climbableMask);
+        foreach (Vector2 origin in origins)
+        {
+            if (Physics2D.Raycast(origin, Vector2.down, rayDistance, groundAndClimbable))
+                return true;
+        }
 
-        return hitGrounded.collider != null || hitClimbable.collider != null;
+        return false;
     }
 
     protected bool IsWalled(out float direction)

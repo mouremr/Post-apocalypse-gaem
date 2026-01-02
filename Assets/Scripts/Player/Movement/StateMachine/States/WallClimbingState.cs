@@ -54,7 +54,7 @@ public class WallClimbingState : PlayerState
         animator.SetFloat("yVelocity",rb.linearVelocity.y);
 
 
-        if (!Input.GetKey(KeyCode.W)) //fall or climb normally
+        if (!(Mathf.Abs(Input.GetAxis("Vertical") )> 0.01f)) //fall or climb normally
         {
             currentY = -1.2f;
             rb.linearVelocity = new Vector2(0f, currentY); //prevent horizontal movement
@@ -66,14 +66,14 @@ public class WallClimbingState : PlayerState
             rb.linearVelocity = new Vector2(0f, currentY); //prevent horizontal movement
 
         }
-
-
         float wallDir = spriteRenderer.flipX ? -1f : 1f;
         if(Math.Sign(Input.GetAxis("Horizontal")) == Math.Sign(-wallDir) && input.JumpPressed){
             animator.SetBool("climbing", false);
             Debug.Log("push away from wall");
-            float pushX = 6f * -wallDir; 
-            float pushY= 6f;
+            rb.linearVelocity = Vector2.zero;
+            float pushX = 2f * -wallDir; 
+            float pushY= 5f;
+            
             stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(pushX,pushY)));
             return;
 
@@ -83,12 +83,11 @@ public class WallClimbingState : PlayerState
         {
             animator.SetBool("climbing", false);
             float pushX = 0;
-            float pushY = 8f;    
+            float pushY =8f;    
+
             stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(pushX,pushY)));   
             return;
         }
-
-
 
         if (wallExitTimer > 0f)
             wallExitTimer -= Time.deltaTime;
@@ -101,12 +100,16 @@ public class WallClimbingState : PlayerState
             stateMachine.ChangeState(new GroundedState(stateMachine));
             return;
         }
-
-
         if (canMantle())
         {
             animator.SetBool("climbing", false);
             stateMachine.ChangeState(new MantlingState(stateMachine));
+            return;
+        }
+        if (!IsWalled(out float dum)) //slid off wall
+        {
+            animator.SetBool("climbing", false);
+            stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(0,0)));   
             return;
         }
 
