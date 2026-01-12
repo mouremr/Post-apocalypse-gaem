@@ -18,7 +18,7 @@ public abstract class PlayerState
 
     //protected Transform wallCheck;
     protected LayerMask groundMask; // assign in inspector
-    protected static int maxStamina = 20;
+    protected static float maxStamina = 20f;
 
     protected static float staminaRegenTimer = 0f;
     protected static float staminaRegenDelay = .5f;
@@ -26,7 +26,7 @@ public abstract class PlayerState
     private static float staminaRegenBuffer = 0f;
 
 
-    protected static int currentStamina = maxStamina;
+    protected static float currentStamina = maxStamina;
     
 
     public PlayerState(StateMachine stateMachine)
@@ -52,19 +52,11 @@ public abstract class PlayerState
 
     private void RegenStamina()
     {
-        if (currentStamina < maxStamina)
-        {
-            // Regen in stamina-per-second
-            staminaRegenBuffer += staminaRegenRate * Time.deltaTime;
+        if (currentStamina >= maxStamina)
+            return;
 
-            if (staminaRegenBuffer >= 1f)
-            {
-                int regen = Mathf.FloorToInt(staminaRegenBuffer);
-                staminaRegenBuffer -= regen;
-
-                currentStamina = Mathf.Min(maxStamina, currentStamina + regen);
-            }
-        }
+        currentStamina += staminaRegenRate * Time.deltaTime;
+        currentStamina = Mathf.Min(currentStamina, maxStamina);
     }
 
     public virtual void FixedUpdate() { }

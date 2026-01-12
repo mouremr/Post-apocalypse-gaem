@@ -3,13 +3,39 @@ using UnityEngine.UI;
 
 public class StaminaBarUI : MonoBehaviour
 {
-    [SerializeField] private Image staminaFill;
+    [Header("References")]
+    public Image fillImage;
+    public CanvasGroup canvasGroup;
+    public Transform player;
 
-    void Update()
+    [Header("Positioning")]
+    public Vector3 offset = new Vector3(0, 1.2f, 0);
+
+    [Header("Fade Settings")]
+    public float fadeSpeed = 3f;
+    public float visibleAlpha = 1f;
+    public float hiddenAlpha = 0f;
+
+    void LateUpdate()
     {
-        float current = PlayerState.GetCurrentStamina();
-        float max = PlayerState.GetMaxStamina();
+        // Follow player
+        transform.position = player.position + offset;
 
-        staminaFill.fillAmount = current / max;
+        // Update fill
+        float staminaPercent =
+            PlayerState.GetCurrentStamina() / PlayerState.GetMaxStamina();
+
+        fillImage.fillAmount = staminaPercent;
+
+        // Fade logic
+        float targetAlpha =
+            staminaPercent >= 0.99f ? hiddenAlpha : visibleAlpha;
+
+        canvasGroup.alpha = Mathf.Lerp(
+            canvasGroup.alpha,
+            targetAlpha,
+            Time.deltaTime * fadeSpeed
+        );
     }
 }
+    

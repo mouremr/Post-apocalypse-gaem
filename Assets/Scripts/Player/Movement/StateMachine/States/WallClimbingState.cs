@@ -83,7 +83,7 @@ public class WallClimbingState : PlayerState
         {
             animator.SetBool("climbing", false);
             float pushX = 0;
-            float pushY =8f;    
+            float pushY =15f;    
 
             stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(pushX,pushY)));   
             return;

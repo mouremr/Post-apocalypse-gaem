@@ -3,7 +3,6 @@ using UnityEngine;
 public class ScoutBehavior : MonoBehaviour
 {
     private Animator anim;
-    private GameObject target;
     private Rigidbody2D rb;
 
     public float moveSpeed = 3f;
