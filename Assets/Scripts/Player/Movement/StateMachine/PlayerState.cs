@@ -23,7 +23,6 @@ public abstract class PlayerState
     protected static float staminaRegenTimer = 0f;
     protected static float staminaRegenDelay = .5f;
     protected static float staminaRegenRate = 5f;
-    private static float staminaRegenBuffer = 0f;
 
 
     protected static float currentStamina = maxStamina;
@@ -69,24 +68,23 @@ public abstract class PlayerState
         Collider2D col = player.GetComponent<Collider2D>();
         Bounds bounds = col.bounds;
 
-        Vector2[] origins =
-        {
-            new Vector2(bounds.min.x + 0.1f, bounds.min.y),
-            new Vector2(bounds.center.x, bounds.min.y),
-            new Vector2(bounds.max.x - 0.1f, bounds.min.y)
-        };
+        Vector2 boxSize = new Vector2(bounds.size.x * 0.9f, 0.1f);
+        Vector2 boxCenter = bounds.center - new Vector3(0, bounds.extents.y, 0);
+        RaycastHit2D hit = Physics2D.BoxCast(
+            boxCenter,
+            boxSize,
+            0f,
+            Vector2.down,
+            .1f,
+            groundMask | climbableMask
+        );
 
-        float rayDistance = 0.1f;
-        LayerMask groundAndClimbable = groundMask | climbableMask;
+        Debug.DrawRay(boxCenter, Vector2.down * .1f, Color.green);
 
-        foreach (Vector2 origin in origins)
-        {
-            if (Physics2D.Raycast(origin, Vector2.down, rayDistance, groundAndClimbable))
-                return true;
-        }
-
-        return false;
+        
+        return hit.collider != null;
     }
+
 
     protected bool IsWalled(out float direction)
     {
