@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6653769720008568909}
   - component: {fileID: 8978134676860300137}
   m_Layer: 0
-  m_Name: Climable
+  m_Name: Pillar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

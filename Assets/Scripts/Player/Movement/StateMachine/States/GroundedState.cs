@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GroundedState : PlayerState
 {
-    private float moveSpeed = 5f;
+    private float moveSpeed = 6f;
     private float slideSpeed = 15f;
     private InteractionDetector interactionDetector;
     private float groundCheckCooldown = 0.1f;
