@@ -14,19 +14,24 @@ public abstract class PlayerState
 
     protected CameraFollow camera;
 
-    protected LayerMask climbableMask; // assign in inspector
+    protected LayerMask climbableMask;
 
     //protected Transform wallCheck;
-    protected LayerMask groundMask; // assign in inspector
+    protected LayerMask groundMask;
+
+
+    //STAMINA
     protected static float maxStamina = 20f;
 
     protected static float staminaRegenTimer = 0f;
     protected static float staminaRegenDelay = .5f;
     protected static float staminaRegenRate = 5f;
-
-
     protected static float currentStamina = maxStamina;
     
+
+    //HEALTH
+    protected static float maxHealth = 10f;
+    protected static float currentHealth = maxHealth;
 
     public PlayerState(StateMachine stateMachine)
     {
@@ -155,6 +160,21 @@ public abstract class PlayerState
     public static float GetMaxStamina()
     {
         return maxStamina;
+    }
+
+    public static float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public static void SetCurrentHealth(float amount)
+    {
+        currentHealth += amount;
+    }
+
+    public static float GetMaxHealth()
+    {
+        return maxHealth;
     }
 
 }

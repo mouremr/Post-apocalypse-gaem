@@ -33,14 +33,14 @@ public class ScoutBehavior : MonoBehaviour
         if (isAttacking){ //if attacking, finish attack 
             rb.linearVelocity = Vector2.zero;
             anim.SetBool("chasePlayer", false);
-            Debug.Log("I must finish attacking");
+            //Debug.Log("I must finish attacking");
             return;
         }
 
         playerInSight = playerIsInSight();
 
         if(playerInSight){
-            Debug.Log("I can see player!1");
+            //Debug.Log("I can see player!1");
             float facing = GetComponent<SpriteRenderer>().flipX ? -1f : 1f;
 
             Vector2 direction = Vector2.right * facing;
@@ -62,7 +62,9 @@ public class ScoutBehavior : MonoBehaviour
                 rb.linearVelocity = Vector2.zero;
                 anim.SetBool("chasePlayer", false);
                 anim.SetBool("attackPlayer", true);
-                isAttacking = true; 
+                isAttacking = true;
+                PlayerState.SetCurrentHealth(-1f);
+                //Debug.Log(PlayerState.Currenthealth);
             }
         }
 
@@ -97,7 +99,7 @@ public class ScoutBehavior : MonoBehaviour
     // Call this from an animation event at the end of the punch
     public void toggleCanAttack()
     {
-        Debug.Log("animation ended, stop attacking");
+        //Debug.Log("animation ended, stop attacking");
         isAttacking = false;
         anim.SetBool("attackPlayer", false);
     }

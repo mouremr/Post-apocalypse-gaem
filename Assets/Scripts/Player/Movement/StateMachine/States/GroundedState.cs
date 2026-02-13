@@ -5,8 +5,7 @@ using UnityEngine;
 public class GroundedState : PlayerState
 {
     private float moveSpeed = 6f;
-    private float slideSpeed = 15f;
-    private InteractionDetector interactionDetector;
+    //private InteractionDetector interactionDetector;
     private float groundCheckCooldown = 0.1f;
     private float groundCheckTimer = 0f;
     private float rollCheckCooldown = .6f;
@@ -16,7 +15,7 @@ public class GroundedState : PlayerState
     //gracePeriod you can jump while being not grounded 
     private float gracePeriod = 0.2f;
     private float coyoteTimer = 0f; 
-    float facingDirection;
+    //float facingDirection;
 
     private float wallRegrabCooldown = 0.1f; // how long until you can re-grab wall
     private float wallRegrabTimer = 0f;
@@ -27,9 +26,9 @@ public class GroundedState : PlayerState
 
     public GroundedState(StateMachine stateMachine) : base(stateMachine)
     {
-        facingDirection = spriteRenderer.flipX ? -1f : 1f;
+        //facingDirection = spriteRenderer.flipX ? -1f : 1f;
 
-        interactionDetector = stateMachine.InteractionDetector;
+        //interactionDetector = stateMachine.InteractionDetector;
     }
 
     public override void Enter()
@@ -48,7 +47,7 @@ public class GroundedState : PlayerState
     public override void Update()
     {   
         base.Update();
-        facingDirection = spriteRenderer.flipX ? -1f : 1f;
+        //facingDirection = spriteRenderer.flipX ? -1f : 1f;
 
         //Debug.Log("grounded state");
         if (wallRegrabTimer > 0f)

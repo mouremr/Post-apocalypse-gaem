@@ -18,16 +18,14 @@ public class StaminaBarUI : MonoBehaviour
 
     void LateUpdate()
     {
-        // Follow player
         transform.position = player.position + offset;
 
-        // Update fill
-        float staminaPercent =
-            PlayerState.GetCurrentStamina() / PlayerState.GetMaxStamina();
+        float staminaPercent = PlayerState.GetCurrentStamina() / PlayerState.GetMaxStamina();
 
         fillImage.fillAmount = staminaPercent;
 
-        // Fade logic
+
+        //fade bar
         float targetAlpha =
             staminaPercent >= 0.99f ? hiddenAlpha : visibleAlpha;
 
