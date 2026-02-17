@@ -8,8 +8,6 @@ public class JumpingState : PlayerState
     private float minAirTime = 0.1f; // Minimum time before checking for ground
     private float airTimer = 0f;
     private float airControl = 5f; 
-    private float slideSpeed = 0;
-    private float rollHeightCutoff = 4f;
     private Vector2 jumpVector;
 
     private float wallRegrabCooldown = 0.08f;

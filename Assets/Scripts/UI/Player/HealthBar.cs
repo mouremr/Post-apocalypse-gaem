@@ -12,8 +12,6 @@ public class HealthBar : MonoBehaviour
         // Update fill
         float healthPercent = PlayerState.GetCurrentHealth() / PlayerState.GetMaxHealth();
 
-        Debug.Log(healthPercent);
-
         fillImage.fillAmount = healthPercent;
     }
 }

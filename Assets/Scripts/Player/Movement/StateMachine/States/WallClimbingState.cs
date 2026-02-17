@@ -79,7 +79,7 @@ public class WallClimbingState : PlayerState
 
         }
 
-        if  (input.JumpPressed && CanConsumeStamina(dynoCost) && Mathf.Abs(Input.GetAxis("Horizontal")) < 0.01f) // dyno up
+        if  (input.JumpPressed && ConsumeStamina(dynoCost) && Mathf.Abs(Input.GetAxis("Horizontal")) < 0.01f) // dyno up
         {
             animator.SetBool("climbing", false);
             float pushX = 0;

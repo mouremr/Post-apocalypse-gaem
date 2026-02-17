@@ -73,7 +73,7 @@ public class ScoutBehavior : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
             anim.SetBool("chasePlayer", false);
             anim.SetBool("attackPlayer", false);
-            Debug.Log("I cannot see player"); 
+            //Debug.Log("I cannot see player"); 
             return;
         }
 

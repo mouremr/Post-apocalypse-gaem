@@ -142,7 +142,7 @@ public abstract class PlayerState
         }
         
     }
-    public bool CanConsumeStamina(int cost)
+    public bool ConsumeStamina(int cost)
     {
         if (currentStamina >= cost)
         {

@@ -21,6 +21,7 @@ public class GroundedState : PlayerState
     private float wallRegrabTimer = 0f;
 
     private int rollCost = 5;
+    private int attackCost = 5;
 
 
 
@@ -47,9 +48,6 @@ public class GroundedState : PlayerState
     public override void Update()
     {   
         base.Update();
-        //facingDirection = spriteRenderer.flipX ? -1f : 1f;
-
-        //Debug.Log("grounded state");
         if (wallRegrabTimer > 0f)
             wallRegrabTimer -= Time.deltaTime;
 
@@ -72,15 +70,17 @@ public class GroundedState : PlayerState
         //check if possible to change state
         if (wallRegrabTimer <= 0f && IsWalled(out float mrow) && !IsGrounded() && Mathf.Abs(input.HorizontalInput) > 0.01f)
         {
+            //wallclimbing state
             wallRegrabTimer = wallRegrabCooldown;
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
-            Debug.Log("entering wall cloimbing state from fall or standing");
+            //Debug.Log("entering wall cloimbing state from fall or standing");
 
             stateMachine.ChangeState(new WallClimbingState(stateMachine));
             return;
         }else  if ((input.JumpPressed && groundCheckTimer <= 0f && IsGrounded()) || (input.JumpPressed && groundCheckTimer <= 0f && coyoteTimer > 0f))
         {
+            //jumping state
             wallRegrabTimer = wallRegrabCooldown;
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
@@ -89,18 +89,27 @@ public class GroundedState : PlayerState
             return;
         }
         else if(!IsGrounded()){
+            //falling if not on ground
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
 
             stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(0,0f)));
         }
-        else if (input.RollPressed && IsGrounded() && CanConsumeStamina(rollCost))
+        else if (input.RollPressed && IsGrounded() && ConsumeStamina(rollCost))
         {   
+            //roll state
             animator.SetBool("grounded", false);
             stateMachine.ChangeState(new RollingState(stateMachine,moveSpeed));
         }
+        else if (input.AttackPressed && ConsumeStamina(attackCost))
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            animator.SetBool("running", false);
+            stateMachine.ChangeState(new AttackState(stateMachine));
+        }
         else
         {
+            //otherwise move to running
             animator.SetBool("running", Mathf.Abs(rb.linearVelocity.x) > 0.1f);
         }
 
