@@ -4,7 +4,6 @@ using UnityEngine;
 public class JumpingState : PlayerState
 {
     private float moveSpeed = 5f;
-    private float jumpForce;
     private float minAirTime = 0.1f; // Minimum time before checking for ground
     private float airTimer = 0f;
     private float airControl = 5f; 
@@ -16,7 +15,7 @@ public class JumpingState : PlayerState
 
     private LayerMask manteableMask;
 
-    public JumpingState(StateMachine stateMachine, Vector2 jumpVector ) : base(stateMachine)
+    public JumpingState(StateMachine stateMachine, Vector2 jumpVector , PlayerStateConfig config) : base(stateMachine, config)
     {
         this.jumpVector= jumpVector;
 
@@ -67,7 +66,7 @@ public class JumpingState : PlayerState
             animator.SetBool("mantling", true);
 
             Debug.Log("moving into mantling from jump state");
-            stateMachine.ChangeState(new MantlingState(stateMachine));
+            stateMachine.ChangeState(new MantlingState(stateMachine, config));
             return;
         }
         wallRegrabTimer -= Time.deltaTime;
@@ -75,7 +74,7 @@ public class JumpingState : PlayerState
         if (wallRegrabTimer <= 0f && IsWalled(out float wallDir))
         {
             animator.SetBool("jumping", false);
-            stateMachine.ChangeState(new WallClimbingState(stateMachine));
+            stateMachine.ChangeState(new WallClimbingState(stateMachine, config));
             return;
         }
 
@@ -83,7 +82,7 @@ public class JumpingState : PlayerState
         {
             animator.SetBool("jumping", false);
             animator.SetBool("grounded", true);
-            stateMachine.ChangeState(new GroundedState(stateMachine));
+            stateMachine.ChangeState(new GroundedState(stateMachine, config));
             return;
         }
 

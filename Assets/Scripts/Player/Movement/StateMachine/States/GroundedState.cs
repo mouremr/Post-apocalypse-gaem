@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GroundedState : PlayerState
 {
-    private float moveSpeed = 6f;
+    private float moveSpeed;
     //private InteractionDetector interactionDetector;
     private float groundCheckCooldown = 0.1f;
     private float groundCheckTimer = 0f;
@@ -13,23 +13,24 @@ public class GroundedState : PlayerState
     private float movementSmoothing = 10f;
 
     //gracePeriod you can jump while being not grounded 
-    private float gracePeriod = 0.2f;
+    private float gracePeriod;
     private float coyoteTimer = 0f; 
     //float facingDirection;
 
     private float wallRegrabCooldown = 0.1f; // how long until you can re-grab wall
     private float wallRegrabTimer = 0f;
 
-    private int rollCost = 5;
-    private int attackCost = 5;
+    private int rollCost;
+    private int attackCost;
 
 
 
-    public GroundedState(StateMachine stateMachine) : base(stateMachine)
+    public GroundedState(StateMachine stateMachine, PlayerStateConfig config) : base(stateMachine, config)
     {
-        //facingDirection = spriteRenderer.flipX ? -1f : 1f;
-
-        //interactionDetector = stateMachine.InteractionDetector;
+        moveSpeed = config.moveSpeed;
+        gracePeriod = config.gracePeriod;
+        rollCost = config.rollCost;
+        attackCost = config.attackCost;
     }
 
     public override void Enter()
@@ -76,7 +77,7 @@ public class GroundedState : PlayerState
             animator.SetBool("running", false);
             //Debug.Log("entering wall cloimbing state from fall or standing");
 
-            stateMachine.ChangeState(new WallClimbingState(stateMachine));
+            stateMachine.ChangeState(new WallClimbingState(stateMachine, config));
             return;
         }else  if ((input.JumpPressed && groundCheckTimer <= 0f && IsGrounded()) || (input.JumpPressed && groundCheckTimer <= 0f && coyoteTimer > 0f))
         {
@@ -85,7 +86,7 @@ public class GroundedState : PlayerState
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
 
-            stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(0f,5f)));
+            stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(0f,5f), config));
             return;
         }
         else if(!IsGrounded()){
@@ -93,19 +94,19 @@ public class GroundedState : PlayerState
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
 
-            stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(0,0f)));
+            stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(0,0f), config));
         }
         else if (input.RollPressed && IsGrounded() && ConsumeStamina(rollCost))
         {   
             //roll state
             animator.SetBool("grounded", false);
-            stateMachine.ChangeState(new RollingState(stateMachine,moveSpeed));
+            stateMachine.ChangeState(new RollingState(stateMachine,moveSpeed, config));
         }
         else if (input.AttackPressed && ConsumeStamina(attackCost))
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             animator.SetBool("running", false);
-            stateMachine.ChangeState(new AttackState(stateMachine));
+            stateMachine.ChangeState(new AttackState(stateMachine, config));
         }
         else
         {

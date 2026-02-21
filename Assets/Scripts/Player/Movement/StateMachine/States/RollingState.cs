@@ -5,18 +5,20 @@ using UnityEngine;
 
 public class RollingState: PlayerState
 {
-    private float slideSpeed = 10f;
+    private float rollSpeed;
     private float moveSpeed;
 
     private float rollTimer;
-    private float rollDuration=0.3f;
+    private float rollDuration;
 
     private int playerLayer = LayerMask.NameToLayer("Player");
     private int enemyLayer = LayerMask.NameToLayer("Enemy");
 
-    public RollingState(StateMachine stateMachine,float moveSpeed) : base(stateMachine)
+    public RollingState(StateMachine stateMachine,float moveSpeed, PlayerStateConfig config) : base(stateMachine, config)
     {
         this.moveSpeed=moveSpeed;
+        rollSpeed = config.rollSpeed;
+        rollDuration = config.rollDuration;
     }
 
     public override void Enter()
@@ -28,7 +30,7 @@ public class RollingState: PlayerState
         
         float dir = spriteRenderer.flipX ? -1f : 1f;
 
-        rb.AddForce(new Vector2(slideSpeed * dir, 0), ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(rollSpeed * dir, 0), ForceMode2D.Impulse);
         return;
     }
     public override void Update()
@@ -39,7 +41,7 @@ public class RollingState: PlayerState
         {
             //Debug.Log("end roll");
             animator.SetBool("rolling", false);
-            stateMachine.ChangeState(new GroundedState(stateMachine));
+            stateMachine.ChangeState(new GroundedState(stateMachine, config));
             return;
         }
     }

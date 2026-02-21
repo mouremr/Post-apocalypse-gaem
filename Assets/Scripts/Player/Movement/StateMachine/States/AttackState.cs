@@ -6,11 +6,11 @@ public class AttackState : PlayerState
     private float attackDuration;
     private float attackTimer;
 
-    public AttackState(StateMachine stateMachine) : base(stateMachine)
+    public AttackState(StateMachine stateMachine, PlayerStateConfig config) : base(stateMachine, config)
     {
         rb.linearVelocity = new Vector2(1 * input.HorizontalInput, rb.linearVelocity.y);
         
-        attackDuration = animator.GetCurrentAnimatorStateInfo(0).length;
+        attackDuration = animator.GetCurrentAnimatorStateInfo(0).length; //get length of attack animation
         animator.SetTrigger("attackTrigger");
 
     }
@@ -24,7 +24,7 @@ public class AttackState : PlayerState
         {
             rb.linearVelocity = new Vector2(6 * input.HorizontalInput, rb.linearVelocity.y);
             animator.ResetTrigger("attackTrigger");
-            stateMachine.ChangeState(new GroundedState(stateMachine));
+            stateMachine.ChangeState(new GroundedState(stateMachine, config));
         }
     }
 }

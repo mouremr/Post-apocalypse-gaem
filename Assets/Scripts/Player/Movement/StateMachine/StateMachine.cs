@@ -4,6 +4,7 @@ using UnityEngine;
 public class StateMachine : MonoBehaviour
 {
 
+    [SerializeField] private PlayerStateConfig stateConfig;
     [SerializeField] private LayerMask climbable;
 
     private PlayerState _currentState;
@@ -15,7 +16,7 @@ public class StateMachine : MonoBehaviour
     private void Start()
     {
         interactionDetector = GetComponent<InteractionDetector>();
-        ChangeState(new GroundedState(this));
+        ChangeState(new GroundedState(this, stateConfig));
     }
 
     private void Update()

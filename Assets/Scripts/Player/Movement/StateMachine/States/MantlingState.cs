@@ -18,13 +18,9 @@ public class MantlingState : PlayerState
     private Vector2 oldSize;
     private Vector2 oldOffset;
 
-    public MantlingState(StateMachine stateMachine) : base(stateMachine)
-    {
+    public MantlingState(StateMachine stateMachine, PlayerStateConfig config) : base(stateMachine, config){ }
 
-    }
-
-    public override void Enter()
-    {
+    public override void Enter(){
 
         Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
 
@@ -96,7 +92,7 @@ public class MantlingState : PlayerState
 
             boxCollider.size = oldSize;
             boxCollider.offset = oldOffset;
-            stateMachine.ChangeState(new GroundedState(stateMachine));
+            stateMachine.ChangeState(new GroundedState(stateMachine, config));
             return;
         }
     }

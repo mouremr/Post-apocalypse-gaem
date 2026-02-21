@@ -79,7 +79,7 @@ public class ScoutBehavior : MonoBehaviour
                 anim.SetBool("chasePlayer", false);
                 anim.SetBool("attackPlayer", true);
                 isAttacking = true;
-                PlayerState.SetCurrentHealth(-1f);
+                //StateMachine.ChangeHealth(-1f);
                 //Debug.Log(PlayerState.Currenthealth);
             }
         }

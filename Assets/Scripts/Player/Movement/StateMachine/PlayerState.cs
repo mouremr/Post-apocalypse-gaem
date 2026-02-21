@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class PlayerState
 {
     protected StateMachine stateMachine;
+    protected PlayerStateConfig config;
     protected GameObject player;
     protected Rigidbody2D rb;
     protected Animator animator;
@@ -21,21 +22,23 @@ public abstract class PlayerState
 
 
     //STAMINA
-    protected static float maxStamina = 20f;
+    protected static float maxStamina;
 
     protected static float staminaRegenTimer = 0f;
-    protected static float staminaRegenDelay = .5f;
-    protected static float staminaRegenRate = 5f;
+    protected static float staminaRegenDelay;
+    protected static float staminaRegenRate;
     protected static float currentStamina = maxStamina;
     
 
     //HEALTH
-    protected static float maxHealth = 10f;
-    protected static float currentHealth = maxHealth;
+    //maybe move to different file?
+    protected static float maxHealth;
+    protected static float currentHealth;
 
-    public PlayerState(StateMachine stateMachine)
+    public PlayerState(StateMachine stateMachine, PlayerStateConfig config)
     {
         this.stateMachine = stateMachine;
+        this.config = config;
         player = stateMachine.gameObject;
         rb = player.GetComponent<Rigidbody2D>();
         animator = player.GetComponent<Animator>();
@@ -46,6 +49,14 @@ public abstract class PlayerState
         groundMask = LayerMask.GetMask("Ground");
         climbableMask = LayerMask.GetMask("Climbable");
 
+        //getting values from config
+        maxHealth = config.maxHealth;
+        currentHealth = maxHealth;
+        maxStamina = config.maxStamina;
+        maxHealth = config.maxHealth;
+        staminaRegenRate = config.staminaRegenRate;
+        staminaRegenDelay = config.staminaRegenDelay;
+
     }
 
     public virtual void Enter() { }
@@ -54,14 +65,7 @@ public abstract class PlayerState
         RegenStamina();
     }
 
-    private void RegenStamina()
-    {
-        if (currentStamina >= maxStamina)
-            return;
 
-        currentStamina += staminaRegenRate * Time.deltaTime;
-        currentStamina = Mathf.Min(currentStamina, maxStamina);
-    }
 
     public virtual void FixedUpdate() { }
     public virtual void Exit() { }
@@ -142,6 +146,18 @@ public abstract class PlayerState
         }
         
     }
+
+    private void RegenStamina()
+    {
+        if (currentStamina >= maxStamina)
+            return;
+
+        currentStamina += staminaRegenRate * Time.deltaTime;
+        currentStamina = Mathf.Min(currentStamina, maxStamina);
+    }
+
+
+
     public bool ConsumeStamina(int cost)
     {
         if (currentStamina >= cost)
