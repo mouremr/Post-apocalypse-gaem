@@ -26,8 +26,12 @@ public class ScoutBehavior : MonoBehaviour
     private bool playerInSight;
     private bool isAttacking;
 
+    private StateMachine playerStateMachine;
+    [SerializeField] private GameObject player;
+
     void Awake()
     {
+        playerStateMachine = player.GetComponent<StateMachine>(); 
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         playerMask = LayerMask.GetMask("Player"); 
@@ -79,7 +83,7 @@ public class ScoutBehavior : MonoBehaviour
                 anim.SetBool("chasePlayer", false);
                 anim.SetBool("attackPlayer", true);
                 isAttacking = true;
-                PlayerState.SetCurrentHealth(-1f);
+                playerStateMachine.ModifyHealth(-1f);
                 //Debug.Log(PlayerState.Currenthealth);
             }
         }

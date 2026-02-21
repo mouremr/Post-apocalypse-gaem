@@ -19,15 +19,6 @@ public abstract class PlayerState
 
     //protected Transform wallCheck;
     protected LayerMask groundMask;
-
-
-    //STAMINA
-    protected static float maxStamina;
-
-    protected static float staminaRegenTimer = 0f;
-    protected static float staminaRegenDelay;
-    protected static float staminaRegenRate;
-    protected static float currentStamina = maxStamina;
     
 
     //HEALTH
@@ -49,21 +40,10 @@ public abstract class PlayerState
         groundMask = LayerMask.GetMask("Ground");
         climbableMask = LayerMask.GetMask("Climbable");
 
-        //getting values from config
-        maxHealth = config.maxHealth;
-        currentHealth = maxHealth;
-        maxStamina = config.maxStamina;
-        maxHealth = config.maxHealth;
-        staminaRegenRate = config.staminaRegenRate;
-        staminaRegenDelay = config.staminaRegenDelay;
-
     }
 
     public virtual void Enter() { }
-    public virtual void Update()
-    { 
-        RegenStamina();
-    }
+    public virtual void Update(){ }
 
 
 
@@ -147,50 +127,36 @@ public abstract class PlayerState
         
     }
 
-    private void RegenStamina()
-    {
-        if (currentStamina >= maxStamina)
-            return;
-
-        currentStamina += staminaRegenRate * Time.deltaTime;
-        currentStamina = Mathf.Min(currentStamina, maxStamina);
-    }
-
 
 
     public bool ConsumeStamina(int cost)
     {
-        if (currentStamina >= cost)
-        {
-            currentStamina -= cost;
-            return true;
-        }
-        return false;
+        return stateMachine.ConsumeStamina(cost);
     }
 
-    public static float GetCurrentStamina()
+    public float GetCurrentStamina()
     {
-        return currentStamina;
+        return stateMachine.CurrentStamina;
     }
 
-    public static float GetMaxStamina()
+    public float GetMaxStamina()
     {
-        return maxStamina;
+        return stateMachine.MaxStamina;
     }
 
-    public static float GetCurrentHealth()
+    public float GetCurrentHealth()
     {
-        return currentHealth;
+        return stateMachine.CurrentHealth;
     }
 
-    public static void SetCurrentHealth(float amount)
+    public void ModifyHealth(float amount)
     {
-        currentHealth += amount;
+        stateMachine.ModifyHealth(amount);
     }
 
-    public static float GetMaxHealth()
+    public float GetMaxHealth()
     {
-        return maxHealth;
+        return stateMachine.MaxHealth;
     }
 
 }

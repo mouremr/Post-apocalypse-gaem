@@ -12,18 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d88d0d44dd647c4794d9e91758b6012, type: 3}
   m_Name: PlayerStateConfig
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStateConfig
-  moveSpeed: 5
-  jumpForce: 10
-  acceleration: 50
-  wallrunSpeed: 8
-  wallrunGravityScale: 0.5
-  wallrunStaminaDrain: 5
+  moveSpeed: 6
+  gracePeriod: 0.2
   climbSpeed: 4
-  climbStaminaDrain: 8
-  rollSpeed: 12
-  rollDuration: 0.5
-  rollStaminaCost: 10
+  rollSpeed: 10
+  rollDuration: 0.3
+  rollCost: 5
   maxHealth: 10
   maxStamina: 20
   staminaRegenRate: 5
   staminaRegenDelay: 0.5
+  attackCost: 5

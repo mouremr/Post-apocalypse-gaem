@@ -4,23 +4,32 @@ using UnityEngine.UI;
 public class StaminaBarUI : MonoBehaviour
 {
     [Header("References")]
-    public Image fillImage;
-    public CanvasGroup canvasGroup;
-    public Transform player;
+    [SerializeField] private Image fillImage;
+    [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private Transform playerTransform;
+    [SerializeField] private GameObject player;
 
     [Header("Positioning")]
-    public Vector3 offset = new Vector3(0, 1.2f, 0);
+    [SerializeField] private Vector3 offset = new Vector3(0, 1.2f, 0);
 
     [Header("Fade Settings")]
-    public float fadeSpeed = 3f;
-    public float visibleAlpha = 1f;
-    public float hiddenAlpha = 0f;
+    [SerializeField] private float fadeSpeed = 3f;
+    [SerializeField] private float visibleAlpha = 1f;
+    [SerializeField] private float hiddenAlpha = 0f;
+
+    private StateMachine playerStateMachine;
+
+
+    void Start()
+    {
+        playerStateMachine = player.GetComponent<StateMachine>();
+    }
 
     void LateUpdate()
     {
-        transform.position = player.position + offset;
+        transform.position = playerTransform.position + offset;
 
-        float staminaPercent = PlayerState.GetCurrentStamina() / PlayerState.GetMaxStamina();
+        float staminaPercent = playerStateMachine.CurrentStamina / playerStateMachine.MaxStamina;
 
         fillImage.fillAmount = staminaPercent;
 

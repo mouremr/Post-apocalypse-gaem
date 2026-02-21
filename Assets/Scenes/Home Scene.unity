@@ -4299,6 +4299,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6079017225358148663, guid: c364ea2e8d2944a4fb54ae3aa706af94, type: 3}
+      propertyPath: stateConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 151dbe7b1939ae8449c64353bb24c77d, type: 2}
+    - target: {fileID: 6079017225358148663, guid: c364ea2e8d2944a4fb54ae3aa706af94, type: 3}
       propertyPath: climbable.m_Bits
       value: 128
       objectReference: {fileID: 0}
@@ -4330,6 +4334,8 @@ PrefabInstance:
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 5149454170898732426, guid: c364ea2e8d2944a4fb54ae3aa706af94, type: 3}
+    - {fileID: 8492303209423886502, guid: c364ea2e8d2944a4fb54ae3aa706af94, type: 3}
+    - {fileID: 1738182819395528014, guid: c364ea2e8d2944a4fb54ae3aa706af94, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 316347545252364057, guid: c364ea2e8d2944a4fb54ae3aa706af94, type: 3}
@@ -4395,6 +4401,7 @@ MonoBehaviour:
   attackRayOrigin: {fileID: 1305822901}
   PlayerTransform: {fileID: 1937048908}
   ScoutTransform: {fileID: 1063428488}
+  player: {fileID: 977485807}
 --- !u!50 &1063428486
 Rigidbody2D:
   serializedVersion: 5
@@ -8183,7 +8190,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StaminaBarUI
   fillImage: {fileID: 1654105909}
   canvasGroup: {fileID: 1745082971}
-  player: {fileID: 1937048908}
+  playerTransform: {fileID: 1937048908}
+  player: {fileID: 977485807}
   offset: {x: 0, y: 1.2, z: 0}
   fadeSpeed: 15
   visibleAlpha: 1
@@ -8316,6 +8324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthBar
   fillImage: {fileID: 333896695}
+  player: {fileID: 977485807}
 --- !u!1 &1790367667
 GameObject:
   m_ObjectHideFlags: 0
