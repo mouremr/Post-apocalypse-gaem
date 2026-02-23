@@ -4394,7 +4394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoutBehavior
   moveSpeed: 3
-  attackRayLength: 1
+  attackRayLength: 1.5
   detectRayLength: 12.5
   detectRayOrigin: {fileID: 1562573509}
   behindDetectionDistance: 1
@@ -4410,7 +4410,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1063428484}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

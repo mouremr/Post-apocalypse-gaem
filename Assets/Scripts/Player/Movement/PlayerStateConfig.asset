@@ -22,4 +22,5 @@ MonoBehaviour:
   maxStamina: 20
   staminaRegenRate: 5
   staminaRegenDelay: 0.5
-  attackCost: 5
+  lightAttackCost: 5
+  heavyAttackCost: 10
