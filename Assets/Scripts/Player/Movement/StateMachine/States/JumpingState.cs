@@ -56,6 +56,7 @@ public class JumpingState : PlayerState
         if (rb.linearVelocity.y < -0.05f) //if falling, iuncrease gravity a little bit
         {
             rb.gravityScale = 1.3f;
+            //rb.gravityScale = 1.8f;
         }
 
     

@@ -25,5 +25,7 @@ public class PlayerStateConfig : ScriptableObject
     public float staminaRegenDelay = 0.5f;
 
     [Header("Attacking")]
-    public int attackCost = 5;
+    public int lightAttackCost = 5;
+
+    public int heavyAttackCost = 10;
 }

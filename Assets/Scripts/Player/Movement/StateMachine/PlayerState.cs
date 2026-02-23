@@ -21,11 +21,6 @@ public abstract class PlayerState
     protected LayerMask groundMask;
     
 
-    //HEALTH
-    //maybe move to different file?
-    protected static float maxHealth;
-    protected static float currentHealth;
-
     public PlayerState(StateMachine stateMachine, PlayerStateConfig config)
     {
         this.stateMachine = stateMachine;
@@ -132,31 +127,6 @@ public abstract class PlayerState
     public bool ConsumeStamina(int cost)
     {
         return stateMachine.ConsumeStamina(cost);
-    }
-
-    public float GetCurrentStamina()
-    {
-        return stateMachine.CurrentStamina;
-    }
-
-    public float GetMaxStamina()
-    {
-        return stateMachine.MaxStamina;
-    }
-
-    public float GetCurrentHealth()
-    {
-        return stateMachine.CurrentHealth;
-    }
-
-    public void ModifyHealth(float amount)
-    {
-        stateMachine.ModifyHealth(amount);
-    }
-
-    public float GetMaxHealth()
-    {
-        return stateMachine.MaxHealth;
     }
 
 }

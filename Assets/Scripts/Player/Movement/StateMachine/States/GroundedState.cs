@@ -1,6 +1,5 @@
-using System;
-using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class GroundedState : PlayerState
 {
@@ -21,7 +20,10 @@ public class GroundedState : PlayerState
     private float wallRegrabTimer = 0f;
 
     private int rollCost;
-    private int attackCost;
+    private int lightAttackCost;
+    private float lightAttackDuration;
+    private int heavyAttackCost;
+    private float heavyAttackDuratuion;
 
 
 
@@ -30,7 +32,8 @@ public class GroundedState : PlayerState
         moveSpeed = config.moveSpeed;
         gracePeriod = config.gracePeriod;
         rollCost = config.rollCost;
-        attackCost = config.attackCost;
+        lightAttackCost = config.lightAttackCost;
+        heavyAttackCost = config.heavyAttackCost;
     }
 
     public override void Enter()
@@ -68,7 +71,35 @@ public class GroundedState : PlayerState
             animator.SetBool("grounded", false);
         }
 
-        //check if possible to change state
+        
+        ChangeState(); //check if possible to change state
+
+
+        if (Mathf.Abs(input.HorizontalInput) > 0.01f)
+        {
+            spriteRenderer.flipX = input.HorizontalInput < 0;
+        }
+
+    }
+
+    public override void FixedUpdate()
+    {
+        float targetVelocityX = input.HorizontalInput * moveSpeed;
+        float velocityDifferenceX = targetVelocityX - rb.linearVelocity.x;
+
+        // Apply force to reach target velocity
+        rb.AddForce(new Vector2(velocityDifferenceX * movementSmoothing * rb.mass * .75f, 0f), ForceMode2D.Force);
+
+        if (Mathf.Abs(input.HorizontalInput) < 0.01)
+        {
+            float amount = Mathf.Min(Mathf.Abs(rb.linearVelocity.x),0.5f); //reverse direction 
+            amount *= Mathf.Sign(rb.linearVelocity.x);
+            rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
+        }
+    }
+
+    private void ChangeState()
+    {
         if (wallRegrabTimer <= 0f && IsWalled(out float mrow) && !IsGrounded() && Mathf.Abs(input.HorizontalInput) > 0.01f)
         {
             //wallclimbing state
@@ -102,39 +133,22 @@ public class GroundedState : PlayerState
             animator.SetBool("grounded", false);
             stateMachine.ChangeState(new RollingState(stateMachine,moveSpeed, config));
         }
-        else if (input.AttackPressed && ConsumeStamina(attackCost))
+        else if (input.HeavyAttackPressed && ConsumeStamina(heavyAttackCost))
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             animator.SetBool("running", false);
-            stateMachine.ChangeState(new AttackState(stateMachine, config));
+            stateMachine.ChangeState(new AttackState(stateMachine, config, "heavyAttack", 0f));
+        }
+        else if (input.LightAttackPressed && ConsumeStamina(lightAttackCost))
+        {
+            //rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            animator.SetBool("running", false);
+            stateMachine.ChangeState(new AttackState(stateMachine, config, "lightAttack", 5f));
         }
         else
         {
             //otherwise move to running
             animator.SetBool("running", Mathf.Abs(rb.linearVelocity.x) > 0.1f);
-        }
-
-
-        if (Mathf.Abs(input.HorizontalInput) > 0.01f)
-        {
-            spriteRenderer.flipX = input.HorizontalInput < 0;
-        }
-
-    }
-
-    public override void FixedUpdate()
-    {
-        float targetVelocityX = input.HorizontalInput * moveSpeed;
-        float velocityDifferenceX = targetVelocityX - rb.linearVelocity.x;
-
-        // Apply force to reach target velocity
-        rb.AddForce(new Vector2(velocityDifferenceX * movementSmoothing * rb.mass * .75f, 0f), ForceMode2D.Force);
-
-        if (Mathf.Abs(input.HorizontalInput) < 0.01)
-        {
-            float amount = Mathf.Min(Mathf.Abs(rb.linearVelocity.x),0.5f); //reverse direction 
-            amount *= Mathf.Sign(rb.linearVelocity.x);
-            rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
         }
     }
 }

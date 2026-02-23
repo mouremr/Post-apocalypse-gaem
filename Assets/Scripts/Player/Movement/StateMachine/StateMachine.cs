@@ -70,10 +70,6 @@ public class StateMachine : MonoBehaviour
         _currentState = newState;
         _currentState?.Enter();
     }
-    private void OnGUI()
-    {
-        //GUI.Label(new Rect(10, 10, 200, 20), $"State: {_currentState?.GetType().Name}");
-    }
 
     private void RegenStamina()
     {
