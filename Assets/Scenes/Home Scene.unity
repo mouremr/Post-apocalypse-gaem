@@ -4532,9 +4532,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScoutBehavior
   moveSpeed: 4
   attackRayLength: 1.5
-  detectRayLength: 12.5
+  idledetectRayLength: 9
+  idlebehindDetectionDistance: 1
+  aggresivedetectRayLength: 18
+  aggresivebehindDetectionDistance: 8
   detectRayOrigin: {fileID: 1562573509}
-  behindDetectionDistance: 1
   attackRayOrigin: {fileID: 1305822901}
   PlayerTransform: {fileID: 1937048908}
   ScoutTransform: {fileID: 1063428488}
@@ -4555,7 +4557,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 2f0091101c022c04ca3061b4b2450dc1, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
