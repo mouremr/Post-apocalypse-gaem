@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ScoutBehavior : MonoBehaviour
@@ -8,14 +9,20 @@ public class ScoutBehavior : MonoBehaviour
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float attackRayLength = 0.5f; // player must be within 1 unit to begin attack
 
-    [SerializeField] private float detectRayLength=6; // 6 units of sight
-
+    [SerializeField] private float idledetectRayLength=6; // 6 units of sight
+    [SerializeField] private float idlebehindDetectionDistance = 1;
+    [SerializeField] private float aggresivedetectRayLength = 13f;
+    [SerializeField] private float aggresivebehindDetectionDistance = 8f;
     [SerializeField] private Transform detectRayOrigin;
-    [SerializeField] private float behindDetectionDistance;
+    
     [SerializeField] private Transform attackRayOrigin;
 
     [SerializeField] private Transform PlayerTransform;
     [SerializeField] private Transform ScoutTransform;
+    [SerializeField] private GameObject player;
+
+    private float behindDetectionDistance;
+    private float detectRayLength;
 
     private SpriteRenderer sprite;
 
@@ -27,10 +34,11 @@ public class ScoutBehavior : MonoBehaviour
     private bool isAttacking;
 
     private StateMachine playerStateMachine;
-    [SerializeField] private GameObject player;
 
     void Awake()
     {
+        detectRayLength = idledetectRayLength;
+        behindDetectionDistance = idlebehindDetectionDistance;
         playerStateMachine = player.GetComponent<StateMachine>(); 
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -41,7 +49,7 @@ public class ScoutBehavior : MonoBehaviour
 
     void Update()
     {
-        playerInSight = playerIsInSight();
+        playerInSight = PlayerIsInSight();
         
         if (isAttacking){ //if attacking, finish attack 
             rb.linearVelocity = Vector2.zero;
@@ -55,6 +63,8 @@ public class ScoutBehavior : MonoBehaviour
         if(playerInSight){
             //Debug.Log("I can see player!1");
             float facing = sprite.flipX ? -1f : 1f;
+            behindDetectionDistance = aggresivebehindDetectionDistance;
+            detectRayLength = aggresivedetectRayLength;
 
             Vector2 direction = sprite.flipX ? Vector2.left : Vector2.right;
 
@@ -90,16 +100,12 @@ public class ScoutBehavior : MonoBehaviour
 
         if (!playerInSight)
         {
-            rb.linearVelocity = Vector2.zero;
-            anim.SetBool("chasePlayer", false);
-            anim.SetBool("attackPlayer", false);
-            //Debug.Log("I cannot see player"); 
-            return;
+            Idlestate();
         }
 
     }
 
-    bool playerIsInSight()
+    bool PlayerIsInSight()
     {
         Vector2 facing = sprite.flipX ? Vector2.left : Vector2.right;
         
@@ -123,15 +129,30 @@ public class ScoutBehavior : MonoBehaviour
     }
 
     // Call this from an animation event at the end of the punch
-    public void toggleCanAttack()
+    public void ToggleCanAttack()
     {
         //Debug.Log("animation ended, stop attacking");
         isAttacking = false;
         anim.SetBool("attackPlayer", false);
     }
 
-    private void idlestate()
+    private void Idlestate()
     {
-        
+        rb.linearVelocity = Vector2.zero;
+        anim.SetBool("chasePlayer", false);
+        anim.SetBool("attackPlayer", false);
+        //Debug.Log("I cannot see player"); 
+        //return;
+        if(detectRayLength == aggresivedetectRayLength)
+        {
+            StartCoroutine(ResetDetectDistance());
+        }
+    }
+
+    IEnumerator ResetDetectDistance()
+    {
+        yield return new WaitForSeconds(2.0f);
+        detectRayLength = idledetectRayLength;
+        behindDetectionDistance = idlebehindDetectionDistance;
     }
 }

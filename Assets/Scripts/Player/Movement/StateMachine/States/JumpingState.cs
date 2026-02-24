@@ -66,7 +66,7 @@ public class JumpingState : PlayerState
             animator.SetBool("climbing", false);
             animator.SetBool("mantling", true);
 
-            Debug.Log("moving into mantling from jump state");
+            
             stateMachine.ChangeState(new MantlingState(stateMachine, config));
             return;
         }
