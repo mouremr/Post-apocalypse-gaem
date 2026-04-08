@@ -41,7 +41,7 @@ public class RollingState: PlayerState
         {
             //Debug.Log("end roll");
             animator.SetBool("rolling", false);
-            stateMachine.ChangeState(stateMachine.States.Grounded());
+            stateMachine.ChangeState(stateMachine.States.Grounded(true));
             return;
         }
     }

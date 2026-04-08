@@ -97,13 +97,13 @@ public class WallClimbingState : PlayerState
 
         if (wallExitTimer <= 0f &&   input.HorizontalInput != 0 && Mathf.Sign(input.HorizontalInput) != facingDirection && IsGrounded())        {
             animator.SetBool("climbing", false);
-            stateMachine.ChangeState(new GroundedState(stateMachine, config));
+            stateMachine.ChangeState(stateMachine.States.Grounded(true));
             return;
         }
         if (canMantle())
         {
             animator.SetBool("climbing", false);
-            stateMachine.ChangeState(new MantlingState(stateMachine, config));
+            stateMachine.ChangeState(stateMachine.States.Mantling());
             return;
         }
         if (!IsWalled(out float dum)) //slid off wall

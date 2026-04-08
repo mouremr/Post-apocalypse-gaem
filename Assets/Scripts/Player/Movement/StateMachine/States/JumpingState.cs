@@ -16,7 +16,7 @@ public class JumpingState : PlayerState
     private LayerMask manteableMask;
     private bool hasIncreasedGravity;
 
-    public JumpingState(StateMachine stateMachine, Vector2 jumpVector , PlayerStateConfig config) : base(stateMachine, config)
+    public JumpingState(StateMachine stateMachine, Vector2 jumpVector, PlayerStateConfig config) : base(stateMachine, config)
     {
         this.jumpVector= jumpVector;
 
@@ -86,7 +86,7 @@ public class JumpingState : PlayerState
         {
             animator.SetBool("jumping", false);
             animator.SetBool("grounded", true);
-            stateMachine.ChangeState(stateMachine.States.Grounded());
+            stateMachine.ChangeState(stateMachine.States.Grounded(true));
             return;
         }
 

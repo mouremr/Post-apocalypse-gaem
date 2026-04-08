@@ -25,7 +25,9 @@ public class GroundedState : PlayerState
     private float lastDirectionX;
     private float currentDirectionX;
 
-    public GroundedState(StateMachine stateMachine, PlayerStateConfig config) : base(stateMachine, config)
+    private readonly bool resetAnims;
+
+    public GroundedState(StateMachine stateMachine, PlayerStateConfig config, bool resetAnims) : base(stateMachine, config)
     {
         //animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x));
         // animator.Play("movement Body", 0, 0f);
@@ -35,6 +37,7 @@ public class GroundedState : PlayerState
         rollCost = config.rollCost;
         lightAttackCost = config.lightAttackCost;
         heavyAttackCost = config.heavyAttackCost;
+        this.resetAnims = resetAnims;
     }
 
     public override void Enter()
@@ -49,8 +52,11 @@ public class GroundedState : PlayerState
 
         if (animator.GetBool("rolling"))
             return;
-        animator.Play("movement Body", 0, 0f);
-        animator.Play("movement Legs", 1, 0f);
+        
+        if(resetAnims){
+            animator.Play("movement Body", 0, 0f);
+            animator.Play("movement Legs", 1, 0f);
+        }
     }
 
     public override void Update()
@@ -186,18 +192,6 @@ public class GroundedState : PlayerState
             animator.SetBool("running", Mathf.Abs(rb.linearVelocity.x) > 0.1f);
         }
     }
-
-    // private bool CheckDirectionChange()
-    // {
-    //     currentDirectionX = input.HorizontalInput;
-    //     //bool directionChanged = _currentDirection != _lastDirection && _currentDirection != 0;
-    //     bool directionChanged = currentDirectionX != lastDirectionX;
-    //     if (directionChanged)
-    //     {
-    //         lastDirectionX = currentDirectionX;
-    //     }
-    //     return directionChanged;
-    // }
 
     private bool CheckDirectionChange()
     {

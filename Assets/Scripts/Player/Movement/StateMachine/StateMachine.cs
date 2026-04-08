@@ -46,7 +46,7 @@ public class StateMachine : MonoBehaviour
     private void Start()
     {
         interactionDetector = GetComponent<InteractionDetector>();
-        ChangeState(new GroundedState(this, stateConfig));
+        ChangeState(new GroundedState(this, stateConfig, true));
     }
 
     private void Update()
