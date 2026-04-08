@@ -29,7 +29,7 @@ public class AttackState : PlayerState
         if(attackTimer >= attackDuration)
         {
             animator.SetBool(attackType, false);
-            stateMachine.ChangeState(new GroundedState(stateMachine, config));
+            stateMachine.ChangeState(stateMachine.States.Grounded());
         }
     }
 

@@ -70,7 +70,7 @@ public class JumpingState : PlayerState
             animator.SetBool("mantling", true);
 
             
-            stateMachine.ChangeState(new MantlingState(stateMachine, config));
+            stateMachine.ChangeState(stateMachine.States.Mantling());
             return;
         }
         wallRegrabTimer -= Time.deltaTime;
@@ -78,7 +78,7 @@ public class JumpingState : PlayerState
         if (wallRegrabTimer <= 0f && IsWalled(out float wallDir))
         {
             animator.SetBool("jumping", false);
-            stateMachine.ChangeState(new WallClimbingState(stateMachine, config));
+            stateMachine.ChangeState(stateMachine.States.WallClimbing());
             return;
         }
 
@@ -86,7 +86,7 @@ public class JumpingState : PlayerState
         {
             animator.SetBool("jumping", false);
             animator.SetBool("grounded", true);
-            stateMachine.ChangeState(new GroundedState(stateMachine, config));
+            stateMachine.ChangeState(stateMachine.States.Grounded());
             return;
         }
 

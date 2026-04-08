@@ -88,12 +88,11 @@ public class MantlingState : PlayerState
             // rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             camera.smoothTime = 0.2f;
             animator.SetBool("mantling", false);
-            animator.SetBool("grounded", true);
 
             boxCollider.size = oldSize;
             boxCollider.offset = oldOffset;
             rb.linearVelocity = Vector2.zero;
-            stateMachine.ChangeState(new GroundedState(stateMachine, config));
+            stateMachine.ChangeState(stateMachine.States.Grounded());
             return;
         }
     }

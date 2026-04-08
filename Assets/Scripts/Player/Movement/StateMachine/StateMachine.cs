@@ -30,9 +30,11 @@ public class StateMachine : MonoBehaviour
     //for the future maybe move health away from movement states?
     public float CurrentHealth => currentHealth;
     public float MaxHealth => maxHealth;
+    public PlayerStateFactory States { get; private set; }
 
     private void Awake()
     {
+        States = new PlayerStateFactory(this, stateConfig);
         maxHealth = stateConfig.maxHealth;
         currentHealth = maxHealth;
         maxStamina = stateConfig.maxStamina;

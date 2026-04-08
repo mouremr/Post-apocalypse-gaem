@@ -74,7 +74,7 @@ public class WallClimbingState : PlayerState
             float pushX = 2f * -wallDir; 
             float pushY= 5f;
             
-            stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(pushX,pushY), config));
+            stateMachine.ChangeState(stateMachine.States.Jumping(new Vector2(pushX,pushY)));
             return;
 
         }
@@ -109,7 +109,7 @@ public class WallClimbingState : PlayerState
         if (!IsWalled(out float dum)) //slid off wall
         {
             animator.SetBool("climbing", false);
-            stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(0,0), config));   
+            stateMachine.ChangeState(stateMachine.States.Falling());   
             return;
         }
 
