@@ -14,6 +14,7 @@ public class JumpingState : PlayerState
 
 
     private LayerMask manteableMask;
+    private bool hasIncreasedGravity;
 
     public JumpingState(StateMachine stateMachine, Vector2 jumpVector , PlayerStateConfig config) : base(stateMachine, config)
     {
@@ -24,6 +25,7 @@ public class JumpingState : PlayerState
 
     public override void Enter()
     {
+        hasIncreasedGravity = false;
         animator.SetBool("jumping", true);
         input.ConsumeRoll();
         wallRegrabTimer = wallRegrabCooldown;
@@ -53,9 +55,10 @@ public class JumpingState : PlayerState
         {
             rb.AddForce(new Vector2(0f, -rb.linearVelocity.y * 0.5f), ForceMode2D.Impulse);
         }
-        if (rb.linearVelocity.y < -0.05f) //if falling, iuncrease gravity a little bit
+        if (rb.linearVelocity.y < -0.05f && !hasIncreasedGravity) //if falling, iuncrease gravity a little bit
         {
-            rb.gravityScale = 1.3f;
+            rb.gravityScale += 0.3f;
+            hasIncreasedGravity = true;
             //rb.gravityScale = 1.8f;
         }
 
@@ -90,11 +93,11 @@ public class JumpingState : PlayerState
 
         if (rb.linearVelocity.x > 0.1f)
         {
-            spriteRenderer.flipX = false;
+            bodySpriteRenderer.flipX = false;
         }
         else if (rb.linearVelocity.x < -0.1f)
         {
-            spriteRenderer.flipX = true;
+            bodySpriteRenderer.flipX = true;
         }
 
 

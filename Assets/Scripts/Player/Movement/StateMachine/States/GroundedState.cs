@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.XR;
 
 public class GroundedState : PlayerState
 {
@@ -21,14 +20,16 @@ public class GroundedState : PlayerState
 
     private int rollCost;
     private int lightAttackCost;
-    private float lightAttackDuration;
     private int heavyAttackCost;
-    private float heavyAttackDuratuion;
 
-
+    private float lastDirectionX;
+    private float currentDirectionX;
 
     public GroundedState(StateMachine stateMachine, PlayerStateConfig config) : base(stateMachine, config)
     {
+        //animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x));
+        // animator.Play("movement Body", 0, 0f);
+        // animator.Play("movement Legs", 1, 0f);
         moveSpeed = config.moveSpeed;
         gracePeriod = config.gracePeriod;
         rollCost = config.rollCost;
@@ -37,16 +38,19 @@ public class GroundedState : PlayerState
     }
 
     public override void Enter()
-    {
+    {      
         animator.SetBool("grounded", true);
         animator.SetBool("running", true);
         input.ConsumeRoll();
+        
 
         groundCheckTimer = groundCheckCooldown; // Start with cooldown
         rollCheckTimer = rollCheckCooldown;
 
         if (animator.GetBool("rolling"))
             return;
+        animator.Play("movement Body", 0, 0f);
+        animator.Play("movement Legs", 1, 0f);
     }
 
     public override void Update()
@@ -60,6 +64,15 @@ public class GroundedState : PlayerState
         
 
         animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x));
+        
+        if(Mathf.Abs(input.HorizontalInput) == 0 && rb.linearVelocityX < .01f)
+        {
+            legsSpriteRenderer.enabled = false;
+        }
+        else
+        {
+            legsSpriteRenderer.enabled = true;
+        }
 
         if (IsGrounded())
         {
@@ -71,15 +84,33 @@ public class GroundedState : PlayerState
             animator.SetBool("grounded", false);
         }
 
-        
+
+
+
+
+
         ChangeState(); //check if possible to change state
 
+        if (CheckDirectionChange())
+        {
+            Debug.Log("true");
+            animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x));
+            animator.Play("movement Body", 0, 0.0f);
+            animator.Play("movement Legs", 1, 0.0f);
+        }
 
         if (Mathf.Abs(input.HorizontalInput) > 0.01f)
         {
-            spriteRenderer.flipX = input.HorizontalInput < 0;
+            FlipX();
         }
+        
+        
+    }
 
+    private void FlipX()
+    {
+        bodySpriteRenderer.flipX = input.HorizontalInput < 0;
+        legsSpriteRenderer.flipX = input.HorizontalInput < 0;
     }
 
     public override void FixedUpdate()
@@ -103,6 +134,7 @@ public class GroundedState : PlayerState
         if (wallRegrabTimer <= 0f && IsWalled(out float mrow) && !IsGrounded() && Mathf.Abs(input.HorizontalInput) > 0.01f)
         {
             //wallclimbing state
+            legsSpriteRenderer.enabled = false;
             wallRegrabTimer = wallRegrabCooldown;
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
@@ -113,15 +145,17 @@ public class GroundedState : PlayerState
         }else  if ((input.JumpPressed && groundCheckTimer <= 0f && IsGrounded()) || (input.JumpPressed && groundCheckTimer <= 0f && coyoteTimer > 0f))
         {
             //jumping state
+            legsSpriteRenderer.enabled = false;
             wallRegrabTimer = wallRegrabCooldown;
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
 
-            stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(0f,5f), config));
+            stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(0f,config.jumpForce), config));
             return;
         }
         else if(!IsGrounded()){
             //falling if not on ground
+            legsSpriteRenderer.enabled = false;
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
 
@@ -130,17 +164,21 @@ public class GroundedState : PlayerState
         else if (input.RollPressed && IsGrounded() && ConsumeStamina(rollCost))
         {   
             //roll state
+            legsSpriteRenderer.enabled = false;
             animator.SetBool("grounded", false);
             stateMachine.ChangeState(new RollingState(stateMachine,moveSpeed, config));
         }
         else if (input.HeavyAttackPressed && ConsumeStamina(heavyAttackCost))
         {
+            //heavy attack
+            legsSpriteRenderer.enabled = false;
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             animator.SetBool("running", false);
             stateMachine.ChangeState(new AttackState(stateMachine, config, "heavyAttack", 0f));
         }
         else if (input.LightAttackPressed && ConsumeStamina(lightAttackCost))
         {
+            //light attack
             //rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             animator.SetBool("running", false);
             stateMachine.ChangeState(new AttackState(stateMachine, config, "lightAttack", 5f));
@@ -150,5 +188,29 @@ public class GroundedState : PlayerState
             //otherwise move to running
             animator.SetBool("running", Mathf.Abs(rb.linearVelocity.x) > 0.1f);
         }
+    }
+
+    // private bool CheckDirectionChange()
+    // {
+    //     currentDirectionX = input.HorizontalInput;
+    //     //bool directionChanged = _currentDirection != _lastDirection && _currentDirection != 0;
+    //     bool directionChanged = currentDirectionX != lastDirectionX;
+    //     if (directionChanged)
+    //     {
+    //         lastDirectionX = currentDirectionX;
+    //     }
+    //     return directionChanged;
+    // }
+
+    private bool CheckDirectionChange()
+    {
+        currentDirectionX = input.HorizontalInput;
+        bool directionChanged = (currentDirectionX > 0.01f && lastDirectionX < -0.01f) 
+                            || (currentDirectionX < -0.01f && lastDirectionX > 0.01f);
+        if (directionChanged)
+        {
+            lastDirectionX = currentDirectionX;
+        }
+        return directionChanged;
     }
 }

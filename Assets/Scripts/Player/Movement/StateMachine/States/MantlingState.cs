@@ -21,14 +21,13 @@ public class MantlingState : PlayerState
     public MantlingState(StateMachine stateMachine, PlayerStateConfig config) : base(stateMachine, config){ }
 
     public override void Enter(){
-
         Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
 
-        Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
+        Vector2 castDir = bodySpriteRenderer.flipX ? Vector2.left : Vector2.right;
         float rayLength = 0.5f;
     
         headOrigin = hipOrigin + Vector2.up * 1f;
-        hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength,climbableMask);
+        hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength,platformMask);
         
         // Save original collider size/offset
         oldSize = boxCollider.size;
@@ -45,7 +44,7 @@ public class MantlingState : PlayerState
                 downCastOrigin,
                 Vector2.down,
                 2f,
-                climbableMask
+                platformMask
             );
 
             if (downHit)
@@ -72,15 +71,15 @@ public class MantlingState : PlayerState
 
         mantleTimer += Time.deltaTime;
 
-        boxCollider.size = spriteRenderer.bounds.size;
-        boxCollider.offset = spriteRenderer.bounds.center - player.transform.position;
+        boxCollider.size = bodySpriteRenderer.bounds.size;
+        boxCollider.offset = bodySpriteRenderer.bounds.center - player.transform.position;
        
         if (mantleTimer >= MANTLE_DURATION)
         {
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
             isMantleComplete = true;
-            animator.SetBool("mantling", false);
+            //animator.SetBool("mantling", false);
 
         }
         
@@ -89,9 +88,11 @@ public class MantlingState : PlayerState
             // rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             camera.smoothTime = 0.2f;
             animator.SetBool("mantling", false);
+            animator.SetBool("grounded", true);
 
             boxCollider.size = oldSize;
             boxCollider.offset = oldOffset;
+            rb.linearVelocity = Vector2.zero;
             stateMachine.ChangeState(new GroundedState(stateMachine, config));
             return;
         }

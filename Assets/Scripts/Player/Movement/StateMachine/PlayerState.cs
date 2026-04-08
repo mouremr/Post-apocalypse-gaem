@@ -1,4 +1,5 @@
 using System;
+using Unity.InferenceEngine;
 using UnityEngine;
 
 public abstract class PlayerState
@@ -9,7 +10,8 @@ public abstract class PlayerState
     protected Rigidbody2D rb;
     protected Animator animator;
     protected PlayerInput input;
-    protected SpriteRenderer spriteRenderer;
+    protected SpriteRenderer bodySpriteRenderer;
+    protected SpriteRenderer legsSpriteRenderer;
 
     protected BoxCollider2D boxCollider;
 
@@ -19,6 +21,8 @@ public abstract class PlayerState
 
     //protected Transform wallCheck;
     protected LayerMask groundMask;
+
+    protected LayerMask platformMask;
     
 
     public PlayerState(StateMachine stateMachine, PlayerStateConfig config)
@@ -28,12 +32,15 @@ public abstract class PlayerState
         player = stateMachine.gameObject;
         rb = player.GetComponent<Rigidbody2D>();
         animator = player.GetComponent<Animator>();
+        //legAnimator = legs.GetComponent<Animator>();
         input = player.GetComponent<PlayerInput>();
-        spriteRenderer = player.GetComponent<SpriteRenderer>();
+        bodySpriteRenderer = player.GetComponent<SpriteRenderer>();
+        legsSpriteRenderer = player.transform.Find("Legs")?.GetComponent<SpriteRenderer>();
         boxCollider = player.GetComponent<BoxCollider2D>();
         camera = Camera.main.GetComponent<CameraFollow>();
         groundMask = LayerMask.GetMask("Ground");
         climbableMask = LayerMask.GetMask("Climbable");
+        platformMask = LayerMask.GetMask("Platform");
 
     }
 
@@ -60,7 +67,7 @@ public abstract class PlayerState
             0f,
             Vector2.down,
             .1f,
-            groundMask | climbableMask
+            groundMask | platformMask
         );
 
         Debug.DrawRay(boxCenter, Vector2.down * .1f, Color.green);
@@ -101,10 +108,10 @@ public abstract class PlayerState
         Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
         Vector2 headOrigin = hipOrigin + Vector2.up * 1f;
 
-        Vector2 castDir = spriteRenderer.flipX ? Vector2.left : Vector2.right;
+        Vector2 castDir = bodySpriteRenderer.flipX ? Vector2.left : Vector2.right;
         float rayLength = 0.5f;
-        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength,climbableMask);
-        RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength,climbableMask);
+        RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength,platformMask);
+        RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength,platformMask);
 
         Debug.DrawRay(hipOrigin, castDir * rayLength, Color.red);
         Debug.DrawRay(headOrigin, castDir * rayLength, Color.blue);

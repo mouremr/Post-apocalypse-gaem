@@ -17,8 +17,8 @@ public class StateMachine : MonoBehaviour
     private float maxHealth;
     
     // Stamina regeneration timers
-    private float staminaRegenTimer = 0f;
-    private float staminaRegenDelay;
+    //private float staminaRegenTimer = 0f;
+    //private float staminaRegenDelay;
     private float staminaRegenRate;
 
     public PlayerState CurrentState => _currentState;
@@ -38,7 +38,7 @@ public class StateMachine : MonoBehaviour
         maxStamina = stateConfig.maxStamina;
         currentStamina = maxStamina;
         staminaRegenRate = stateConfig.staminaRegenRate;
-        staminaRegenDelay = stateConfig.staminaRegenDelay;        
+        //staminaRegenDelay = stateConfig.staminaRegenDelay;        
     }
 
     private void Start()

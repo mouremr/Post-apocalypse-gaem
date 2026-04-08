@@ -15,7 +15,7 @@ public class WallClimbingState : PlayerState
     private int dynoCost = 10;
     public WallClimbingState(StateMachine stateMachine, PlayerStateConfig config) : base(stateMachine, config)
     {
-        facingDirection = spriteRenderer.flipX ? -1f : 1f;
+        facingDirection = bodySpriteRenderer.flipX ? -1f : 1f;
         wallExitTimer = wallExitCooldown; // start timer
         climbableMask = LayerMask.GetMask("Climbable");
 
@@ -27,9 +27,9 @@ public class WallClimbingState : PlayerState
 
         int wallSide = GetWallSide();
         if (wallSide == -1)
-            spriteRenderer.flipX = false; // face right
+            bodySpriteRenderer.flipX = false; // face right
         else if (wallSide == 1)
-            spriteRenderer.flipX = true;  // face left
+            bodySpriteRenderer.flipX = true;  // face left
 
         facingDirection = wallSide;
 
@@ -66,7 +66,7 @@ public class WallClimbingState : PlayerState
             rb.linearVelocity = new Vector2(0f, currentY); //prevent horizontal movement
 
         }
-        float wallDir = spriteRenderer.flipX ? -1f : 1f;
+        float wallDir = bodySpriteRenderer.flipX ? -1f : 1f;
         if(Math.Sign(Input.GetAxis("Horizontal")) == Math.Sign(-wallDir) && input.JumpPressed){
             animator.SetBool("climbing", false);
             Debug.Log("push away from wall");
@@ -79,15 +79,15 @@ public class WallClimbingState : PlayerState
 
         }
 
-        if  (input.JumpPressed && ConsumeStamina(dynoCost) && Mathf.Abs(Input.GetAxis("Horizontal")) < 0.01f) // dyno up
-        {
-            animator.SetBool("climbing", false);
-            float pushX = 0;
-            float pushY =15f;    
+        // if  (input.JumpPressed && ConsumeStamina(dynoCost) && Mathf.Abs(Input.GetAxis("Horizontal")) < 0.01f) // dyno up
+        // {
+        //     animator.SetBool("climbing", false);
+        //     float pushX = 0;
+        //     float pushY =15f;    
 
-            stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(pushX,pushY), config));   
-            return;
-        }
+        //     stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(pushX,pushY), config));   
+        //     return;
+        // }
 
         if (wallExitTimer > 0f)
             wallExitTimer -= Time.deltaTime;

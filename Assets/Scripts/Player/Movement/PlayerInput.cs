@@ -25,7 +25,7 @@ public class PlayerInput : MonoBehaviour
         LightAttackPressed = Input.GetMouseButtonDown(0);
         HeavyAttackPressed = Input.GetMouseButtonDown(1);
 
-        HorizontalInput = Input.GetAxis("Horizontal");
+        HorizontalInput = Input.GetAxisRaw("Horizontal");
     }
     public void ConsumeRoll()
     {

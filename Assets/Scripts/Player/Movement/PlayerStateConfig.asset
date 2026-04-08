@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: PlayerStateConfig
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStateConfig
   moveSpeed: 6
+  jumpForce: 7
   gracePeriod: 0.2
   climbSpeed: 4
-  rollSpeed: 10
+  rollSpeed: 15
   rollDuration: 0.3
   rollCost: 5
   maxHealth: 10

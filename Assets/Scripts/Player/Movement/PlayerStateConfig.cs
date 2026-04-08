@@ -6,6 +6,7 @@ public class PlayerStateConfig : ScriptableObject
 {
     [Header("Movement")]
     public float moveSpeed = 6f;
+    public float jumpForce = 5f;
     [Tooltip("grace period you can jump while being not grounded")]
     public float gracePeriod = .2f;
     
