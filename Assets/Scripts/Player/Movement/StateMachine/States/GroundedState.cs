@@ -27,11 +27,10 @@ public class GroundedState : PlayerState
 
     private readonly bool resetAnims;
 
+    private PhysicsMaterial2D material;
+
     public GroundedState(StateMachine stateMachine, PlayerStateConfig config, bool resetAnims) : base(stateMachine, config)
     {
-        //animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x));
-        // animator.Play("movement Body", 0, 0f);
-        // animator.Play("movement Legs", 1, 0f);
         moveSpeed = config.moveSpeed;
         gracePeriod = config.gracePeriod;
         rollCost = config.rollCost;
@@ -46,7 +45,7 @@ public class GroundedState : PlayerState
         animator.SetBool("running", true);
         input.ConsumeRoll();
         
-
+        material = rb.sharedMaterial;
         groundCheckTimer = groundCheckCooldown; // Start with cooldown
         rollCheckTimer = rollCheckCooldown;
 
@@ -71,9 +70,10 @@ public class GroundedState : PlayerState
 
         animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x));
         
-        if(Mathf.Abs(input.HorizontalInput) == 0 && Mathf.Abs(rb.linearVelocityX) < .01f)
+        if(Mathf.Abs(input.HorizontalInput) == 0 || Mathf.Abs(rb.linearVelocityX) < .01f)
         {
             legsSpriteRenderer.enabled = false;
+            
         }
         else
         {
@@ -118,6 +118,10 @@ public class GroundedState : PlayerState
 
     public override void FixedUpdate()
     {
+        if (Mathf.Abs(input.HorizontalInput) < 0.01f)
+            material.friction = 5f;
+        else
+            material.friction = 0f;
         float targetVelocityX = input.HorizontalInput * moveSpeed;
         float velocityDifferenceX = targetVelocityX - rb.linearVelocity.x;
 

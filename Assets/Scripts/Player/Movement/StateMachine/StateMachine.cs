@@ -5,7 +5,8 @@ public class StateMachine : MonoBehaviour
 {
 
     [SerializeField] private PlayerStateConfig stateConfig;
-    [SerializeField] private LayerMask climbable;
+    //[SerializeField] private LayerMask climbable;
+    [SerializeField] private PhysicsMaterial2D playerPhysicsMaterial;
 
     private PlayerState _currentState;
     private InteractionDetector interactionDetector;

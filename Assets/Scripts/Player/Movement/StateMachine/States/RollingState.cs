@@ -14,7 +14,7 @@ public class RollingState: PlayerState
     private int playerLayer = LayerMask.NameToLayer("Player");
     private int enemyLayer = LayerMask.NameToLayer("Enemy");
 
-    public RollingState(StateMachine stateMachine,float moveSpeed, PlayerStateConfig config) : base(stateMachine, config)
+    public RollingState(StateMachine stateMachine, PlayerStateConfig config, float moveSpeed) : base(stateMachine, config)
     {
         this.moveSpeed=moveSpeed;
         rollSpeed = config.rollSpeed;

@@ -16,10 +16,9 @@ public class JumpingState : PlayerState
     private LayerMask manteableMask;
     private bool hasIncreasedGravity;
 
-    public JumpingState(StateMachine stateMachine, Vector2 jumpVector, PlayerStateConfig config) : base(stateMachine, config)
+    public JumpingState(StateMachine stateMachine, PlayerStateConfig config, Vector2 jumpVector) : base(stateMachine, config)
     {
         this.jumpVector= jumpVector;
-
         manteableMask = LayerMask.GetMask("Mantleable");
     }
 
