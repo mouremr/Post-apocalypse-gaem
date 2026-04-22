@@ -2,31 +2,56 @@ using UnityEngine;
 
 public class TwoWayPlatform : MonoBehaviour
 {
-    [SerializeField] private PlatformEffector2D platformEffector;
+    //[SerializeField] private PlatformEffector2D platformEffector;
     [SerializeField] private Collider2D platformCollider;
     [SerializeField] private Collider2D playerCollider;
 
-    private float disableTime = 1f; // time to ignore collision
 
-void Update()
+    private bool isOnPlatform = false;
+    private bool isFallingThrough = false;
+
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (isOnPlatform && Input.GetKeyDown(KeyCode.S) && !isFallingThrough)
         {
-            //disable collision for some amount of time
-            StartCoroutine(DisableCollisionTemporarily());
+            isFallingThrough = true;
+            Physics2D.IgnoreCollision(platformCollider, playerCollider, true);
+        }
+        //Debug.Log(isOnPlatform);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider == playerCollider)
+        {
+            isOnPlatform = true;
         }
     }
-    
-    System.Collections.IEnumerator DisableCollisionTemporarily()
+
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        
+        if (collision.collider == playerCollider)
+        {
+            isOnPlatform = true;
+        }
+    }
 
-        // ignore collision between player and platform and wait
-        Physics2D.IgnoreCollision(platformCollider, playerCollider, true);
-            
-
-        yield return new WaitForSeconds(disableTime);
-            
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider == playerCollider)
+        {
+            isOnPlatform = false;
+            //Physics2D.IgnoreCollision(platformCollider, playerCollider, false);
+            if (isFallingThrough)
+            {
+                // Add a small delay to ensure player is fully through
+                Invoke(nameof(ReenableCollision), .5f);
+            }
+        }
+    }
+    private void ReenableCollision()
+    {
         Physics2D.IgnoreCollision(platformCollider, playerCollider, false);
+        isFallingThrough = false;
     }
 }

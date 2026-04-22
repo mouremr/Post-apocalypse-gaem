@@ -30,8 +30,8 @@ public class MantlingState : PlayerState
         hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength,platformMask);
         
         // Save original collider size/offset
-        oldSize = boxCollider.size;
-        oldOffset = boxCollider.offset;
+        oldSize = playerCollider.size;
+        oldOffset = playerCollider.offset;
         animator.SetBool("mantling", true);
 
         if (hipHit.collider != null)
@@ -71,8 +71,8 @@ public class MantlingState : PlayerState
 
         mantleTimer += Time.deltaTime;
 
-        boxCollider.size = bodySpriteRenderer.bounds.size;
-        boxCollider.offset = bodySpriteRenderer.bounds.center - player.transform.position;
+        playerCollider.size = bodySpriteRenderer.bounds.size;
+        playerCollider.offset = bodySpriteRenderer.bounds.center - player.transform.position;
        
         if (mantleTimer >= MANTLE_DURATION)
         {
@@ -89,8 +89,8 @@ public class MantlingState : PlayerState
             camera.smoothTime = 0.2f;
             animator.SetBool("mantling", false);
 
-            boxCollider.size = oldSize;
-            boxCollider.offset = oldOffset;
+            playerCollider.size = oldSize;
+            playerCollider.offset = oldOffset;
             rb.linearVelocity = Vector2.zero;
             stateMachine.ChangeState(stateMachine.States.Grounded(true));
             return;

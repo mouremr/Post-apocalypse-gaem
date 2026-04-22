@@ -8,7 +8,7 @@ public class GroundedState : PlayerState
     private float groundCheckTimer = 0f;
     private float rollCheckCooldown = .6f;
     private float rollCheckTimer = 0f;
-    private float movementSmoothing = 10f;
+    private float movementSmoothing = 7.5f;
 
     //gracePeriod you can jump while being not grounded 
     private float gracePeriod;
@@ -27,7 +27,18 @@ public class GroundedState : PlayerState
 
     private readonly bool resetAnims;
 
-    private PhysicsMaterial2D material;
+    private Vector2 colliderSize;
+    private float slopeDownAngle;
+    private float slopeDownAngleOld;
+    private float slopeSideAngle;
+    private Vector2 slopeNormalPerpendicular;
+    private bool onSlope;
+
+
+    private readonly float slopeCheckDistance = .5f; //move to config file
+
+    private PhysicsMaterial2D fullFriction;
+    private PhysicsMaterial2D noFriction;
 
     public GroundedState(StateMachine stateMachine, PlayerStateConfig config, bool resetAnims) : base(stateMachine, config)
     {
@@ -36,26 +47,28 @@ public class GroundedState : PlayerState
         rollCost = config.rollCost;
         lightAttackCost = config.lightAttackCost;
         heavyAttackCost = config.heavyAttackCost;
+        noFriction = config.noFriction;
+        fullFriction = config.fullFriction;
         this.resetAnims = resetAnims;
+        colliderSize = playerCollider.size;
     }
 
     public override void Enter()
-    {      
+    {   
+        if(resetAnims){
+            animator.Play("movement Body", 0, 0f);
+            animator.Play("movement Legs", 1, 0f);
+        }   
         animator.SetBool("grounded", true);
         animator.SetBool("running", true);
         input.ConsumeRoll();
         
-        material = rb.sharedMaterial;
+        
         groundCheckTimer = groundCheckCooldown; // Start with cooldown
         rollCheckTimer = rollCheckCooldown;
 
         if (animator.GetBool("rolling"))
             return;
-        
-        if(resetAnims){
-            animator.Play("movement Body", 0, 0f);
-            animator.Play("movement Legs", 1, 0f);
-        }
     }
 
     public override void Update()
@@ -118,22 +131,56 @@ public class GroundedState : PlayerState
 
     public override void FixedUpdate()
     {
-        if (Mathf.Abs(input.HorizontalInput) < 0.01f)
-            material.friction = 5f;
-        else
-            material.friction = 0f;
-        float targetVelocityX = input.HorizontalInput * moveSpeed;
-        float velocityDifferenceX = targetVelocityX - rb.linearVelocity.x;
+        slopeCheck();
+        applyMovement();
+    }
 
-        // Apply force to reach target velocity
-        rb.AddForce(new Vector2(velocityDifferenceX * movementSmoothing * rb.mass * .75f, 0f), ForceMode2D.Force);
-
-        if (Mathf.Abs(input.HorizontalInput) < 0.01)
-        {
-            float amount = Mathf.Min(Mathf.Abs(rb.linearVelocity.x),0.5f); //reverse direction 
-            amount *= Mathf.Sign(rb.linearVelocity.x);
-            rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
+    private void applyMovement()
+    {
+        // if (Mathf.Abs(input.HorizontalInput) < 0.01f && IsGrounded())
+        //     material.friction = 5f; 
+        // else
+        //     material.friction = 0f;
+        if(!onSlope){
+            rb.sharedMaterial = noFriction;
+            float targetVelocityX = input.HorizontalInput * moveSpeed;
+            float velocityDifferenceX = targetVelocityX - rb.linearVelocity.x;
+    
+            // Apply force to reach target velocity
+            rb.AddForce(new Vector2(velocityDifferenceX * movementSmoothing * rb.mass, 0f), ForceMode2D.Force);
+    
+            if (Mathf.Abs(input.HorizontalInput) == 0)
+            {
+                float amount = Mathf.Min(Mathf.Abs(rb.linearVelocity.x),1f); 
+                amount *= Mathf.Sign(rb.linearVelocity.x);
+                rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
+            }
         }
+        else{
+            if (Mathf.Abs(input.HorizontalInput) == 0){
+                // if (onSlope)
+                // {
+                //     rb.sharedMaterial = fullFriction;
+                // }
+                rb.sharedMaterial = fullFriction;
+                // float amount = Mathf.Min(Mathf.Abs(rb.linearVelocity.x),1f); 
+                // amount *= Mathf.Sign(rb.linearVelocity.x);
+                // rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
+                //rb.linearVelocity = Vector3.zero;
+            } else{
+                rb.sharedMaterial = noFriction;
+                float targetVelocityX = input.HorizontalInput * moveSpeed;
+                float velocityDifferenceX = targetVelocityX - rb.linearVelocity.x;
+        
+                // Apply force to reach target velocity
+                rb.AddForce(new Vector2(
+                    -velocityDifferenceX * movementSmoothing * rb.mass * slopeNormalPerpendicular.x, 
+                    moveSpeed * slopeNormalPerpendicular.y * -input.HorizontalInput), 
+                    ForceMode2D.Force);
+            }
+            
+        }
+        
     }
 
     private void ChangeState()
@@ -194,6 +241,74 @@ public class GroundedState : PlayerState
         {
             //otherwise move to running
             animator.SetBool("running", Mathf.Abs(rb.linearVelocity.x) > 0.1f);
+        }
+    }
+
+    private void slopeCheck()
+    {
+        //Vector2 checkPos = player.transform.position - new Vector3(0f, colliderSize.y/2);
+        SlopeCheckHorizontal(player.transform.position);
+        SlopeCheckVertical(player.transform.position);
+    }
+
+    private void SlopeCheckHorizontal(Vector2 checkPos)
+    {
+        RaycastHit2D slopeHitFront = Physics2D.Raycast(checkPos, 
+            player.transform.right, 
+            slopeCheckDistance, 
+            groundMask | platformMask);
+        
+        RaycastHit2D slopeHitBack = Physics2D.Raycast(checkPos, 
+        -player.transform.right, 
+        slopeCheckDistance, 
+        groundMask | platformMask);
+        
+        Debug.DrawRay(checkPos, player.transform.right * slopeCheckDistance, Color.green);
+        Debug.DrawRay(checkPos, -player.transform.right * slopeCheckDistance, Color.cyan);
+        
+        if (slopeHitFront)
+        {
+            onSlope = true;
+            slopeSideAngle = Vector2.Angle(slopeHitFront.normal, Vector2.up);
+            
+            Debug.DrawRay(slopeHitFront.point, slopeHitFront.normal, Color.yellow);
+            Debug.DrawRay(slopeHitFront.point, Vector2.up, Color.magenta);
+        } 
+        else if (slopeHitBack)
+        {
+        onSlope = true;
+        slopeSideAngle = Vector2.Angle(slopeHitBack.normal, Vector2.up);
+        
+        Debug.DrawRay(slopeHitBack.point, slopeHitBack.normal, Color.red);
+        Debug.DrawRay(slopeHitBack.point, Vector2.up, Color.magenta);
+        }
+        else
+        {
+            slopeSideAngle = 0f;
+            onSlope = false;
+        }
+    }    
+    private void SlopeCheckVertical(Vector2 checkPos)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(checkPos, 
+        Vector2.down, 
+        slopeCheckDistance, 
+        groundMask | platformMask);
+
+        if (hit)
+        {
+            slopeNormalPerpendicular = Vector2.Perpendicular(hit.normal).normalized;
+            slopeDownAngle = Vector2.Angle(hit.normal, Vector2.up);
+
+
+            if(slopeDownAngle != slopeDownAngleOld)
+            {
+                onSlope = true;
+            }
+            slopeDownAngleOld = slopeDownAngle;
+
+            // Debug.DrawRay(hit.point, hit.normal, Color.yellow);
+            // Debug.DrawRay(hit.point, slopeNormalPerpendicular, Color.red);
         }
     }
 

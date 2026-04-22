@@ -29,4 +29,7 @@ public class PlayerStateConfig : ScriptableObject
     public int lightAttackCost = 5;
 
     public int heavyAttackCost = 10;
+
+    public PhysicsMaterial2D noFriction;
+    public PhysicsMaterial2D fullFriction;
 }

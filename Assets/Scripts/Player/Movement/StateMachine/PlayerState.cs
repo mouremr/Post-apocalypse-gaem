@@ -13,7 +13,7 @@ public abstract class PlayerState
     protected SpriteRenderer bodySpriteRenderer;
     protected SpriteRenderer legsSpriteRenderer;
 
-    protected BoxCollider2D boxCollider;
+    protected BoxCollider2D playerCollider;
 
     protected CameraFollow camera;
 
@@ -36,7 +36,7 @@ public abstract class PlayerState
         input = player.GetComponent<PlayerInput>();
         bodySpriteRenderer = player.GetComponent<SpriteRenderer>();
         legsSpriteRenderer = player.transform.Find("Legs")?.GetComponent<SpriteRenderer>();
-        boxCollider = player.GetComponent<BoxCollider2D>();
+        playerCollider = player.GetComponent<BoxCollider2D>();
         camera = Camera.main.GetComponent<CameraFollow>();
         groundMask = LayerMask.GetMask("Ground");
         climbableMask = LayerMask.GetMask("Climbable");
@@ -70,7 +70,7 @@ public abstract class PlayerState
             groundMask | platformMask
         );
 
-        Debug.DrawRay(boxCenter, Vector2.down * .1f, Color.green);
+        //Debug.DrawRay(boxCenter, Vector2.down * .1f, Color.green);
 
         
         return hit.collider != null;
