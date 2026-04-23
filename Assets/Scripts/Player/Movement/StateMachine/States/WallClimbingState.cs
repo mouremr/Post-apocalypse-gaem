@@ -17,7 +17,7 @@ public class WallClimbingState : PlayerState
     {
         facingDirection = bodySpriteRenderer.flipX ? -1f : 1f;
         wallExitTimer = wallExitCooldown; // start timer
-        climbableMask = LayerMask.GetMask("Climbable");
+        //climbableMask = LayerMask.GetMask("Climbable");
 
     }
 

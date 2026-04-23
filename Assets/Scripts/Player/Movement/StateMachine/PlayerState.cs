@@ -10,18 +10,14 @@ public abstract class PlayerState
     protected Rigidbody2D rb;
     protected Animator animator;
     protected PlayerInput input;
+    protected BoxCollider2D playerCollider;
     protected SpriteRenderer bodySpriteRenderer;
     protected SpriteRenderer legsSpriteRenderer;
-
-    protected BoxCollider2D playerCollider;
-
     protected CameraFollow camera;
 
+    //LayerMask references
     protected LayerMask climbableMask;
-
-    //protected Transform wallCheck;
     protected LayerMask groundMask;
-
     protected LayerMask platformMask;
     
 
@@ -32,7 +28,6 @@ public abstract class PlayerState
         player = stateMachine.gameObject;
         rb = player.GetComponent<Rigidbody2D>();
         animator = player.GetComponent<Animator>();
-        //legAnimator = legs.GetComponent<Animator>();
         input = player.GetComponent<PlayerInput>();
         bodySpriteRenderer = player.GetComponent<SpriteRenderer>();
         legsSpriteRenderer = player.transform.Find("Legs")?.GetComponent<SpriteRenderer>();
@@ -56,8 +51,7 @@ public abstract class PlayerState
 
     protected bool IsGrounded()
     {
-        Collider2D col = player.GetComponent<Collider2D>();
-        Bounds bounds = col.bounds;
+        Bounds bounds = playerCollider.bounds;
 
         Vector2 boxSize = new Vector2(bounds.size.x * 0.9f, 0.1f);
         Vector2 boxCenter = bounds.center - new Vector3(0, bounds.extents.y, 0);
@@ -113,8 +107,8 @@ public abstract class PlayerState
         RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength,platformMask);
         RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength,platformMask);
 
-        Debug.DrawRay(hipOrigin, castDir * rayLength, Color.red);
-        Debug.DrawRay(headOrigin, castDir * rayLength, Color.blue);
+        // Debug.DrawRay(hipOrigin, castDir * rayLength, Color.red);
+        // Debug.DrawRay(headOrigin, castDir * rayLength, Color.blue);
 
 
         if (hipHit.collider != null && hipHit.collider.CompareTag("Mantleable") && headHit.collider == null)    
