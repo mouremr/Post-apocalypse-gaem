@@ -10,7 +10,7 @@ public class Parallax : MonoBehaviour
     void Start()
     {
         startpos = transform.position.x;
-        length = GetComponent<SpriteRenderer>().bounds.size.x;
+        length = GetTotalChildrenWidth();
     }
 
     // Update is called once per frame
@@ -18,5 +18,20 @@ public class Parallax : MonoBehaviour
     {
         float distance = (cam.transform.position.x * parallaxEffect);
         transform.position = new Vector2(startpos + distance, -0.85f);
+    }
+    private float GetTotalChildrenWidth()
+    {
+        SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
+
+        if (renderers.Length == 0) return 0f;
+
+        // loop through all background objects and combine their bounds
+        Bounds combined = renderers[0].bounds;
+        for (int i = 1; i < renderers.Length; i++)
+        {
+            combined.Encapsulate(renderers[i].bounds);
+        }
+
+        return combined.size.x;
     }
 }

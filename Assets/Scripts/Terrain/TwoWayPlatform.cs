@@ -5,6 +5,7 @@ public class TwoWayPlatform : MonoBehaviour
     //[SerializeField] private PlatformEffector2D platformEffector;
     [SerializeField] private Collider2D platformCollider;
     [SerializeField] private Collider2D playerCollider;
+    [SerializeField] private GameObject platform;
 
 
     private bool isOnPlatform = false;
@@ -28,6 +29,7 @@ public class TwoWayPlatform : MonoBehaviour
             
             isFallingThrough = true;
             Physics2D.IgnoreCollision(platformCollider, playerCollider, true);
+            platform.tag = "Untagged";
         }
 
 
@@ -46,6 +48,7 @@ public class TwoWayPlatform : MonoBehaviour
         {
             isFallingThrough = false;
             Physics2D.IgnoreCollision(platformCollider, playerCollider, false);
+            platform.tag = "Mantleable";
         }
     }
 

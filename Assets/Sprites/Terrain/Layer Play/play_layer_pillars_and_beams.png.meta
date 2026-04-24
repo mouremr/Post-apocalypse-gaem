@@ -1,0 +1,1402 @@
+fileFormatVersion: 2
+guid: 9cd66a31ccc8e0742b99a4587bbed403
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6215070782227028438
+    second: play_layer_pillars_and_beams_0
+  - first:
+      213: 5219321553982715153
+    second: play_layer_pillars_and_beams_1
+  - first:
+      213: 4201735861925628516
+    second: play_layer_pillars_and_beams_2
+  - first:
+      213: -5906089271749338328
+    second: play_layer_pillars_and_beams_3
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_0
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 465
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a26e27b6d02afb9a0800000000000000
+      internalID: -6215070782227028438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_1
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 465
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 115fda9dc41ce6840800000000000000
+      internalID: 5219321553982715153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_2
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 433
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46ac81231809f4a30800000000000000
+      internalID: 4201735861925628516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_3
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 433
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82b92a1691b590ea0800000000000000
+      internalID: -5906089271749338328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_4
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 401
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 231b88bbe4297774a886c47794a769fa
+      internalID: -1942897617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_5
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 401
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0703a342c826044683d082f9e42614c
+      internalID: -507744793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_6
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 369
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e15e65eae1cc0c34ab01295d8e997b60
+      internalID: -60455694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_7
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 369
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42165f00074421d4aa776ac0f0079e95
+      internalID: -906400023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_8
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 337
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58f119ac57f0f954fadd70c4596d92a2
+      internalID: -1519925606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_10
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 337
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b5bbd78a5519ab47b2f25efcba30f44
+      internalID: 1361367623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_11
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ab494732a6ab3f4f86555a9509b013d
+      internalID: -1993828020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_12
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 252e87ee1c23eaa4bba14001c5a0d1b8
+      internalID: -155615336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_13
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6b70c1a25b88d345a75a7cc9b7e38d2
+      internalID: -1229804312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_14
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06ed1f133f3198b45a8e970dbf94d12e
+      internalID: 1810923089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_15
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f6a42816ca127b4cad2c5d2a4923e89
+      internalID: 39499048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_16
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5741c8f7b7fc2e9488253a9255ab7b31
+      internalID: -443426601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_17
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f127c5af56537bc41976e4c213e3bd9c
+      internalID: 887475218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_18
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03108b87f2029854988c172081720390
+      internalID: 1222416138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_19
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e332fdb907103341a8baa90c7bfdcdb
+      internalID: -1610752124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_20
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be67a6b2bc582f144960218c414acb24
+      internalID: -2010808108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_21
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 466a9be686c490047a8d9da105cbd7d0
+      internalID: -1377989313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_22
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 516c245771fe298429bad1312d1f5000
+      internalID: -1613518722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_23
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1e450136cedc0046975d09d151c4f46
+      internalID: 423138790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_24
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c69fd46b4f8c02249aba3600914a27c6
+      internalID: 1942948308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_25
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1a07c6e2e106744087e050253899f95
+      internalID: 1668029030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_26
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d57f0659a5f531040967530007c09207
+      internalID: 331575003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_27
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34df8540609c4ee449227a816ca4d4d1
+      internalID: 1722439779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_28
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 305
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 641909abd27fd2543b9ef0028adb7478
+      internalID: 2049359692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_29
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 273
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba7643182d6388e4c82e818855329195
+      internalID: 616470788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_30
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 273
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ac4d973ae85741479732aa57517a7d1
+      internalID: -1297129489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_31
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 273
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b77daae49662724cba027112615d232
+      internalID: -1874975039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_32
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 273
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43913b6de00a8b844bcc5d07db6a0028
+      internalID: 1002348707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_33
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 273
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7af046c96101ed459bc0599bf98c593
+      internalID: 1932030042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_34
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 273
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 645b862853db69c43aa549f7832bce80
+      internalID: 1788272532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_35
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 273
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36d56baaf7be0bc40b06e7d68dbc1286
+      internalID: 1513796816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_36
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 241
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36784c1a466366349acb9981de4b0f17
+      internalID: -155422917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_37
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 241
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84c5852e4ba4a2342965db693b5e8e5e
+      internalID: -1277334955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_38
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 241
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a73c8ac9682d6cd4e807e0ff04faed3a
+      internalID: 583763938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_39
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 241
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 441f93c1a708c6846a680c94c4ca1948
+      internalID: -1439533668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_40
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 209
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6df6ced7b7bf00a448a0915c80bf8da0
+      internalID: 1231295913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_41
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 209
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf90d0ce4633fa944bb6a2563685f1b6
+      internalID: 2125373551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_42
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 209
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d33cfe8733751a5429195af0a0e85545
+      internalID: 1347167354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_43
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 209
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21a87fd2f20b8cf4b9336488eb0231ef
+      internalID: -1491698196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_44
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 209
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7888ff93e9ed474db39cf276c4d92ee
+      internalID: -1980538725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_45
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 177
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3df0b0989dd24aa44b3e5d702011bf9f
+      internalID: -1807765704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_47
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 177
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12481781365f18648997884b0a097472
+      internalID: -184477386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_48
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 177
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b76249f39c311e24790ec70482d90803
+      internalID: 1190660861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_49
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 177
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 786c23e3c0f99884aafcfa3d2643c107
+      internalID: 1250586031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_50
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 177
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 491fdb580ec9ed946b0120ac457427ae
+      internalID: -1144365202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_51
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 145
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 524148d7d20698e47aa8a8aa1f4149ff
+      internalID: 1582597710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_52
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 145
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cd0cc294b48bee4e8b825f2b2970658
+      internalID: 1157362572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_53
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 145
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcf12888dd3d4f5449fc11129e88658a
+      internalID: -218082929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_54
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 145
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa186fb3b085b7843bc7e8a0b652815e
+      internalID: 1344569172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_55
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 145
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36024c5fee4c1f347babf12b385dcea0
+      internalID: 713929081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play_layer_pillars_and_beams_58
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 113
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b5c6215c4f288540af39a79dad55f15
+      internalID: -757182769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 28ad139566bbceb4aa6e055803a3f531
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      play_layer_pillars_and_beams_0: -6215070782227028438
+      play_layer_pillars_and_beams_1: 5219321553982715153
+      play_layer_pillars_and_beams_10: 1361367623
+      play_layer_pillars_and_beams_11: -1993828020
+      play_layer_pillars_and_beams_12: -155615336
+      play_layer_pillars_and_beams_13: -1229804312
+      play_layer_pillars_and_beams_14: 1810923089
+      play_layer_pillars_and_beams_15: 39499048
+      play_layer_pillars_and_beams_16: -443426601
+      play_layer_pillars_and_beams_17: 887475218
+      play_layer_pillars_and_beams_18: 1222416138
+      play_layer_pillars_and_beams_19: -1610752124
+      play_layer_pillars_and_beams_2: 4201735861925628516
+      play_layer_pillars_and_beams_20: -2010808108
+      play_layer_pillars_and_beams_21: -1377989313
+      play_layer_pillars_and_beams_22: -1613518722
+      play_layer_pillars_and_beams_23: 423138790
+      play_layer_pillars_and_beams_24: 1942948308
+      play_layer_pillars_and_beams_25: 1668029030
+      play_layer_pillars_and_beams_26: 331575003
+      play_layer_pillars_and_beams_27: 1722439779
+      play_layer_pillars_and_beams_28: 2049359692
+      play_layer_pillars_and_beams_29: 616470788
+      play_layer_pillars_and_beams_3: -5906089271749338328
+      play_layer_pillars_and_beams_30: -1297129489
+      play_layer_pillars_and_beams_31: -1874975039
+      play_layer_pillars_and_beams_32: 1002348707
+      play_layer_pillars_and_beams_33: 1932030042
+      play_layer_pillars_and_beams_34: 1788272532
+      play_layer_pillars_and_beams_35: 1513796816
+      play_layer_pillars_and_beams_36: -155422917
+      play_layer_pillars_and_beams_37: -1277334955
+      play_layer_pillars_and_beams_38: 583763938
+      play_layer_pillars_and_beams_39: -1439533668
+      play_layer_pillars_and_beams_4: -1942897617
+      play_layer_pillars_and_beams_40: 1231295913
+      play_layer_pillars_and_beams_41: 2125373551
+      play_layer_pillars_and_beams_42: 1347167354
+      play_layer_pillars_and_beams_43: -1491698196
+      play_layer_pillars_and_beams_44: -1980538725
+      play_layer_pillars_and_beams_45: -1807765704
+      play_layer_pillars_and_beams_46: -1212324082
+      play_layer_pillars_and_beams_47: -184477386
+      play_layer_pillars_and_beams_48: 1190660861
+      play_layer_pillars_and_beams_49: 1250586031
+      play_layer_pillars_and_beams_5: -507744793
+      play_layer_pillars_and_beams_50: -1144365202
+      play_layer_pillars_and_beams_51: 1582597710
+      play_layer_pillars_and_beams_52: 1157362572
+      play_layer_pillars_and_beams_53: -218082929
+      play_layer_pillars_and_beams_54: 1344569172
+      play_layer_pillars_and_beams_55: 713929081
+      play_layer_pillars_and_beams_56: 1398778214
+      play_layer_pillars_and_beams_57: 1201860913
+      play_layer_pillars_and_beams_58: -757182769
+      play_layer_pillars_and_beams_59: -155613722
+      play_layer_pillars_and_beams_6: -60455694
+      play_layer_pillars_and_beams_60: -1566310730
+      play_layer_pillars_and_beams_7: -906400023
+      play_layer_pillars_and_beams_8: -1519925606
+      play_layer_pillars_and_beams_9: 407030011
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
