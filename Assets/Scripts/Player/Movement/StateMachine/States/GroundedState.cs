@@ -82,8 +82,10 @@ public class GroundedState : PlayerState
         
 
         animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x));
+
         
-        if(Mathf.Abs(input.HorizontalInput) == 0 || Mathf.Abs(rb.linearVelocityX) < .01f)
+        
+        if(Mathf.Abs(rb.linearVelocityX) < .01f)
         {
             legsSpriteRenderer.enabled = false;
             
