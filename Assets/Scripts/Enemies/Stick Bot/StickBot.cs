@@ -36,7 +36,7 @@ public class StickBot : MonoBehaviour
 
     void FixedUpdate()
     {
-        animator.SetFloat("xVelocity", rb.linearVelocity.x);
+        
         if (patrol)
         {
             float distanceMoved = Vector3.Distance(startPosition, transform.position);
@@ -58,20 +58,26 @@ public class StickBot : MonoBehaviour
         }
         if (attacking)
         {
+            
+            // rb.linearVelocityX = 0;
+            
             animator.SetBool("AttackState", true);
             if(checkForPlayerLOS() == false)
             {
+                Debug.Log("back to patrolling");
                 attacking = false;
-                animator.SetBool("AttackState", false);
+                animator.SetBool("AttackState", false);                
                 patrol = true;
             }
         }
+        sprite.flipX = moveSpeed < 0;
+
     }
 
     private bool checkForPlayerLOS()
     {
         Vector3 rayOrigin = transform.position + new Vector3(0,.5f,0);
-        Vector2 facing = sprite.flipX ? Vector2.left : Vector2.right;
+        Vector2 facing = moveSpeed < 0 ? Vector2.left : Vector2.right;
         RaycastHit2D hit = Physics2D.Raycast(
             rayOrigin,
             facing,
