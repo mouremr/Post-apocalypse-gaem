@@ -39,7 +39,9 @@ public class StickBot : MonoBehaviour
         if (patrol)
         {
             float distanceMoved = Vector3.Distance(startPosition, transform.position);
-            if(distanceMoved >= patrolDistance)
+            bool movingAway = (transform.position.x > startPosition.x && moveSpeed > 0) ||
+                      (transform.position.x < startPosition.x && moveSpeed < 0);
+            if(distanceMoved >= patrolDistance && movingAway)
             {
                 FlipX();
                 moveSpeed *= -1;

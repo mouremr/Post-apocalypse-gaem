@@ -14,7 +14,6 @@ public class AttackState : PlayerState
     {
         attackType = attack;
         attackforce = force;
-        this.resetLegs = resetLegs;
     }
 
     // public override void Update()
