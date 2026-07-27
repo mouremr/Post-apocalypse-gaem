@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class StickBot : MonoBehaviour
 {
-    private Animator anim;
+    private Animator animator;
     private Rigidbody2D rb;
     private LayerMask playerMask;
 
@@ -22,7 +22,7 @@ public class StickBot : MonoBehaviour
 
     void Start()
     {
-        anim = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         playerMask = LayerMask.GetMask("Player");
         sprite = GetComponent<SpriteRenderer>();
@@ -36,6 +36,7 @@ public class StickBot : MonoBehaviour
 
     void FixedUpdate()
     {
+        animator.SetFloat("xVelocity", rb.linearVelocity.x);
         if (patrol)
         {
             float distanceMoved = Vector3.Distance(startPosition, transform.position);
@@ -43,7 +44,7 @@ public class StickBot : MonoBehaviour
                       (transform.position.x < startPosition.x && moveSpeed < 0);
             if(distanceMoved >= patrolDistance && movingAway)
             {
-                FlipX();
+                //FlipX();
                 moveSpeed *= -1;
             }
             rb.linearVelocityX = moveSpeed;
@@ -57,11 +58,11 @@ public class StickBot : MonoBehaviour
         }
         if (attacking)
         {
-            anim.SetBool("AttackState", true);
+            animator.SetBool("AttackState", true);
             if(checkForPlayerLOS() == false)
             {
                 attacking = false;
-                anim.SetBool("AttackState", false);
+                animator.SetBool("AttackState", false);
                 patrol = true;
             }
         }
