@@ -79,16 +79,6 @@ public class WallClimbingState : PlayerState
 
         }
 
-        // if  (input.JumpPressed && ConsumeStamina(dynoCost) && Mathf.Abs(Input.GetAxis("Horizontal")) < 0.01f) // dyno up
-        // {
-        //     animator.SetBool("climbing", false);
-        //     float pushX = 0;
-        //     float pushY =15f;    
-
-        //     stateMachine.ChangeState(new JumpingState(stateMachine, new Vector2(pushX,pushY), config));   
-        //     return;
-        // }
-
         if (wallExitTimer > 0f)
             wallExitTimer -= Time.deltaTime;
             

@@ -58,7 +58,6 @@ public class JumpingState : PlayerState
         {
             rb.gravityScale += 0.3f;
             hasIncreasedGravity = true;
-            //rb.gravityScale = 1.8f;
         }
 
     

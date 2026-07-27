@@ -3,7 +3,6 @@ using UnityEngine;
 public class GroundedState : PlayerState
 {
     private float moveSpeed;
-    //private InteractionDetector interactionDetector;
     private float groundCheckCooldown = 0.1f;
     private float groundCheckTimer = 0f;
     private float rollCheckCooldown = .6f;
@@ -13,8 +12,6 @@ public class GroundedState : PlayerState
     //gracePeriod you can jump while being not grounded 
     private float gracePeriod;
     private float coyoteTimer = 0f; 
-    //float facingDirection;
-
     private float wallRegrabCooldown = 0.1f; // how long until you can re-grab wall
     private float wallRegrabTimer = 0f;
 
@@ -35,7 +32,7 @@ public class GroundedState : PlayerState
     private bool onSlope;
 
 
-    private readonly float slopeCheckDistance = .5f; //move to config file
+    private readonly float slopeCheckDistance = .5f;
 
     private PhysicsMaterial2D fullFriction;
     private PhysicsMaterial2D noFriction;
@@ -55,11 +52,6 @@ public class GroundedState : PlayerState
 
     public override void Enter()
     {   
-        
-        if(resetAnims){
-            // animator.Play("movement Body", 0, 0f);
-            // animator.Play("movement Legs", 1, 0f);
-        }   
         animator.SetBool("grounded", true);
         animator.SetBool("running", true);
         input.ConsumeRoll();
@@ -93,7 +85,6 @@ public class GroundedState : PlayerState
         }
         else
         {
-            //weaponSpriteRenderer.enabled = true;
             legsSpriteRenderer.enabled = true;
             
         }
@@ -138,16 +129,12 @@ public class GroundedState : PlayerState
 
     public override void FixedUpdate()
     {
-        slopeCheck();
+        SlopeCheck();
         applyMovement();
     }
 
     private void applyMovement()
     {
-        // if (Mathf.Abs(input.HorizontalInput) < 0.01f && IsGrounded())
-        //     material.friction = 5f; 
-        // else
-        //     material.friction = 0f;
         if(!onSlope){
             rb.sharedMaterial = noFriction;
             float targetVelocityX = input.HorizontalInput * moveSpeed;
@@ -165,15 +152,7 @@ public class GroundedState : PlayerState
         }
         else{
             if (Mathf.Abs(input.HorizontalInput) == 0){
-                // if (onSlope)
-                // {
-                //     rb.sharedMaterial = fullFriction;
-                // }
                 rb.sharedMaterial = fullFriction;
-                // float amount = Mathf.Min(Mathf.Abs(rb.linearVelocity.x),1f); 
-                // amount *= Mathf.Sign(rb.linearVelocity.x);
-                // rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
-                //rb.linearVelocity = Vector3.zero;
             } else{
                 rb.sharedMaterial = noFriction;
                 float targetVelocityX = input.HorizontalInput * moveSpeed;
@@ -200,7 +179,6 @@ public class GroundedState : PlayerState
             wallRegrabTimer = wallRegrabCooldown;
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
-            //Debug.Log("entering wall cloimbing state from fall or standing");
 
             stateMachine.ChangeState(stateMachine.States.WallClimbing());
             return;
@@ -242,7 +220,6 @@ public class GroundedState : PlayerState
         else if (input.LightAttackPressed && ConsumeStamina(lightAttackCost))
         {
             //light attack
-            //rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             weaponSpriteRenderer.enabled = false;
             animator.SetBool("running", false);
             stateMachine.ChangeState(stateMachine.States.LightAttack());
@@ -254,9 +231,8 @@ public class GroundedState : PlayerState
         }
     }
 
-    private void slopeCheck()
+    private void SlopeCheck()
     {
-        //Vector2 checkPos = player.transform.position - new Vector3(0f, colliderSize.y/2);
         SlopeCheckHorizontal(player.transform.position);
         SlopeCheckVertical(player.transform.position);
     }
@@ -316,9 +292,6 @@ public class GroundedState : PlayerState
                 onSlope = true;
             }
             slopeDownAngleOld = slopeDownAngle;
-
-            // Debug.DrawRay(hit.point, hit.normal, Color.yellow);
-            // Debug.DrawRay(hit.point, slopeNormalPerpendicular, Color.red);
         }
     }
 

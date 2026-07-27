@@ -46,7 +46,6 @@ public class AttackState : PlayerState
     {
         if (stateMachine.CurrentState is AttackState)
         {
-            Debug.Log("changing states!");
             stateMachine.ChangeState(stateMachine.States.Grounded(false));
         }
     }

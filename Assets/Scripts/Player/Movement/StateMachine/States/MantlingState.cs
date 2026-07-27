@@ -79,13 +79,11 @@ public class MantlingState : PlayerState
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
             isMantleComplete = true;
-            //animator.SetBool("mantling", false);
 
         }
         
         if (isMantleComplete)
         {
-            // rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             camera.smoothTime = 0.2f;
             animator.SetBool("mantling", false);
 

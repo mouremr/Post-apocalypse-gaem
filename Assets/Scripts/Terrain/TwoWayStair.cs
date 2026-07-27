@@ -76,12 +76,7 @@ public class TwoWayStair : MonoBehaviour
 
             if (overlapCount == 0)
             {
-                //Physics2D.IgnoreCollision(stairsCollider, playerCollider, true);
                 ResetStairs();
-            }
-            else
-            {
-                //Physics2D.IgnoreCollision(stairsCollider, playerCollider, false);
             }
         }
     }
