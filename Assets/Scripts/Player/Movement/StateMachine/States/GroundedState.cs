@@ -204,7 +204,7 @@ public class GroundedState : PlayerState
         else if (input.RollPressed && IsGrounded() && ConsumeStamina(rollCost))
         {   
             //roll state
-            legsSpriteRenderer.enabled = false;
+            legsSpriteRenderer.enabled = true;
             weaponSpriteRenderer.enabled = false;
             animator.SetBool("grounded", false);
             stateMachine.ChangeState(stateMachine.States.Rolling(moveSpeed));
@@ -220,6 +220,7 @@ public class GroundedState : PlayerState
         else if (input.LightAttackPressed && ConsumeStamina(lightAttackCost))
         {
             //light attack
+            legsSpriteRenderer.enabled = true;
             weaponSpriteRenderer.enabled = false;
             animator.SetBool("running", false);
             stateMachine.ChangeState(stateMachine.States.LightAttack());
