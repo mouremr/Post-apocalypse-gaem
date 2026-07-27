@@ -27,8 +27,10 @@ public class PlayerStateConfig : ScriptableObject
 
     [Header("Attacking")]
     public int lightAttackCost = 5;
+    public int lightAttackDamage = 3;
 
     public int heavyAttackCost = 10;
+    public int heavyAttackDamage = 7;
 
     public PhysicsMaterial2D noFriction;
     public PhysicsMaterial2D fullFriction;

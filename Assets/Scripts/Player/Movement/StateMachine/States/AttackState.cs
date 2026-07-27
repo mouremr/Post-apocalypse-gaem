@@ -17,29 +17,38 @@ public class AttackState : PlayerState
         this.resetLegs = resetLegs;
     }
 
-    public override void Update()
-    {
-        //rb.linearVelocity = new Vector2(rb.linearVelocityX * input.HorizontalInput, rb.linearVelocityY);
-        //rb.linearVelocity = Vector2.zero;
-        //rb.AddForce(new Vector2(attackforce * input.HorizontalInput, 0), ForceMode2D.Impulse);
-        // get attack animation length
-        attackDuration = animator.GetCurrentAnimatorStateInfo(1).length; 
-        attackTimer += Time.deltaTime;
+    // public override void Update()
+    // {
+    //     //rb.linearVelocity = new Vector2(rb.linearVelocityX * input.HorizontalInput, rb.linearVelocityY);
+    //     //rb.linearVelocity = Vector2.zero;
+    //     //rb.AddForce(new Vector2(attackforce * input.HorizontalInput, 0), ForceMode2D.Impulse);
+    //     // get attack animation length
+    //     attackDuration = animator.GetCurrentAnimatorStateInfo(1).length; 
+    //     attackTimer += Time.deltaTime;
 
         
 
-        if(attackTimer >= attackDuration)
-        {
-            animator.SetBool(attackType, false);
-            float legsNormalizedTime = animator.GetCurrentAnimatorStateInfo(1).normalizedTime % 1f;
-            //animator.Play("movement Body", 0, legsNormalizedTime);
-            stateMachine.ChangeState(stateMachine.States.Grounded(resetLegs));
-        }
-    }
+    //     if(attackTimer >= attackDuration)
+    //     {
+    //         animator.SetBool(attackType, false);
+    //         //float legsNormalizedTime = animator.GetCurrentAnimatorStateInfo(1).normalizedTime % 1f;
+    //         //animator.Play("movement Body", 0, legsNormalizedTime);
+    //         stateMachine.ChangeState(stateMachine.States.Grounded(resetLegs));
+    //     }
+    // }
 
     public override void Enter()
     {
-        animator.SetBool(attackType, true);        
+        animator.SetTrigger(attackType);        
+    }
+
+    public void AttackCompleted()
+    {
+        if (stateMachine.CurrentState is AttackState)
+        {
+            Debug.Log("changing states!");
+            stateMachine.ChangeState(stateMachine.States.Grounded(false));
+        }
     }
 
 }

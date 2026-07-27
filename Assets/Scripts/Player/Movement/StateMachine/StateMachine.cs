@@ -132,4 +132,12 @@ public class StateMachine : MonoBehaviour
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
     }
+
+    public void OnAttackComplete()
+    {
+        if (_currentState is AttackState attackState)
+        {
+            attackState.AttackCompleted();
+        }
+    }
 }
