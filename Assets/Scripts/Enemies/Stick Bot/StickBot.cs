@@ -80,7 +80,7 @@ public class StickBot : MonoBehaviour
             {
                 animator.ResetTrigger("Attacking");
                 animator.SetBool("Backup", true);
-                rb.linearVelocityX = moveSpeed * -0.25f;
+                rb.linearVelocityX = moveSpeed * -.5f;
             } 
             else
             {
