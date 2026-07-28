@@ -55,6 +55,7 @@ public class GroundedState : PlayerState
         animator.SetBool("grounded", true);
         animator.SetBool("running", true);
         input.ConsumeRoll();
+        legsSpriteRenderer.enabled = true;
         
         
         groundCheckTimer = groundCheckCooldown; // Start with cooldown
@@ -78,17 +79,18 @@ public class GroundedState : PlayerState
         animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x), 0.05f, Time.deltaTime);
 
         
+        // bool isMoving = Mathf.Abs(input.HorizontalInput) > 0.01f;
         
-        if(Mathf.Abs(rb.linearVelocityX) < .01f)
-        {
-            legsSpriteRenderer.enabled = false;
+        // if(Mathf.Abs(rb.linearVelocityX) < .01f)
+        // {
+        //     legsSpriteRenderer.enabled = false;
             
-        }
-        else
-        {
-            legsSpriteRenderer.enabled = true;
+        // }
+        // else
+        // {
+        //     legsSpriteRenderer.enabled = true;
             
-        }
+        // }
 
         if (IsGrounded())
         {
@@ -125,10 +127,10 @@ public class GroundedState : PlayerState
     public override void FixedUpdate()
     {
         SlopeCheck();
-        applyMovement();
+        ApplyMovement();
     }
 
-    private void applyMovement()
+    private void ApplyMovement()
     {
         if(!onSlope){
             rb.sharedMaterial = noFriction;
@@ -184,7 +186,7 @@ public class GroundedState : PlayerState
             wallRegrabTimer = wallRegrabCooldown;
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
-
+            rb.linearVelocityY = 0f;
             stateMachine.ChangeState(stateMachine.States.Jumping(new Vector2(0f, config.jumpForce)));
             return;
         }
@@ -216,6 +218,8 @@ public class GroundedState : PlayerState
         {
             //light attack
             legsSpriteRenderer.enabled = true;
+            
+            //lunge slightly forward if standing still
             if(rb.linearVelocityX < .01f)
             {
                 float facingDirectionX = legsSpriteRenderer.flipX ? -1f : 1f;

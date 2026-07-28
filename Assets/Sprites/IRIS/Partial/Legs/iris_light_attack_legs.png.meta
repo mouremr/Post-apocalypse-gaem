@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: c24d151cbc69c974594a9c0d8469ab3c
+guid: 3bbb05002cdb4f94999ae593cdfd4f2e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3831969747040279747
-    second: iris_light_attack_legs_0
+      213: 7531508040323912390
+    second: iris_stand_stab_0
   - first:
-      213: -1524546312617837290
-    second: iris_light_attack_legs_1
+      213: 3097610158400809436
+    second: iris_stand_stab_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,7 +103,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: iris_light_attack_legs_0
+      name: iris_stand_stab_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,14 +118,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3cc116aae24ed2530800000000000000
-      internalID: 3831969747040279747
+      spriteID: 6c25186b8aa458860800000000000000
+      internalID: 7531508040323912390
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: iris_light_attack_legs_1
+      name: iris_stand_stab_1
       rect:
         serializedVersion: 2
         x: 77
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 61d38c0c439b7dae0800000000000000
-      internalID: -1524546312617837290
+      spriteID: cd92f18f60cecfa20800000000000000
+      internalID: 3097610158400809436
       vertices: []
       indices: 
       edges: []
@@ -150,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2600c2e88f20ea447a13aaf17bd4b08f
+    spriteID: 72fe8d9a659861e41bea1bfce2573b43
     internalID: 0
     vertices: []
     indices: 
@@ -162,8 +162,8 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":1.0},"gridSpriteSize":{"x":77.0,"y":69.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      iris_light_attack_legs_0: 3831969747040279747
-      iris_light_attack_legs_1: -1524546312617837290
+      iris_stand_stab_0: 7531508040323912390
+      iris_stand_stab_1: 3097610158400809436
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
