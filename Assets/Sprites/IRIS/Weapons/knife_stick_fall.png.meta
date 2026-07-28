@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: bb61426783ab47a40bf5d7cbf29a0393
+guid: 8bcfb11247747c94bbfc876fa013c64f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1295551447779985171
-    second: iris idle_0
+      213: -7500253795352275964
+    second: knife_stick_fall_0
   - first:
-      213: 1231515754706644192
-    second: iris idle_1
+      213: -7669593638146821770
+    second: knife_stick_fall_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -50,7 +50,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 0
+  spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -99,30 +99,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: iris idle_0
+      name: knife_stick_fall_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 5
-        width: 30
-        height: 80
+        y: 0
+        width: 63
+        height: 73
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,30 +118,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3174b297d29baf110800000000000000
-      internalID: 1295551447779985171
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: iris idle_1
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 5
-        width: 30
-        height: 80
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0ec2696dd09371110800000000000000
-      internalID: 1231515754706644192
+      spriteID: 40490c249eeb9e790800000000000000
+      internalID: -7500253795352275964
       vertices: []
       indices: 
       edges: []
@@ -163,7 +128,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 7c7ceccee0347b8488902a427c35ca06
+    spriteID: 9e78d80cf1df2234b9cf04e1220f17d0
     internalID: 0
     vertices: []
     indices: 
@@ -173,10 +138,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":1.0},"gridSpriteSize":{"x":30.0,"y":85.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":63.0,"y":73.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      iris idle_0: 1295551447779985171
-      iris idle_1: 1231515754706644192
+      knife_stick_fall_0: -7500253795352275964
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

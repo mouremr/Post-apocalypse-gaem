@@ -89,13 +89,9 @@ public class JumpingState : PlayerState
         }
 
 
-        if (rb.linearVelocity.x > 0.1f)
+        if (Mathf.Abs(input.HorizontalInput) > 0.01f)
         {
-            torsoSpriteRenderer.flipX = false;
-        }
-        else if (rb.linearVelocity.x < -0.1f)
-        {
-            torsoSpriteRenderer.flipX = true;
+            FlipX();
         }
 
 

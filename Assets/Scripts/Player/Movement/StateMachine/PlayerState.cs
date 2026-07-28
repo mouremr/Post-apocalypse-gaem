@@ -143,5 +143,11 @@ public abstract class PlayerState
     {
         return stateMachine.ConsumeStamina(cost);
     }
-
+    public void FlipX()
+    {
+        bool flip = input.HorizontalInput < 0;
+        torsoSpriteRenderer.flipX = flip;
+        legsSpriteRenderer.flipX = flip;
+        weaponSpriteRenderer.flipX = flip;
+    }
 }

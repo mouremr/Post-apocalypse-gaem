@@ -73,8 +73,9 @@ public class GroundedState : PlayerState
         groundCheckTimer = Mathf.Max(0f, groundCheckTimer - Time.deltaTime);
         rollCheckTimer = Mathf.Max(0f, rollCheckTimer - Time.deltaTime);
         
-
-        animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x));
+        
+        //add smoothing to setFloat so that it doesnt briefly go to 0 
+        animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x), 0.05f, Time.deltaTime);
 
         
         
@@ -105,8 +106,8 @@ public class GroundedState : PlayerState
 
         if (CheckDirectionChange())
         {
-            Debug.Log("true");
-            animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x));
+            //Debug.Log("true");
+            animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x), 0.05f, Time.deltaTime);
             animator.Play("movement Body", 0, 0.0f);
             animator.Play("movement Legs", 1, 0.0f);
         }
@@ -119,13 +120,7 @@ public class GroundedState : PlayerState
         
     }
 
-    private void FlipX()
-    {
-        bool flip = input.HorizontalInput < 0;
-        torsoSpriteRenderer.flipX = flip;
-        legsSpriteRenderer.flipX = flip;
-        weaponSpriteRenderer.flipX = flip;
-    }
+    
 
     public override void FixedUpdate()
     {
@@ -221,7 +216,16 @@ public class GroundedState : PlayerState
         {
             //light attack
             legsSpriteRenderer.enabled = true;
-            weaponSpriteRenderer.enabled = false;
+            if(rb.linearVelocityX < .01f)
+            {
+                float facingDirectionX = legsSpriteRenderer.flipX ? -1f : 1f;
+
+                if (Mathf.Abs(rb.linearVelocityX) < 0.01f)
+                {
+                    player.transform.position += new Vector3(0.5f * facingDirectionX, 0f, 0f);
+                }
+            }
+
             animator.SetBool("running", false);
             stateMachine.ChangeState(stateMachine.States.LightAttack());
         }
