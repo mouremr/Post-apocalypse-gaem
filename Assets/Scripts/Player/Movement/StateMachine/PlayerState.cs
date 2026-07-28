@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class PlayerState
 {
     protected StateMachine stateMachine;
-    protected PlayerStateConfig config;
+    protected PlayerConfig config;
     protected GameObject player;
     protected Rigidbody2D rb;
     protected Animator animator;
@@ -23,7 +23,7 @@ public abstract class PlayerState
     protected LayerMask defaultMask;
     
 
-    public PlayerState(StateMachine stateMachine, PlayerStateConfig config)
+    public PlayerState(StateMachine stateMachine, PlayerConfig config)
     {
         //TODO: pass these in?
         this.stateMachine = stateMachine;
@@ -116,7 +116,7 @@ public abstract class PlayerState
         Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
         Vector2 headOrigin = hipOrigin + Vector2.up * 1f;
 
-        Vector2 castDir = torsoSpriteRenderer.flipX ? Vector2.left : Vector2.right;
+        Vector2 castDir = player.transform.localScale.x == -1 ? Vector2.left : Vector2.right;
         float rayLength = 0.5f;
         RaycastHit2D hipHit = Physics2D.Raycast(hipOrigin, castDir, rayLength,platformMask);
         RaycastHit2D headHit = Physics2D.Raycast(headOrigin, castDir, rayLength,platformMask);
@@ -145,9 +145,19 @@ public abstract class PlayerState
     }
     public void FlipX()
     {
-        bool flip = input.HorizontalInput < 0;
-        torsoSpriteRenderer.flipX = flip;
-        legsSpriteRenderer.flipX = flip;
-        weaponSpriteRenderer.flipX = flip;
+        Vector3 localScale = player.transform.localScale;
+        // torsoSpriteRenderer.flipX = flip;
+        // legsSpriteRenderer.flipX = flip;
+        // weaponSpriteRenderer.flipX = flip;
+        if(input.HorizontalInput < 0)
+        {
+            
+            localScale.x = -1;
+            player.transform.localScale = localScale;
+        } else
+        {
+            localScale.x = 1;
+            player.transform.localScale = localScale;
+        }
     }
 }

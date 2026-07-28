@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d88d0d44dd647c4794d9e91758b6012, type: 3}
-  m_Name: PlayerStateConfig
+  m_Name: PlayerConfig
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStateConfig
   moveSpeed: 6
   jumpForce: 7

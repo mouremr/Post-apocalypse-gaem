@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Mantleable
+  - Weapon
   layers:
   - Default
   - TransparentFX

@@ -9,36 +9,19 @@ public class AttackState : PlayerState
     private string attackType;
     private float attackforce;
     private bool resetLegs;
+    private BoxCollider2D weaponHitBox;
 
-    public AttackState(StateMachine stateMachine, PlayerStateConfig config, String attack, float force, bool resetLegs) : base(stateMachine, config)
+    public AttackState(StateMachine stateMachine, PlayerConfig config, String attack, float force, bool resetLegs) : base(stateMachine, config)
     {
         attackType = attack;
         attackforce = force;
     }
 
-    // public override void Update()
-    // {
-    //     //rb.linearVelocity = new Vector2(rb.linearVelocityX * input.HorizontalInput, rb.linearVelocityY);
-    //     //rb.linearVelocity = Vector2.zero;
-    //     //rb.AddForce(new Vector2(attackforce * input.HorizontalInput, 0), ForceMode2D.Impulse);
-    //     // get attack animation length
-    //     attackDuration = animator.GetCurrentAnimatorStateInfo(1).length; 
-    //     attackTimer += Time.deltaTime;
-
-        
-
-    //     if(attackTimer >= attackDuration)
-    //     {
-    //         animator.SetBool(attackType, false);
-    //         //float legsNormalizedTime = animator.GetCurrentAnimatorStateInfo(1).normalizedTime % 1f;
-    //         //animator.Play("movement Body", 0, legsNormalizedTime);
-    //         stateMachine.ChangeState(stateMachine.States.Grounded(resetLegs));
-    //     }
-    // }
-
     public override void Enter()
     {
-        animator.SetTrigger(attackType);        
+        animator.SetTrigger(attackType);
+        weaponHitBox = stateMachine.WeaponHitBox;
+        weaponHitBox.enabled = true;     
     }
 
     public void AttackCompleted()
@@ -47,6 +30,15 @@ public class AttackState : PlayerState
         {
             stateMachine.ChangeState(stateMachine.States.Grounded(false));
         }
+    }
+    public override void Exit()
+    {
+        weaponHitBox.enabled = false;
+    }
+
+    public int DealDamage()
+    {
+        return 0;
     }
 
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 public class StateMachine : MonoBehaviour
 {
 
-    [SerializeField] private PlayerStateConfig stateConfig;
+    [SerializeField] private PlayerConfig stateConfig;
     private GameObject torso;
     private GameObject legs;
     //[SerializeField] private LayerMask climbable;
@@ -43,6 +43,7 @@ public class StateMachine : MonoBehaviour
     public SpriteRenderer TorsoSpriteRenderer { get; private set; }
     public SpriteRenderer LegsSpriteRenderer { get; private set; }
     public SpriteRenderer WeaponSpriteRenderer {get; private set; }
+    public BoxCollider2D WeaponHitBox {get; private set; }
     public BoxCollider2D PlayerCollider { get; private set; }
     public CameraFollow Cam { get; private set; }
     public LayerMask GroundMask { get; private set; }
@@ -70,7 +71,8 @@ public class StateMachine : MonoBehaviour
         Input = GetComponent<PlayerInput>();
         TorsoSpriteRenderer = torso.GetComponent<SpriteRenderer>();
         LegsSpriteRenderer = legs.GetComponent<SpriteRenderer>();
-        WeaponSpriteRenderer = transform.Find("Weapon").GetComponent<SpriteRenderer>();
+        WeaponSpriteRenderer = transform.Find("Spear").GetComponent<SpriteRenderer>();
+        WeaponHitBox = transform.Find("Spear").GetComponent<BoxCollider2D>();
         PlayerCollider = GetComponent<BoxCollider2D>();
         Cam = Camera.main.GetComponent<CameraFollow>();
         GroundMask = LayerMask.GetMask("Ground");

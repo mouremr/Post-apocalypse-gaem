@@ -23,6 +23,7 @@ public class StickBot : MonoBehaviour
     private bool patrol;
     private bool attacking = false;
     private float backupTimer = 0f;
+    private float health = 5f;
 
     void Start()
     {
@@ -137,12 +138,20 @@ public class StickBot : MonoBehaviour
         );
         return hit.collider != null && ((1 << hit.collider.gameObject.layer) & playerMask) != 0;
     }
-
-    private void FlipX()
+    
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        if (sprite.flipX) sprite.flipX = false;
-        else sprite.flipX = true; 
+        if (collider.CompareTag("Weapon"))
+        {
+            Weapon weapon = collider.gameObject.GetComponent<Weapon>();
+            
+            health -= weapon.DealDamage();
+            Debug.Log(health);
+            if(health <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
-
 
 }

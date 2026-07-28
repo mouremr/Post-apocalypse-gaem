@@ -14,7 +14,7 @@ public class RollingState: PlayerState
     private int playerLayer = LayerMask.NameToLayer("Player");
     private int enemyLayer = LayerMask.NameToLayer("Enemy");
 
-    public RollingState(StateMachine stateMachine, PlayerStateConfig config, float moveSpeed) : base(stateMachine, config)
+    public RollingState(StateMachine stateMachine, PlayerConfig config, float moveSpeed) : base(stateMachine, config)
     {
         this.moveSpeed=moveSpeed;
         rollSpeed = config.rollSpeed;
@@ -28,7 +28,7 @@ public class RollingState: PlayerState
         rb.linearVelocity=Vector2.zero;
         Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);
         
-        float dir = torsoSpriteRenderer.flipX ? -1f : 1f;
+        float dir = player.transform.localScale.x;
 
         rb.AddForce(new Vector2(rollSpeed * dir, 0), ForceMode2D.Impulse);
         return;

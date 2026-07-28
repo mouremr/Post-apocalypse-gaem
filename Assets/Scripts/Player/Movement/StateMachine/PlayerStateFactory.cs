@@ -3,9 +3,9 @@ using UnityEngine;
 public class PlayerStateFactory
 {
     private readonly StateMachine stateMachine;
-    private readonly PlayerStateConfig config;
+    private readonly PlayerConfig config;
 
-    public PlayerStateFactory(StateMachine stateMachine, PlayerStateConfig config)
+    public PlayerStateFactory(StateMachine stateMachine, PlayerConfig config)
     {
         this.stateMachine = stateMachine;
         this.config = config;

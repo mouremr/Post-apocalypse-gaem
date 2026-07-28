@@ -1,8 +1,8 @@
-// PlayerStateConfig.cs
+// playerConfig.cs
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerStateConfig", menuName = "Game/Player State Config")]
-public class PlayerStateConfig : ScriptableObject
+[CreateAssetMenu(fileName = "playerConfig", menuName = "Game/Player Config")]
+public class PlayerConfig : ScriptableObject
 {
     [Header("Movement")]
     public float moveSpeed = 6f;

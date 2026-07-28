@@ -18,12 +18,13 @@ public class MantlingState : PlayerState
     private Vector2 oldSize;
     private Vector2 oldOffset;
 
-    public MantlingState(StateMachine stateMachine, PlayerStateConfig config) : base(stateMachine, config){ }
+    public MantlingState(StateMachine stateMachine, PlayerConfig config) : base(stateMachine, config){ }
 
     public override void Enter(){
+        weaponSpriteRenderer.enabled = false;
         Vector2 hipOrigin = (Vector2)player.transform.position + Vector2.up * 1f;
 
-        Vector2 castDir = torsoSpriteRenderer.flipX ? Vector2.left : Vector2.right;
+        Vector2 castDir = player.transform.localScale.x == -1 ? Vector2.left : Vector2.right;
         float rayLength = 0.5f;
     
         headOrigin = hipOrigin + Vector2.up * 1f;
@@ -93,6 +94,11 @@ public class MantlingState : PlayerState
             stateMachine.ChangeState(stateMachine.States.Grounded(true));
             return;
         }
+    }
+
+    public override void Exit()
+    {
+        weaponSpriteRenderer.enabled = true;
     }
 
 }

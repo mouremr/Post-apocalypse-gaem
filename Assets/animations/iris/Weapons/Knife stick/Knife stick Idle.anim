@@ -25,7 +25,7 @@ AnimationClip:
     - time: 0.33333334
       value: {fileID: 26516156590138984, guid: 75cc0b70b35c6ef479d4656f73798ee3, type: 3}
     attribute: m_Sprite
-    path: Weapon
+    path: Spear
     classID: 212
     script: {fileID: 0}
     flags: 2
@@ -37,7 +37,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 1855955664
+      path: 1583325607
       attribute: 0
       script: {fileID: 0}
       typeID: 212

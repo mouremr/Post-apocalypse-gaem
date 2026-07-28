@@ -13,9 +13,9 @@ public class WallClimbingState : PlayerState
     private float wallExitTimer = 0f;
     private float dynoCooldownTimer = .6f;
     private int dynoCost = 10;
-    public WallClimbingState(StateMachine stateMachine, PlayerStateConfig config) : base(stateMachine, config)
+    public WallClimbingState(StateMachine stateMachine, PlayerConfig config) : base(stateMachine, config)
     {
-        facingDirection = torsoSpriteRenderer.flipX ? -1f : 1f;
+        facingDirection = player.transform.localScale.x;
         wallExitTimer = wallExitCooldown; // start timer
         //climbableMask = LayerMask.GetMask("Climbable");
 
@@ -27,9 +27,9 @@ public class WallClimbingState : PlayerState
 
         int wallSide = GetWallSide();
         if (wallSide == -1)
-            torsoSpriteRenderer.flipX = false; // face right
+            player.transform.localScale = new Vector3(1f, 1f, 1f); // face right
         else if (wallSide == 1)
-            torsoSpriteRenderer.flipX = true;  // face left
+            player.transform.localScale = new Vector3(-1f, 1f, 1f);  // face left
 
         facingDirection = wallSide;
 
@@ -66,7 +66,7 @@ public class WallClimbingState : PlayerState
             rb.linearVelocity = new Vector2(0f, currentY); //prevent horizontal movement
 
         }
-        float wallDir = torsoSpriteRenderer.flipX ? -1f : 1f;
+        float wallDir = player.transform.localScale.x;
         if(Math.Sign(Input.GetAxis("Horizontal")) == Math.Sign(-wallDir) && input.JumpPressed){
             animator.SetBool("climbing", false);
             Debug.Log("push away from wall");

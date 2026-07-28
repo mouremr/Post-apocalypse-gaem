@@ -37,7 +37,7 @@ public class GroundedState : PlayerState
     private PhysicsMaterial2D fullFriction;
     private PhysicsMaterial2D noFriction;
 
-    public GroundedState(StateMachine stateMachine, PlayerStateConfig config, bool resetAnims) : base(stateMachine, config)
+    public GroundedState(StateMachine stateMachine, PlayerConfig config, bool resetAnims) : base(stateMachine, config)
     {
         moveSpeed = config.moveSpeed;
         gracePeriod = config.gracePeriod;
@@ -75,22 +75,8 @@ public class GroundedState : PlayerState
         rollCheckTimer = Mathf.Max(0f, rollCheckTimer - Time.deltaTime);
         
         
-        //add smoothing to setFloat so that it doesnt briefly go to 0 
+        //added smoothing to setFloat so that it doesnt briefly go to 0 
         animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x), 0.05f, Time.deltaTime);
-
-        
-        // bool isMoving = Mathf.Abs(input.HorizontalInput) > 0.01f;
-        
-        // if(Mathf.Abs(rb.linearVelocityX) < .01f)
-        // {
-        //     legsSpriteRenderer.enabled = false;
-            
-        // }
-        // else
-        // {
-        //     legsSpriteRenderer.enabled = true;
-            
-        // }
 
         if (IsGrounded())
         {
@@ -222,7 +208,8 @@ public class GroundedState : PlayerState
             //lunge slightly forward if standing still
             if(rb.linearVelocityX < .01f)
             {
-                float facingDirectionX = legsSpriteRenderer.flipX ? -1f : 1f;
+                //float facingDirectionX = legsSpriteRenderer.flipX ? -1f : 1f;
+                float facingDirectionX = player.transform.localScale.x;
 
                 if (Mathf.Abs(rb.linearVelocityX) < 0.01f)
                 {
