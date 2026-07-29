@@ -3,9 +3,9 @@ using UnityEngine;
 public class PlayerStateFactory
 {
     private readonly StateMachine stateMachine;
-    private readonly PlayerConfig config;
+    private readonly PlayerStateConfig config;
 
-    public PlayerStateFactory(StateMachine stateMachine, PlayerConfig config)
+    public PlayerStateFactory(StateMachine stateMachine, PlayerStateConfig config)
     {
         this.stateMachine = stateMachine;
         this.config = config;
@@ -17,6 +17,6 @@ public class PlayerStateFactory
     public RollingState Rolling(float moveSpeed) => new(stateMachine, config, moveSpeed);
     public WallClimbingState WallClimbing() => new(stateMachine, config);
     public MantlingState Mantling() => new(stateMachine, config);
-    public AttackState LightAttack() => new(stateMachine, config, "lightAttack", config.moveSpeed, false);
-    public AttackState HeavyAttack() => new(stateMachine, config, "heavyAttack", 0f, true);
+    public AttackState LightAttack() => new(stateMachine, config, stateMachine.WeaponConfig.lightAttack);
+    public AttackState HeavyAttack() => new(stateMachine, config, stateMachine.WeaponConfig.heavyAttack);
 }

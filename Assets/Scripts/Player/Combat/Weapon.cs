@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private PlayerConfig config;
+    [SerializeField] private PlayerStateConfig config;
     private int damage;
     
     void Start()

@@ -16,7 +16,7 @@ public class JumpingState : PlayerState
     private LayerMask manteableMask;
     private bool hasIncreasedGravity;
 
-    public JumpingState(StateMachine stateMachine, PlayerConfig config, Vector2 jumpVector) : base(stateMachine, config)
+    public JumpingState(StateMachine stateMachine, PlayerStateConfig config, Vector2 jumpVector) : base(stateMachine, config)
     {
         this.jumpVector= jumpVector;
         manteableMask = LayerMask.GetMask("Mantleable");
@@ -68,7 +68,7 @@ public class JumpingState : PlayerState
             animator.SetBool("mantling", true);
 
             
-            stateMachine.ChangeState(stateMachine.States.Mantling());
+            stateMachine.ChangeState(stateMachine.PlayerStates.Mantling());
             return;
         }
         wallRegrabTimer -= Time.deltaTime;
@@ -76,7 +76,7 @@ public class JumpingState : PlayerState
         if (wallRegrabTimer <= 0f && IsWalled(out float wallDir))
         {
             animator.SetBool("jumping", false);
-            stateMachine.ChangeState(stateMachine.States.WallClimbing());
+            stateMachine.ChangeState(stateMachine.PlayerStates.WallClimbing());
             return;
         }
 
@@ -84,7 +84,7 @@ public class JumpingState : PlayerState
         {
             animator.SetBool("jumping", false);
             animator.SetBool("grounded", true);
-            stateMachine.ChangeState(stateMachine.States.Grounded(true));
+            stateMachine.ChangeState(stateMachine.PlayerStates.Grounded(true));
             return;
         }
 

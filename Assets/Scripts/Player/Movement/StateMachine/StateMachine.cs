@@ -4,7 +4,8 @@ using UnityEngine;
 public class StateMachine : MonoBehaviour
 {
 
-    [SerializeField] private PlayerConfig stateConfig;
+    [SerializeField] private PlayerStateConfig stateConfig;
+    [SerializeField] private PlayerWeaponConfig weaponConfig;
     private GameObject torso;
     private GameObject legs;
     //[SerializeField] private LayerMask climbable;
@@ -31,14 +32,14 @@ public class StateMachine : MonoBehaviour
     public float CurrentStamina => currentStamina;
     public float MaxStamina => maxStamina;
 
-    //for the future maybe move health away from movement states?
+    //todo: for the future maybe move health away from movement states?
     public float CurrentHealth => currentHealth;
     public float MaxHealth => maxHealth;
-    public PlayerStateFactory States { get; private set; }
-
-
-    public Rigidbody2D Rb { get; private set; }
-    public Animator Animator { get; private set; }
+    
+    public PlayerWeaponConfig WeaponConfig { get; private set; }
+    public PlayerStateFactory PlayerStates { get; private set; }
+    public Rigidbody2D PlayerRb { get; private set; }
+    public Animator PlayerAnimator { get; private set; }
     public PlayerInput Input { get; private set; }
     public SpriteRenderer TorsoSpriteRenderer { get; private set; }
     public SpriteRenderer LegsSpriteRenderer { get; private set; }
@@ -53,7 +54,8 @@ public class StateMachine : MonoBehaviour
 
     private void Awake()
     {
-        States = new PlayerStateFactory(this, stateConfig);
+        WeaponConfig = weaponConfig;
+        PlayerStates = new PlayerStateFactory(this, stateConfig);
         maxHealth = stateConfig.maxHealth;
         currentHealth = maxHealth;
         maxStamina = stateConfig.maxStamina;
@@ -66,8 +68,8 @@ public class StateMachine : MonoBehaviour
 
         torso = transform.Find("Torso").gameObject;
         legs = transform.Find("Legs").gameObject;
-        Rb = GetComponent<Rigidbody2D>();
-        Animator = GetComponent<Animator>();
+        PlayerRb = GetComponent<Rigidbody2D>();
+        PlayerAnimator = GetComponent<Animator>();
         Input = GetComponent<PlayerInput>();
         TorsoSpriteRenderer = torso.GetComponent<SpriteRenderer>();
         LegsSpriteRenderer = legs.GetComponent<SpriteRenderer>();

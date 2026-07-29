@@ -23516,6 +23516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateMachine
   stateConfig: {fileID: 11400000, guid: 151dbe7b1939ae8449c64353bb24c77d, type: 2}
+  weaponConfig: {fileID: 11400000, guid: 3d0d6457220f29147af8357e33cbd6c9, type: 2}
 --- !u!114 &454078379835378363
 MonoBehaviour:
   m_ObjectHideFlags: 0

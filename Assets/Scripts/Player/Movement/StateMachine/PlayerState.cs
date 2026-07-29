@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class PlayerState
 {
     protected StateMachine stateMachine;
-    protected PlayerConfig config;
+    protected PlayerStateConfig config;
     protected GameObject player;
     protected Rigidbody2D rb;
     protected Animator animator;
@@ -23,15 +23,15 @@ public abstract class PlayerState
     protected LayerMask defaultMask;
     
 
-    public PlayerState(StateMachine stateMachine, PlayerConfig config)
+    public PlayerState(StateMachine stateMachine, PlayerStateConfig config)
     {
         //TODO: pass these in?
         this.stateMachine = stateMachine;
         this.config = config;
         player = stateMachine.gameObject;
         player = stateMachine.gameObject;
-        rb = stateMachine.Rb;
-        animator = stateMachine.Animator;
+        rb = stateMachine.PlayerRb;
+        animator = stateMachine.PlayerAnimator;
         input = stateMachine.Input;
         torsoSpriteRenderer = stateMachine.TorsoSpriteRenderer;
         legsSpriteRenderer = stateMachine.LegsSpriteRenderer;

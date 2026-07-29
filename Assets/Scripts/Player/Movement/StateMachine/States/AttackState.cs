@@ -4,22 +4,17 @@ using UnityEngine;
 public class AttackState : PlayerState
 {
     //private AnimatorStateInfo stateInfo;
-    private float attackDuration;
-    private float attackTimer = 0f;
-    private string attackType;
-    private float attackforce;
-    private bool resetLegs;
+    private AttackData attackData;
     private BoxCollider2D weaponHitBox;
 
-    public AttackState(StateMachine stateMachine, PlayerConfig config, String attack, float force, bool resetLegs) : base(stateMachine, config)
+    public AttackState(StateMachine stateMachine, PlayerStateConfig config, AttackData attackData) : base(stateMachine, config)
     {
-        attackType = attack;
-        attackforce = force;
+        this.attackData = attackData;
     }
 
     public override void Enter()
     {
-        animator.SetTrigger(attackType);
+        animator.SetTrigger(attackData.attackTrigger);
         weaponHitBox = stateMachine.WeaponHitBox;
         weaponHitBox.enabled = true;     
     }
@@ -28,17 +23,12 @@ public class AttackState : PlayerState
     {
         if (stateMachine.CurrentState is AttackState)
         {
-            stateMachine.ChangeState(stateMachine.States.Grounded(false));
+            stateMachine.ChangeState(stateMachine.PlayerStates.Grounded(false));
         }
     }
     public override void Exit()
     {
         weaponHitBox.enabled = false;
-    }
-
-    public int DealDamage()
-    {
-        return 0;
     }
 
 }

@@ -18,7 +18,7 @@ public class MantlingState : PlayerState
     private Vector2 oldSize;
     private Vector2 oldOffset;
 
-    public MantlingState(StateMachine stateMachine, PlayerConfig config) : base(stateMachine, config){ }
+    public MantlingState(StateMachine stateMachine, PlayerStateConfig config) : base(stateMachine, config){ }
 
     public override void Enter(){
         weaponSpriteRenderer.enabled = false;
@@ -91,7 +91,7 @@ public class MantlingState : PlayerState
             playerCollider.size = oldSize;
             playerCollider.offset = oldOffset;
             rb.linearVelocity = Vector2.zero;
-            stateMachine.ChangeState(stateMachine.States.Grounded(true));
+            stateMachine.ChangeState(stateMachine.PlayerStates.Grounded(true));
             return;
         }
     }

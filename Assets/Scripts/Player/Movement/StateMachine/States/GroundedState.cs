@@ -37,7 +37,7 @@ public class GroundedState : PlayerState
     private PhysicsMaterial2D fullFriction;
     private PhysicsMaterial2D noFriction;
 
-    public GroundedState(StateMachine stateMachine, PlayerConfig config, bool resetAnims) : base(stateMachine, config)
+    public GroundedState(StateMachine stateMachine, PlayerStateConfig config, bool resetAnims) : base(stateMachine, config)
     {
         moveSpeed = config.moveSpeed;
         gracePeriod = config.gracePeriod;
@@ -163,7 +163,7 @@ public class GroundedState : PlayerState
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
 
-            stateMachine.ChangeState(stateMachine.States.WallClimbing());
+            stateMachine.ChangeState(stateMachine.PlayerStates.WallClimbing());
             return;
         }else  if ((input.JumpPressed && groundCheckTimer <= 0f && IsGrounded()) || (input.JumpPressed && groundCheckTimer <= 0f && coyoteTimer > 0f))
         {
@@ -173,7 +173,7 @@ public class GroundedState : PlayerState
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
             rb.linearVelocityY = 0f;
-            stateMachine.ChangeState(stateMachine.States.Jumping(new Vector2(0f, config.jumpForce)));
+            stateMachine.ChangeState(stateMachine.PlayerStates.Jumping(new Vector2(0f, config.jumpForce)));
             return;
         }
         else if(!IsGrounded()){
@@ -182,7 +182,7 @@ public class GroundedState : PlayerState
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
 
-            stateMachine.ChangeState(stateMachine.States.Falling());
+            stateMachine.ChangeState(stateMachine.PlayerStates.Falling());
         }
         else if (input.RollPressed && IsGrounded() && ConsumeStamina(rollCost))
         {   
@@ -190,7 +190,7 @@ public class GroundedState : PlayerState
             legsSpriteRenderer.enabled = true;
             weaponSpriteRenderer.enabled = false;
             animator.SetBool("grounded", false);
-            stateMachine.ChangeState(stateMachine.States.Rolling(moveSpeed));
+            stateMachine.ChangeState(stateMachine.PlayerStates.Rolling(moveSpeed));
         }
         else if (input.HeavyAttackPressed && ConsumeStamina(heavyAttackCost))
         {
@@ -198,7 +198,7 @@ public class GroundedState : PlayerState
             legsSpriteRenderer.enabled = false;
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             animator.SetBool("running", false);
-            stateMachine.ChangeState(stateMachine.States.HeavyAttack());
+            stateMachine.ChangeState(stateMachine.PlayerStates.HeavyAttack());
         }
         else if (input.LightAttackPressed && ConsumeStamina(lightAttackCost))
         {
@@ -218,7 +218,7 @@ public class GroundedState : PlayerState
             }
 
             animator.SetBool("running", false);
-            stateMachine.ChangeState(stateMachine.States.LightAttack());
+            stateMachine.ChangeState(stateMachine.PlayerStates.LightAttack());
         }
         else
         {

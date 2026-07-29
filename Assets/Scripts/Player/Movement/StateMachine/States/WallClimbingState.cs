@@ -13,7 +13,7 @@ public class WallClimbingState : PlayerState
     private float wallExitTimer = 0f;
     private float dynoCooldownTimer = .6f;
     private int dynoCost = 10;
-    public WallClimbingState(StateMachine stateMachine, PlayerConfig config) : base(stateMachine, config)
+    public WallClimbingState(StateMachine stateMachine, PlayerStateConfig config) : base(stateMachine, config)
     {
         facingDirection = player.transform.localScale.x;
         wallExitTimer = wallExitCooldown; // start timer
@@ -74,7 +74,7 @@ public class WallClimbingState : PlayerState
             float pushX = 2f * -wallDir; 
             float pushY= 5f;
             
-            stateMachine.ChangeState(stateMachine.States.Jumping(new Vector2(pushX,pushY)));
+            stateMachine.ChangeState(stateMachine.PlayerStates.Jumping(new Vector2(pushX,pushY)));
             return;
 
         }
@@ -87,19 +87,19 @@ public class WallClimbingState : PlayerState
 
         if (wallExitTimer <= 0f &&   input.HorizontalInput != 0 && Mathf.Sign(input.HorizontalInput) != facingDirection && IsGrounded())        {
             animator.SetBool("climbing", false);
-            stateMachine.ChangeState(stateMachine.States.Grounded(true));
+            stateMachine.ChangeState(stateMachine.PlayerStates.Grounded(true));
             return;
         }
         if (canMantle())
         {
             animator.SetBool("climbing", false);
-            stateMachine.ChangeState(stateMachine.States.Mantling());
+            stateMachine.ChangeState(stateMachine.PlayerStates.Mantling());
             return;
         }
         if (!IsWalled(out float dum)) //slid off wall
         {
             animator.SetBool("climbing", false);
-            stateMachine.ChangeState(stateMachine.States.Falling());   
+            stateMachine.ChangeState(stateMachine.PlayerStates.Falling());   
             return;
         }
 

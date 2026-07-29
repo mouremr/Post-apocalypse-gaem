@@ -14,7 +14,7 @@ public class RollingState: PlayerState
     private int playerLayer = LayerMask.NameToLayer("Player");
     private int enemyLayer = LayerMask.NameToLayer("Enemy");
 
-    public RollingState(StateMachine stateMachine, PlayerConfig config, float moveSpeed) : base(stateMachine, config)
+    public RollingState(StateMachine stateMachine, PlayerStateConfig config, float moveSpeed) : base(stateMachine, config)
     {
         this.moveSpeed=moveSpeed;
         rollSpeed = config.rollSpeed;
@@ -41,7 +41,7 @@ public class RollingState: PlayerState
         {
             //Debug.Log("end roll");
             animator.SetBool("rolling", false);
-            stateMachine.ChangeState(stateMachine.States.Grounded(true));
+            stateMachine.ChangeState(stateMachine.PlayerStates.Grounded(true));
             return;
         }
     }
