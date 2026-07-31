@@ -146,9 +146,6 @@ public abstract class PlayerState
     public void FlipX()
     {
         Vector3 localScale = player.transform.localScale;
-        // torsoSpriteRenderer.flipX = flip;
-        // legsSpriteRenderer.flipX = flip;
-        // weaponSpriteRenderer.flipX = flip;
         if(input.HorizontalInput < 0)
         {
             

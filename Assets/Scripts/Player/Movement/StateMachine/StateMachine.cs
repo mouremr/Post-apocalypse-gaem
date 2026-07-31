@@ -139,7 +139,7 @@ public class StateMachine : MonoBehaviour
 
     public void OnAttackComplete()
     {
-        if (_currentState is AttackState attackState)
+        if (_currentState is PlayerAttackState attackState)
         {
             attackState.AttackCompleted();
         }

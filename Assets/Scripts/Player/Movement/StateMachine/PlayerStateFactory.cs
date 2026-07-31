@@ -17,6 +17,6 @@ public class PlayerStateFactory
     public RollingState Rolling(float moveSpeed) => new(stateMachine, config, moveSpeed);
     public WallClimbingState WallClimbing() => new(stateMachine, config);
     public MantlingState Mantling() => new(stateMachine, config);
-    public AttackState LightAttack() => new(stateMachine, config, stateMachine.WeaponConfig.lightAttack);
-    public AttackState HeavyAttack() => new(stateMachine, config, stateMachine.WeaponConfig.heavyAttack);
+    public PlayerAttackState LightAttack() => new(stateMachine, config, stateMachine.WeaponConfig.lightAttack);
+    public PlayerAttackState HeavyAttack() => new(stateMachine, config, stateMachine.WeaponConfig.heavyAttack);
 }

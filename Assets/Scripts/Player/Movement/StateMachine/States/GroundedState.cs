@@ -208,7 +208,6 @@ public class GroundedState : PlayerState
             //lunge slightly forward if standing still
             if(rb.linearVelocityX < .01f)
             {
-                //float facingDirectionX = legsSpriteRenderer.flipX ? -1f : 1f;
                 float facingDirectionX = player.transform.localScale.x;
 
                 if (Mathf.Abs(rb.linearVelocityX) < 0.01f)

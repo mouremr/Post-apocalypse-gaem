@@ -23182,6 +23182,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PatrolState
   patrolDistance: 5
+  detectionDistance: 3
+  backupDetectionDistance: 0
+  backupDuration: 0.5
+  moveSpeed: 3
 --- !u!114 &1808506154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23195,8 +23199,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StickBot
   maxHealth: 5
-  moveSpeed: 3
-  detectionDistance: 6
   startingState: {fileID: 1808506153}
 --- !u!114 &1808506155
 MonoBehaviour:
@@ -23210,8 +23212,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b498239c8bdedab48b2502fdc39f7a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackState
-  backupDetectionDistance: 3
+  patrolDistance: 5
+  detectionDistance: 3
+  backupDetectionDistance: 0
   backupDuration: 0.5
+  moveSpeed: 3
 --- !u!1 &1909933342
 GameObject:
   m_ObjectHideFlags: 0
@@ -23792,7 +23797,7 @@ Camera:
   far clip plane: 1000
   field of view: 61.6
   orthographic: 1
-  orthographic size: 5.625
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
