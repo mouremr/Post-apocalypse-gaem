@@ -34,8 +34,8 @@ public abstract class EnemyState : MonoBehaviour
 
 
     public virtual void Enter() { }
-    public virtual void Tick() { }
-    public virtual void FixedTick() { }
+    public virtual void Update() { }
+    public virtual void FixedUpdate() { }
     public virtual void Exit() { }
 
 

@@ -10,7 +10,7 @@ public class EnemyAttackState : EnemyState
         backupTimer = 0f;
     }
 
-    public override void FixedTick()
+    public override void FixedUpdate()
     {
         if (backupTimer > 0)
             backupTimer -= Time.fixedDeltaTime;

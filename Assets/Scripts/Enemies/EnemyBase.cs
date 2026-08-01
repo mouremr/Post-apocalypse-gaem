@@ -34,8 +34,8 @@ public abstract class EnemyBase : MonoBehaviour
             ChangeState(states[0]);
     }
 
-    protected virtual void Update() => current?.Tick();
-    protected virtual void FixedUpdate() => current?.FixedTick();
+    protected virtual void Update() => current?.Update();
+    protected virtual void FixedUpdate() => current?.FixedUpdate();
 
     public void ChangeState(EnemyState next)
     {

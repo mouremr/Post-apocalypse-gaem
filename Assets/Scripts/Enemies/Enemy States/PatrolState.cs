@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyPatrolState : EnemyState
 {
     [SerializeField] protected float patrolDistance = 5f;
-    public override void FixedTick()
+    public override void FixedUpdate()
     {
         float distanceMoved = Vector3.Distance(startPosition, transform.position);
         bool movingAway = (transform.position.x > startPosition.x && moveSpeed > 0) ||
