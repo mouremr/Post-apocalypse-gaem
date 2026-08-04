@@ -7,7 +7,6 @@ public abstract class EnemyState : MonoBehaviour
     protected float backupTimer = 0f;
 
 
-    protected float moveSpeed;
     protected float detectionDistance;
 
     protected Animator animator;
@@ -19,7 +18,6 @@ public abstract class EnemyState : MonoBehaviour
     public virtual void Init(EnemyBase owner)
     {
         enemy = owner;
-        moveSpeed = enemy.MoveSpeed;
         detectionDistance = enemy.DetectionDistance;
     }
 
@@ -34,8 +32,8 @@ public abstract class EnemyState : MonoBehaviour
 
 
     public virtual void Enter() { }
-    public virtual void Update() { }
-    public virtual void FixedUpdate() { }
+    public virtual void Tick() { }
+    public virtual void FixedTick() { }
     public virtual void Exit() { }
 
 
@@ -43,7 +41,7 @@ public abstract class EnemyState : MonoBehaviour
     protected bool CheckForPlayerLOS()
     {
         Vector3 rayOrigin = transform.position + new Vector3(0, .5f, 0);
-        Vector2 facing = enemy.MoveSpeed < 0 ? Vector2.left : Vector2.right;
+        Vector2 facing = enemy.CurrentDirection < 0 ? Vector2.left : Vector2.right;
         RaycastHit2D hit = Physics2D.Raycast(rayOrigin, facing, enemy.DetectionDistance, playerMask);
         Debug.DrawRay(rayOrigin, (Vector3)(facing * enemy.DetectionDistance), Color.blue);
         return hit.collider != null;

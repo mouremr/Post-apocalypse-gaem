@@ -11,6 +11,8 @@ public abstract class EnemyBase : MonoBehaviour
     [SerializeField] private float detectionDistance = 3f;
 
     public float MoveSpeed => moveSpeed;
+    public float CurrentDirection { get; private set; } = 1f;
+    public void SetDirection(float dir) => CurrentDirection = Mathf.Sign(dir);
     public float DetectionDistance => detectionDistance;
 
     [SerializeField] private EnemyState startingState;
@@ -34,8 +36,8 @@ public abstract class EnemyBase : MonoBehaviour
             ChangeState(states[0]);
     }
 
-    protected virtual void Update() => current?.Update();
-    protected virtual void FixedUpdate() => current?.FixedUpdate();
+    protected virtual void Update() => current?.Tick();
+    protected virtual void FixedUpdate() => current?.FixedTick();
 
     public void ChangeState(EnemyState next)
     {

@@ -29,7 +29,6 @@ public abstract class PlayerState
         this.stateMachine = stateMachine;
         this.config = config;
         player = stateMachine.gameObject;
-        player = stateMachine.gameObject;
         rb = stateMachine.PlayerRb;
         animator = stateMachine.PlayerAnimator;
         input = stateMachine.Input;

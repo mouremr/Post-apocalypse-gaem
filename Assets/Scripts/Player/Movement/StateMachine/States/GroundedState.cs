@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class GroundedState : PlayerState
@@ -22,7 +23,6 @@ public class GroundedState : PlayerState
     private float lastDirectionX;
     private float currentDirectionX;
 
-    private readonly bool resetAnims;
 
     private Vector2 colliderSize;
     private float slopeDownAngle;
@@ -37,7 +37,7 @@ public class GroundedState : PlayerState
     private PhysicsMaterial2D fullFriction;
     private PhysicsMaterial2D noFriction;
 
-    public GroundedState(StateMachine stateMachine, PlayerStateConfig config, bool resetAnims) : base(stateMachine, config)
+    public GroundedState(StateMachine stateMachine, PlayerStateConfig config) : base(stateMachine, config)
     {
         moveSpeed = config.moveSpeed;
         gracePeriod = config.gracePeriod;
@@ -46,7 +46,6 @@ public class GroundedState : PlayerState
         heavyAttackCost = config.heavyAttackCost;
         noFriction = config.noFriction;
         fullFriction = config.fullFriction;
-        this.resetAnims = resetAnims;
         colliderSize = playerCollider.size;
     }
 
@@ -95,16 +94,25 @@ public class GroundedState : PlayerState
         if (CheckDirectionChange())
         {
             //Debug.Log("true");
-            animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x), 0.05f, Time.deltaTime);
-            animator.Play("movement Body", 0, 0.0f);
-            animator.Play("movement Legs", 1, 0.0f);
+            //animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x), 0.05f, Time.deltaTime);
+            // animator.Play("movement Body", 0, 0.0f);
+            // animator.Play("movement Legs", 1, 0.0f);
         }
 
         if (Mathf.Abs(input.HorizontalInput) > 0.01f)
         {
+            //maybe fix later?
             FlipX();
         }
         
+        if(onSlope && math.abs(rb.linearVelocity.x) > .01f)
+        {
+            animator.SetBool("OnStair", true);    
+        }
+        else
+        {
+            animator.SetBool("OnStair", false);
+        }
         
     }
 
@@ -257,11 +265,11 @@ public class GroundedState : PlayerState
         } 
         else if (slopeHitBack)
         {
-        onSlope = true;
-        slopeSideAngle = Vector2.Angle(slopeHitBack.normal, Vector2.up);
-        
-        Debug.DrawRay(slopeHitBack.point, slopeHitBack.normal, Color.red);
-        Debug.DrawRay(slopeHitBack.point, Vector2.up, Color.magenta);
+            onSlope = true;
+            slopeSideAngle = Vector2.Angle(slopeHitBack.normal, Vector2.up);
+            
+            Debug.DrawRay(slopeHitBack.point, slopeHitBack.normal, Color.red);
+            Debug.DrawRay(slopeHitBack.point, Vector2.up, Color.magenta);
         }
         else
         {

@@ -10,7 +10,7 @@ public class EnemyAttackState : EnemyState
         backupTimer = 0f;
     }
 
-    public override void FixedUpdate()
+    public override void FixedTick()
     {
         if (backupTimer > 0)
             backupTimer -= Time.fixedDeltaTime;
@@ -22,7 +22,7 @@ public class EnemyAttackState : EnemyState
         {
             animator.ResetTrigger("Attacking");
             animator.SetBool("Backup", true);
-            rb.linearVelocityX = moveSpeed * -.5f;
+            rb.linearVelocityX = enemy.MoveSpeed * enemy.CurrentDirection * -.5f;
         }
         else
         {
@@ -30,7 +30,7 @@ public class EnemyAttackState : EnemyState
             animator.SetTrigger("Attacking");
         }
 
-        sprite.flipX = moveSpeed < 0;
+        sprite.flipX = enemy.CurrentDirection < 0;
 
         if (!CheckForPlayerLOS())
         {
@@ -43,7 +43,7 @@ public class EnemyAttackState : EnemyState
     protected bool IsPlayerClose()
     {
         Vector3 rayOrigin = transform.position + new Vector3(0, .25f, 0);
-        Vector2 facing = enemy.MoveSpeed < 0 ? Vector2.left : Vector2.right;
+        Vector2 facing = enemy.CurrentDirection < 0 ? Vector2.left : Vector2.right;
         RaycastHit2D hit = Physics2D.Raycast(rayOrigin, facing, backupDetectionDistance, playerMask);
         
         Debug.DrawRay(rayOrigin, (Vector3)(facing * backupDetectionDistance), Color.red);

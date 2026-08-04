@@ -11,7 +11,7 @@ public class PlayerStateFactory
         this.config = config;
     }
 
-    public GroundedState Grounded(bool resetLegs) => new(stateMachine, config, resetLegs);
+    public GroundedState Grounded(bool resetLegs) => new(stateMachine, config);
     public JumpingState Jumping(Vector2 force) => new(stateMachine,config, force);
     public JumpingState Falling() => new(stateMachine, config, Vector2.zero);
     public RollingState Rolling(float moveSpeed) => new(stateMachine, config, moveSpeed);
