@@ -6,6 +6,7 @@ public class StateMachine : MonoBehaviour
 
     [SerializeField] private PlayerStateConfig stateConfig;
     [SerializeField] private PlayerWeaponConfig weaponConfig;
+    [SerializeField] private InventoryManager inventoryManager;
     private GameObject torso;
     private GameObject legs;
     //[SerializeField] private LayerMask climbable;
@@ -35,7 +36,7 @@ public class StateMachine : MonoBehaviour
     //todo: for the future maybe move health away from movement states?
     public float CurrentHealth => currentHealth;
     public float MaxHealth => maxHealth;
-    
+    public InventoryManager InventoryManager => inventoryManager;
     public PlayerWeaponConfig WeaponConfig { get; private set; }
     public PlayerStateFactory PlayerStates { get; private set; }
     public Rigidbody2D PlayerRb { get; private set; }
@@ -94,10 +95,12 @@ public class StateMachine : MonoBehaviour
         _currentState?.Update();
         RegenStamina();
 
+        
+
         // Handle global interaction input
         if (UnityEngine.Input.GetKeyDown(KeyCode.E) && interactionDetector.HasInteractible)
         {
-            interactionDetector.CurrentInteractible.Interact(gameObject);
+            interactionDetector.CurrentInteractible.Interact();
         }
     }
 

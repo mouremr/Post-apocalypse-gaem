@@ -13,43 +13,12 @@ public class InteractionDetector : MonoBehaviour
     
     private void Update()
     {
-        DetectInteractibles();
         FindClosestInteractible();
-    }
-    
-    private void DetectInteractibles()
-    {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(
-            transform.position,
-            detectionRadius,
-            interactibleLayer
-        );
-
-        // Debug: Show how many colliders detected
-        //Debug.Log($"Detected {hitColliders.Length} colliders in layer {LayerMask.LayerToName(6)}");
-
-        // Clear previous list
-        nearbyInteractibles.Clear();
-
-        // Add new interactibles
-        foreach (var collider in hitColliders)
-        {
-            Interactible interactible = collider.GetComponent<Interactible>();
-            if (interactible == null)
-            {
-                interactible = collider.GetComponentInParent<Interactible>();
-            }
-            if (interactible != null)
-            {
-                //Debug.Log($"Found interactible: {interactible.name}");
-                nearbyInteractibles.Add(interactible);
-            }
-        }
     }
     
     private void FindClosestInteractible()
     {
-        Interactible previousInteractible = CurrentInteractible;
+        //Interactible previousInteractible = CurrentInteractible;
         CurrentInteractible = null;
         
         float closestDistance = Mathf.Infinity;
@@ -76,5 +45,18 @@ public class InteractionDetector : MonoBehaviour
             Gizmos.color = Color.yellow;
             Gizmos.DrawLine(transform.position, CurrentInteractible.transform.position);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        var interactible = other.GetComponent<Interactible>() ?? other.GetComponentInParent<Interactible>();
+        if(interactible != null) Debug.Log("Interactible found: " + other.gameObject.name);
+        if (interactible != null) nearbyInteractibles.Add(interactible);
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        var interactible = other.GetComponent<Interactible>() ?? other.GetComponentInParent<Interactible>();
+        if (interactible != null) nearbyInteractibles.Remove(interactible);
     }
 }

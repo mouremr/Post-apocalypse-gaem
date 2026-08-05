@@ -6,6 +6,7 @@ public abstract class PlayerState
 {
     protected StateMachine stateMachine;
     protected PlayerStateConfig config;
+    protected InventoryManager inventoryManager;
     protected GameObject player;
     protected Rigidbody2D rb;
     protected Animator animator;
@@ -28,6 +29,7 @@ public abstract class PlayerState
         //TODO: pass these in?
         this.stateMachine = stateMachine;
         this.config = config;
+        inventoryManager = stateMachine.InventoryManager;
         player = stateMachine.gameObject;
         rb = stateMachine.PlayerRb;
         animator = stateMachine.PlayerAnimator;
@@ -45,7 +47,17 @@ public abstract class PlayerState
     }
 
     public virtual void Enter() { }
-    public virtual void Update(){ }
+    public virtual void Update()
+    {
+        if (input.ToggleInventory)
+        {
+            //turn off playercontrols in inventory screen
+            input.PlayerControlsEnabled = !input.PlayerControlsEnabled;
+            //Debug.Log(input.PlayerControlsEnabled);
+            inventoryManager.ToggleInventory();
+            
+        }
+    }
 
 
 

@@ -18,12 +18,14 @@ public class PlayerInput : MonoBehaviour
     public bool ToggleInventory {get; private set;}
     public bool PlayerControlsEnabled {get; set;}
 
-    private void Awake()
+    private void Start()
     {
         PlayerControlsEnabled = true;
     }
     private void Update()
     {
+        ToggleInventory = Input.GetKeyDown(KeyCode.Tab);
+
         if(PlayerControlsEnabled)
         {
             InteractPressed = Input.GetKeyDown(KeyCode.E);
@@ -45,7 +47,6 @@ public class PlayerInput : MonoBehaviour
             HorizontalInput = 0f;
         }
         
-        ToggleInventory = Input.GetKeyDown(KeyCode.Tab);
 
 
         

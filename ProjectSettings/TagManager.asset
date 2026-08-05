@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Mantleable
   - Weapon
+  - Interactable
   layers:
   - Default
   - TransparentFX

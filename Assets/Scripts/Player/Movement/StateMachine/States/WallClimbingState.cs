@@ -49,6 +49,8 @@ public class WallClimbingState : PlayerState
 
     public override void Update()
     {
+        base.Update();
+        
         float currentY=2f; // units per second
 
         animator.SetFloat("yVelocity",rb.linearVelocity.y);

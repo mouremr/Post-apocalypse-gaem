@@ -64,6 +64,7 @@ public class MantlingState : PlayerState
 
     public override void Update()
     {
+        base.Update();
         if (!isMantleComplete)
         {
             player.transform.position = new Vector2(topLedgeX, topLedgeY);

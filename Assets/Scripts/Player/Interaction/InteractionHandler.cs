@@ -18,8 +18,8 @@ public class InteractionHandler : MonoBehaviour
         // Detect if E is pressed and an interactible is nearby
         if (input.InteractPressed && detector.HasInteractible)
         {
-            Debug.Log($"Interacting with: {detector.CurrentInteractible.name}");
-            detector.CurrentInteractible.Interact(gameObject);
+            //Debug.Log($"Interacting with: {detector.CurrentInteractible.name}");
+            detector.CurrentInteractible.Interact();
         }
     }
 }

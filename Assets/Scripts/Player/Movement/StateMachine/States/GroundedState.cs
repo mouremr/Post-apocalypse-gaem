@@ -91,14 +91,6 @@ public class GroundedState : PlayerState
 
         ChangeState(); //check if possible to change state
 
-        if (CheckDirectionChange())
-        {
-            //Debug.Log("true");
-            //animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x), 0.05f, Time.deltaTime);
-            // animator.Play("movement Body", 0, 0.0f);
-            // animator.Play("movement Legs", 1, 0.0f);
-        }
-
         if (Mathf.Abs(input.HorizontalInput) > 0.01f)
         {
             //maybe fix later?

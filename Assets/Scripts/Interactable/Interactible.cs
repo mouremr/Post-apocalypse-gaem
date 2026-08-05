@@ -6,7 +6,7 @@ public abstract class Interactible : MonoBehaviour
     
     public string InteractionText => interactionText;
     
-    public abstract void Interact(GameObject player);
+    public abstract void Interact();
     
     // Optional: Visual feedback when player is nearby
     public virtual void OnPlayerNearby(GameObject player) { }
