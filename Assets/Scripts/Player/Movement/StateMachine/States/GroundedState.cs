@@ -87,7 +87,14 @@ public class GroundedState : PlayerState
             animator.SetBool("grounded", false);
         }
 
-
+        if(onSlope && math.abs(rb.linearVelocity.x) > .01f)
+        {
+            animator.SetBool("OnStair", true);    
+        }
+        else
+        {
+            animator.SetBool("OnStair", false);
+        }
 
         ChangeState(); //check if possible to change state
 
@@ -97,14 +104,7 @@ public class GroundedState : PlayerState
             FlipX();
         }
         
-        if(onSlope && math.abs(rb.linearVelocity.x) > .01f)
-        {
-            animator.SetBool("OnStair", true);    
-        }
-        else
-        {
-            animator.SetBool("OnStair", false);
-        }
+        
         
     }
 
