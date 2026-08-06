@@ -1,4 +1,3 @@
-using Unity.Mathematics;
 using UnityEngine;
 
 public class GroundedState : PlayerState
@@ -23,16 +22,16 @@ public class GroundedState : PlayerState
     private float lastDirectionX;
     private float currentDirectionX;
 
-
     private Vector2 colliderSize;
     private float slopeDownAngle;
     private float slopeDownAngleOld;
     private float slopeSideAngle;
     private Vector2 slopeNormalPerpendicular;
     private bool onSlope;
+    private bool wasOnSlope;
 
-
-    private readonly float slopeCheckDistance = .5f;
+    private readonly float slopeCheckDistance = 0.75f;
+    private readonly float slopeSnapDistance = 0.5f; // Extra distance to check downward to stick to slopes
 
     private PhysicsMaterial2D fullFriction;
     private PhysicsMaterial2D noFriction;
@@ -55,8 +54,7 @@ public class GroundedState : PlayerState
         animator.SetBool("running", true);
         input.ConsumeRoll();
         legsSpriteRenderer.enabled = true;
-        
-        
+                
         groundCheckTimer = groundCheckCooldown; // Start with cooldown
         rollCheckTimer = rollCheckCooldown;
         weaponSpriteRenderer.enabled = true;
@@ -73,8 +71,6 @@ public class GroundedState : PlayerState
         groundCheckTimer = Mathf.Max(0f, groundCheckTimer - Time.deltaTime);
         rollCheckTimer = Mathf.Max(0f, rollCheckTimer - Time.deltaTime);
         
-        
-        //added smoothing to setFloat so that it doesnt briefly go to 0 
         animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocity.x), 0.05f, Time.deltaTime);
 
         if (IsGrounded())
@@ -87,28 +83,15 @@ public class GroundedState : PlayerState
             animator.SetBool("grounded", false);
         }
 
-        if(onSlope)
-        {
-            animator.SetBool("OnStair", true);    
-        }
-        else
-        {
-            animator.SetBool("OnStair", false);
-        }
+        animator.SetBool("OnStair", onSlope);
 
         ChangeState(); //check if possible to change state
 
         if (Mathf.Abs(input.HorizontalInput) > 0.01f)
         {
-            //maybe fix later?
             FlipX();
         }
-        
-        
-        
     }
-
-    
 
     public override void FixedUpdate()
     {
@@ -118,46 +101,85 @@ public class GroundedState : PlayerState
 
     private void ApplyMovement()
     {
-        if(!onSlope){
+        // zero out y velocity when leaving slope to smooth transition
+        if (wasOnSlope && !onSlope)
+        {
+            if (rb.linearVelocity.y > 0f)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+            }
+        }
+        wasOnSlope = onSlope;
+
+        if (!onSlope)
+        {
             rb.sharedMaterial = noFriction;
             float targetVelocityX = input.HorizontalInput * moveSpeed;
             float velocityDifferenceX = targetVelocityX - rb.linearVelocity.x;
     
-            // Apply force to reach target velocity
             rb.AddForce(new Vector2(velocityDifferenceX * movementSmoothing * rb.mass, 0f), ForceMode2D.Force);
     
             if (Mathf.Abs(input.HorizontalInput) == 0)
             {
-                float amount = Mathf.Min(Mathf.Abs(rb.linearVelocity.x),1f); 
+                float amount = Mathf.Min(Mathf.Abs(rb.linearVelocity.x), 1f); 
                 amount *= Mathf.Sign(rb.linearVelocity.x);
                 rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
             }
+
+            // snap down if walking downhill on a slope
+            SnapToSlope();
         }
-        else{
-            if (Mathf.Abs(input.HorizontalInput) == 0){
+        else
+        {
+            if (Mathf.Abs(input.HorizontalInput) == 0)
+            {
                 rb.sharedMaterial = fullFriction;
-            } else{
+            } 
+            else
+            {
                 rb.sharedMaterial = noFriction;
                 float targetVelocityX = input.HorizontalInput * moveSpeed;
                 float velocityDifferenceX = targetVelocityX - rb.linearVelocity.x;
         
-                // Apply force to reach target velocity
                 rb.AddForce(new Vector2(
                     -velocityDifferenceX * movementSmoothing * rb.mass * slopeNormalPerpendicular.x, 
                     moveSpeed * slopeNormalPerpendicular.y * -input.HorizontalInput), 
                     ForceMode2D.Force);
+
+                // cap vertical velocity to prevent launching off slopes
+                if (rb.linearVelocity.y > moveSpeed)
+                {
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, moveSpeed);
+                }
             }
-            
         }
-        
+    }
+
+    private void SnapToSlope()
+    {
+        // Raycast down slightly further than normal check to detect step-down slopes early
+        RaycastHit2D hit = Physics2D.Raycast(player.transform.position, Vector2.down, slopeCheckDistance + slopeSnapDistance, groundMask | platformMask);
+
+        if (hit && Mathf.Abs(input.HorizontalInput) > 0.01f)
+        {
+            float angle = Vector2.Angle(hit.normal, Vector2.up);
+            
+            // If ground below is a valid slope, ground the character onto it
+            if (angle > 0.05f)
+            {
+                onSlope = true;
+                slopeNormalPerpendicular = Vector2.Perpendicular(hit.normal).normalized;
+                
+                // Snap player position slightly down to prevent airborne state transition
+                rb.position = new Vector2(hit.point.x, hit.point.y);
+            }
+        }
     }
 
     private void ChangeState()
     {
-        //todo change anim.setbool logic to not have to set all of them in each state transition
         if (wallRegrabTimer <= 0f && IsWalled(out float mrow) && !IsGrounded() && Mathf.Abs(input.HorizontalInput) > 0.01f)
         {
-            //wallclimbing state
             legsSpriteRenderer.enabled = false;
             weaponSpriteRenderer.enabled = false;
             wallRegrabTimer = wallRegrabCooldown;
@@ -167,7 +189,8 @@ public class GroundedState : PlayerState
 
             stateMachine.ChangeState(stateMachine.PlayerStates.WallClimbing());
             return;
-        }else  if ((input.JumpPressed && groundCheckTimer <= 0f && IsGrounded()) || (input.JumpPressed && groundCheckTimer <= 0f && coyoteTimer > 0f))
+        }
+        else if ((input.JumpPressed && groundCheckTimer <= 0f && IsGrounded()) || (input.JumpPressed && groundCheckTimer <= 0f && coyoteTimer > 0f))
         {
             //jumping state
             legsSpriteRenderer.enabled = false;
@@ -179,7 +202,8 @@ public class GroundedState : PlayerState
             stateMachine.ChangeState(stateMachine.PlayerStates.Jumping(new Vector2(0f, config.jumpForce)));
             return;
         }
-        else if(!IsGrounded()){
+        else if (!IsGrounded() && !onSlope) // Added !onSlope check to avoid false falls going downhill
+        {
             //falling if not on ground
             legsSpriteRenderer.enabled = false;
             animator.SetBool("OnStair", false);
@@ -211,7 +235,7 @@ public class GroundedState : PlayerState
             legsSpriteRenderer.enabled = true;
             
             //lunge slightly forward if standing still
-            if(rb.linearVelocityX < .01f)
+            if (rb.linearVelocityX < .01f)
             {
                 float facingDirectionX = player.transform.localScale.x;
 
@@ -233,7 +257,7 @@ public class GroundedState : PlayerState
 
     private void SlopeCheck()
     {
-        //SlopeCheckHorizontal(player.transform.position);
+        SlopeCheckHorizontal(player.transform.position);
         SlopeCheckVertical(player.transform.position);
     }
 
@@ -245,53 +269,55 @@ public class GroundedState : PlayerState
             groundMask | platformMask);
         
         RaycastHit2D slopeHitBack = Physics2D.Raycast(checkPos, 
-        -player.transform.right, 
-        slopeCheckDistance, 
-        groundMask | platformMask);
+            -player.transform.right, 
+            slopeCheckDistance, 
+            groundMask | platformMask);
         
-        Debug.DrawRay(checkPos, player.transform.right * slopeCheckDistance, Color.green);
+        Debug.DrawRay(checkPos, player.transform.right * slopeCheckDistance, Color.red);
         Debug.DrawRay(checkPos, -player.transform.right * slopeCheckDistance, Color.cyan);
         
         if (slopeHitFront)
         {
-            onSlope = true;
             slopeSideAngle = Vector2.Angle(slopeHitFront.normal, Vector2.up);
-            
-            Debug.DrawRay(slopeHitFront.point, slopeHitFront.normal, Color.yellow);
-            Debug.DrawRay(slopeHitFront.point, Vector2.up, Color.magenta);
+            onSlope = slopeSideAngle > 0f;
         } 
         else if (slopeHitBack)
         {
-            onSlope = true;
             slopeSideAngle = Vector2.Angle(slopeHitBack.normal, Vector2.up);
-            
-            Debug.DrawRay(slopeHitBack.point, slopeHitBack.normal, Color.red);
-            Debug.DrawRay(slopeHitBack.point, Vector2.up, Color.magenta);
+            onSlope = slopeSideAngle > 0f;
         }
         else
         {
             slopeSideAngle = 0f;
-            onSlope = false;
         }
     }    
+
     private void SlopeCheckVertical(Vector2 checkPos)
     {
         RaycastHit2D hit = Physics2D.Raycast(checkPos, 
-        Vector2.down, 
-        slopeCheckDistance, 
-        groundMask | platformMask);
+            Vector2.down, 
+            slopeCheckDistance, 
+            groundMask | platformMask);
 
         if (hit)
         {
             slopeNormalPerpendicular = Vector2.Perpendicular(hit.normal).normalized;
             slopeDownAngle = Vector2.Angle(hit.normal, Vector2.up);
 
-
-            if(slopeDownAngle != slopeDownAngleOld)
+            if (slopeDownAngle > 0.05f)
             {
                 onSlope = true;
             }
+            else if (slopeSideAngle == 0f)
+            {
+                onSlope = false;
+            }
+
             slopeDownAngleOld = slopeDownAngle;
+        }
+        else if (slopeSideAngle == 0f)
+        {
+            onSlope = false;
         }
     }
 
