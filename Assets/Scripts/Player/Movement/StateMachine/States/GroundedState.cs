@@ -87,7 +87,7 @@ public class GroundedState : PlayerState
             animator.SetBool("grounded", false);
         }
 
-        if(onSlope && math.abs(rb.linearVelocity.x) > .01f)
+        if(onSlope)
         {
             animator.SetBool("OnStair", true);    
         }
@@ -154,12 +154,14 @@ public class GroundedState : PlayerState
 
     private void ChangeState()
     {
+        //todo change anim.setbool logic to not have to set all of them in each state transition
         if (wallRegrabTimer <= 0f && IsWalled(out float mrow) && !IsGrounded() && Mathf.Abs(input.HorizontalInput) > 0.01f)
         {
             //wallclimbing state
             legsSpriteRenderer.enabled = false;
             weaponSpriteRenderer.enabled = false;
             wallRegrabTimer = wallRegrabCooldown;
+            
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
 
@@ -170,6 +172,7 @@ public class GroundedState : PlayerState
             //jumping state
             legsSpriteRenderer.enabled = false;
             wallRegrabTimer = wallRegrabCooldown;
+            animator.SetBool("OnStair", false);
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
             rb.linearVelocityY = 0f;
@@ -179,6 +182,7 @@ public class GroundedState : PlayerState
         else if(!IsGrounded()){
             //falling if not on ground
             legsSpriteRenderer.enabled = false;
+            animator.SetBool("OnStair", false);
             animator.SetBool("grounded", false);
             animator.SetBool("running", false);
 
@@ -189,6 +193,7 @@ public class GroundedState : PlayerState
             //roll state
             legsSpriteRenderer.enabled = true;
             weaponSpriteRenderer.enabled = false;
+            animator.SetBool("OnStair", false);
             animator.SetBool("grounded", false);
             stateMachine.ChangeState(stateMachine.PlayerStates.Rolling(moveSpeed));
         }
@@ -228,7 +233,7 @@ public class GroundedState : PlayerState
 
     private void SlopeCheck()
     {
-        SlopeCheckHorizontal(player.transform.position);
+        //SlopeCheckHorizontal(player.transform.position);
         SlopeCheckVertical(player.transform.position);
     }
 
