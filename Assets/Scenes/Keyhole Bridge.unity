@@ -1086,6 +1086,7 @@ Transform:
   - {fileID: 7422214290490185841}
   - {fileID: 1808506146}
   - {fileID: 1398489882}
+  - {fileID: 1594517869}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &176626183
@@ -16785,6 +16786,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5979996115706877444}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1246582761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1246582762}
+  m_Layer: 9
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1246582762
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246582761}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.66, y: 1.21, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1808506146}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1262579830
 GameObject:
   m_ObjectHideFlags: 0
@@ -23164,7 +23196,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1594517868
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -23231,12 +23263,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594517867}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.38, y: 7.89, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -17.847069, y: 7.15648, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 128611756}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1594517870
 BoxCollider2D:
@@ -23806,11 +23838,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6892959026827942524, guid: 85795d25f1725bb4090dc2f7335b0b7a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.32
+      value: -3.71
       objectReference: {fileID: 0}
     - target: {fileID: 6892959026827942524, guid: 85795d25f1725bb4090dc2f7335b0b7a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.77
+      value: 7.2
       objectReference: {fileID: 0}
     - target: {fileID: 6892959026827942524, guid: 85795d25f1725bb4090dc2f7335b0b7a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -24412,7 +24444,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1808506146
 Transform:
   m_ObjectHideFlags: 0
@@ -24425,7 +24457,8 @@ Transform:
   m_LocalPosition: {x: -12.89, y: 7.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1246582762}
   m_Father: {fileID: 128611756}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1808506148
@@ -24624,6 +24657,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackState
   backupDetectionDistance: 3
   backupDuration: 0.5
+  bullet: {fileID: 5525716129871502600, guid: f32f121704d803543936288a46542d15, type: 3}
+  FirePoint: {fileID: 1246582762}
+  fireCooldown: 1.5
 --- !u!1 &1825534334
 GameObject:
   m_ObjectHideFlags: 0
@@ -26209,4 +26245,3 @@ SceneRoots:
   - {fileID: 5979996115706877444}
   - {fileID: 128611756}
   - {fileID: 1509723478}
-  - {fileID: 1594517869}

@@ -20,5 +20,6 @@ public class PlayerStateFactory
     public MantlingState Mantling() => new(stateMachine, config);
     public PlayerAttackState LightAttack() => new(stateMachine, config, stateMachine.WeaponConfig.lightAttack);
     public PlayerAttackState HeavyAttack() => new(stateMachine, config, stateMachine.WeaponConfig.heavyAttack);
-    public PlayerDamagedState DamagedState(Func<PlayerState> returnState) => new(stateMachine, config, returnState);
+    
+    public PlayerDamagedState DamagedState(Func<PlayerState> returnState, float damageAmount) => new(stateMachine, config, returnState, damageAmount); // return an if statement that returns a playerstate obj
 }

@@ -4,7 +4,7 @@ public abstract class EnemyState : MonoBehaviour
 {
     protected EnemyBase enemy;
     protected bool attacking = false;
-    protected float backupTimer = 0f;
+    
 
 
     protected float detectionDistance;

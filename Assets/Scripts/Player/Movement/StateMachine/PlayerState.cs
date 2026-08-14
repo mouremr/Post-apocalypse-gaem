@@ -1,5 +1,6 @@
 using System;
 using Unity.InferenceEngine;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public abstract class PlayerState
@@ -49,10 +50,6 @@ public abstract class PlayerState
     public virtual void Enter() { }
     public virtual void Update()
     {
-        if (input.DamagedInput)
-        {
-            TakeDamage();
-        }
         if (input.ToggleInventory)
         {
             //turn off playercontrols in inventory screen
@@ -219,10 +216,12 @@ public abstract class PlayerState
         }
     }
 
-    public void TakeDamage()
+    public virtual void TakeDamage(float amount)
     {
+        //either revert to grounded or falling state after damaged depending on if on ground.
         stateMachine.ChangeState(stateMachine.PlayerStates.DamagedState(
-            () => IsGrounded() ? stateMachine.PlayerStates.Grounded() : stateMachine.PlayerStates.Falling()
+            () => IsGrounded() ? stateMachine.PlayerStates.Grounded() : stateMachine.PlayerStates.Falling(),
+            amount
         ));
     }
 }

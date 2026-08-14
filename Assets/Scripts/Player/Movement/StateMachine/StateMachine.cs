@@ -150,6 +150,10 @@ public class StateMachine : MonoBehaviour
         }
     }
 
+    public void TakeDamage(float amount)
+    {
+        _currentState?.TakeDamage(amount);
+    }
     public void OnDamaged()
     {
         Debug.Log("OnDamaged called, currentState = " + _currentState.GetType().Name);
