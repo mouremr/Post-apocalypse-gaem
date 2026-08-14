@@ -89,7 +89,7 @@ public class WallClimbingState : PlayerState
 
         if (wallExitTimer <= 0f &&   input.HorizontalInput != 0 && Mathf.Sign(input.HorizontalInput) != facingDirection && IsGrounded())        {
             animator.SetBool("climbing", false);
-            stateMachine.ChangeState(stateMachine.PlayerStates.Grounded(true));
+            stateMachine.ChangeState(stateMachine.PlayerStates.Grounded());
             return;
         }
         if (canMantle())

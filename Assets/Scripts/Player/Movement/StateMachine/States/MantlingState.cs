@@ -92,7 +92,7 @@ public class MantlingState : PlayerState
             playerCollider.size = oldSize;
             playerCollider.offset = oldOffset;
             rb.linearVelocity = Vector2.zero;
-            stateMachine.ChangeState(stateMachine.PlayerStates.Grounded(true));
+            stateMachine.ChangeState(stateMachine.PlayerStates.Grounded());
             return;
         }
     }

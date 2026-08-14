@@ -49,6 +49,10 @@ public abstract class PlayerState
     public virtual void Enter() { }
     public virtual void Update()
     {
+        if (input.DamagedInput)
+        {
+            TakeDamage();
+        }
         if (input.ToggleInventory)
         {
             //turn off playercontrols in inventory screen
@@ -196,11 +200,11 @@ public abstract class PlayerState
 
 
 
-    public bool ConsumeStamina(int cost)
+    protected bool ConsumeStamina(int cost)
     {
         return stateMachine.ConsumeStamina(cost);
     }
-    public void FlipX()
+    protected void FlipX()
     {
         Vector3 localScale = player.transform.localScale;
         if(input.HorizontalInput < 0)
@@ -213,5 +217,12 @@ public abstract class PlayerState
             localScale.x = 1;
             player.transform.localScale = localScale;
         }
+    }
+
+    public void TakeDamage()
+    {
+        stateMachine.ChangeState(stateMachine.PlayerStates.DamagedState(
+            () => IsGrounded() ? stateMachine.PlayerStates.Grounded() : stateMachine.PlayerStates.Falling()
+        ));
     }
 }

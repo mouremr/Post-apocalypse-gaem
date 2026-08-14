@@ -49,7 +49,9 @@ public class GroundedState : PlayerState
     }
 
     public override void Enter()
-    {   
+    {
+        
+        //animator.Play("Ground Movement");   
         animator.SetBool("grounded", true);
         animator.SetBool("running", true);
         input.ConsumeRoll();

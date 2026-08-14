@@ -36,6 +36,7 @@ public class JumpingState : PlayerState
 
     public override void Update()
     {
+        base.Update();
 
         input.ConsumeRoll();//kill buffered rolls
 
@@ -84,7 +85,7 @@ public class JumpingState : PlayerState
         {
             animator.SetBool("jumping", false);
             animator.SetBool("grounded", true);
-            stateMachine.ChangeState(stateMachine.PlayerStates.Grounded(true));
+            stateMachine.ChangeState(stateMachine.PlayerStates.Grounded());
             return;
         }
 

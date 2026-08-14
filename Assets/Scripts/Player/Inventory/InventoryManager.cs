@@ -16,7 +16,7 @@ public class InventoryManager : MonoBehaviour
     public void ToggleInventory()
     {
         InventoryEnabled = !InventoryEnabled;
-        Debug.Log(InventoryEnabled);
+        //Debug.Log(InventoryEnabled);
         InventoryScreen.SetActive(InventoryEnabled);
         Time.timeScale = InventoryEnabled ? 0f : 1f;
     }

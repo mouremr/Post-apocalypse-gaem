@@ -23,9 +23,10 @@ public class PlayerAttackState : PlayerState
     {
         if (stateMachine.CurrentState is PlayerAttackState)
         {
-            stateMachine.ChangeState(stateMachine.PlayerStates.Grounded(false));
+            stateMachine.ChangeState(stateMachine.PlayerStates.Grounded());
         }
     }
+    
     public override void Exit()
     {
         weaponHitBox.enabled = false;

@@ -18,6 +18,11 @@ public class PlayerInput : MonoBehaviour
     public bool ToggleInventory {get; private set;}
     public bool PlayerControlsEnabled {get; set;}
 
+    
+
+
+    public bool DamagedInput {get; private set;}
+
     private void Start()
     {
         PlayerControlsEnabled = true;
@@ -35,6 +40,8 @@ public class PlayerInput : MonoBehaviour
             LightAttackPressed = Input.GetMouseButtonDown(0);
             HeavyAttackPressed = Input.GetMouseButtonDown(1);
             HorizontalInput = Input.GetAxisRaw("Horizontal");
+
+            DamagedInput = Input.GetKeyDown(KeyCode.F);
         }
         else
         {

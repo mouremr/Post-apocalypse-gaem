@@ -140,11 +140,22 @@ public class StateMachine : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
     }
 
+
+    //move both these to one state completed func in playerState?
     public void OnAttackComplete()
     {
         if (_currentState is PlayerAttackState attackState)
         {
             attackState.AttackCompleted();
+        }
+    }
+
+    public void OnDamaged()
+    {
+        Debug.Log("OnDamaged called, currentState = " + _currentState.GetType().Name);
+        if (_currentState is PlayerDamagedState damagedState)
+        {
+            damagedState.DamageCompleted();
         }
     }
 }
