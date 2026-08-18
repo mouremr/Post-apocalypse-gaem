@@ -151,7 +151,7 @@ public class WallClimbingState : PlayerState
 
     public override void Exit()
     {
-        animator.SetBool("Climbing", false);
+        animator.SetBool("climbing", false);
     }
 
 
