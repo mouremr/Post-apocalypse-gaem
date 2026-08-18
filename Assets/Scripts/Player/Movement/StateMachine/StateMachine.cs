@@ -118,13 +118,14 @@ public class StateMachine : MonoBehaviour
 
     private void RegenStamina()
     {
+        //todo: dont immediately regen, add timer after stamina use before regen kicks in
         if (currentStamina >= maxStamina)
             return;
 
         currentStamina += staminaRegenRate * Time.deltaTime;
         currentStamina = Mathf.Min(currentStamina, maxStamina);
     }
-    public bool ConsumeStamina(int cost)
+    public bool ConsumeStamina(float cost)
     {
         if (currentStamina >= cost)
         {

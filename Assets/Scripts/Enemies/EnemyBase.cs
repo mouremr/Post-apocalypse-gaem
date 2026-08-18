@@ -49,11 +49,11 @@ public abstract class EnemyBase : MonoBehaviour
 
     public void GoTo<T>() where T : EnemyState
     {
-        foreach (var s in states)
+        foreach (var state in states)
         {
-            if (s is T)
+            if (state is T)
             {
-                ChangeState(s);
+                ChangeState(state);
                 return;
             }
         }

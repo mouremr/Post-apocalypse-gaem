@@ -17,7 +17,7 @@ public class PlayerInput : MonoBehaviour
     public bool HeavyAttackPressed {get; private set;}
     public bool ToggleInventory {get; private set;}
     public bool PlayerControlsEnabled {get; set;}
-
+    public bool PlacePiton {get; private set;}
     
 
 
@@ -40,6 +40,7 @@ public class PlayerInput : MonoBehaviour
             LightAttackPressed = Input.GetMouseButtonDown(0);
             HeavyAttackPressed = Input.GetMouseButtonDown(1);
             HorizontalInput = Input.GetAxisRaw("Horizontal");
+            PlacePiton = Input.GetKeyDown(KeyCode.F);
         }
         else
         {
@@ -59,5 +60,9 @@ public class PlayerInput : MonoBehaviour
     public void ConsumeRoll()
     {
         RollPressed = false;
+    }
+    public void ConsumeInteract()
+    {
+        InteractPressed = false;
     }
 }

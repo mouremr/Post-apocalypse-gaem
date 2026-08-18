@@ -2,9 +2,8 @@ using UnityEngine;
 
 public abstract class Interactible : MonoBehaviour
 {
-    [SerializeField] private string interactionText = "Interact";
-    
-    public string InteractionText => interactionText;
+    // [SerializeField] private string interactionText = "Interact";
+    // public string InteractionText => interactionText;
     
     public abstract void Interact();
     

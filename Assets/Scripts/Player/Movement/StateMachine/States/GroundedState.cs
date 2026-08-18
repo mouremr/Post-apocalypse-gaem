@@ -237,7 +237,7 @@ public class GroundedState : PlayerState
             legsSpriteRenderer.enabled = true;
             
             //lunge slightly forward if standing still
-            if (rb.linearVelocityX < .01f)
+            if (rb.linearVelocityX < .01f && !onSlope)
             {
                 float facingDirectionX = player.transform.localScale.x;
 
@@ -321,17 +321,5 @@ public class GroundedState : PlayerState
         {
             onSlope = false;
         }
-    }
-
-    private bool CheckDirectionChange()
-    {
-        currentDirectionX = input.HorizontalInput;
-        bool directionChanged = (currentDirectionX > 0.01f && lastDirectionX < -0.01f) 
-                            || (currentDirectionX < -0.01f && lastDirectionX > 0.01f);
-        if (directionChanged)
-        {
-            lastDirectionX = currentDirectionX;
-        }
-        return directionChanged;
     }
 }

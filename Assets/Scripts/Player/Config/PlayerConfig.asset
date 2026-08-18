@@ -15,7 +15,12 @@ MonoBehaviour:
   moveSpeed: 6
   jumpForce: 7
   gracePeriod: 0.2
+  noFriction: {fileID: 6200000, guid: d437b71367a1f434f9073fbe62dc4814, type: 2}
+  fullFriction: {fileID: 6200000, guid: 28a7b1c50ed872a4795a10ce81f3c0a5, type: 2}
+  gravityScale: 1
   climbSpeed: 4
+  climbCost: 9
+  pitonPrefab: {fileID: 7289081085465876158, guid: d57d2b79d15cca84dbef2fa3ed9ae0ad, type: 3}
   rollSpeed: 15
   rollDuration: 0.3
   rollCost: 5
@@ -24,6 +29,6 @@ MonoBehaviour:
   staminaRegenRate: 5
   staminaRegenDelay: 0.5
   lightAttackCost: 0
+  lightAttackDamage: 3
   heavyAttackCost: 10
-  noFriction: {fileID: 6200000, guid: d437b71367a1f434f9073fbe62dc4814, type: 2}
-  fullFriction: {fileID: 6200000, guid: 28a7b1c50ed872a4795a10ce81f3c0a5, type: 2}
+  heavyAttackDamage: 7

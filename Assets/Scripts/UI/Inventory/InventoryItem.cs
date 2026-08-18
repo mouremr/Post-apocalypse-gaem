@@ -8,6 +8,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public Transform parentAfterDrag;
     private Canvas canvas;
     private Item item;
+     public Item Item => item;
     
     private void Awake()
     {

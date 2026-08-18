@@ -9,10 +9,15 @@ public class PlayerStateConfig : ScriptableObject
     public float jumpForce = 5f;
     [Tooltip("grace period you can jump while being not grounded")]
     public float gracePeriod = .2f;
+    public PhysicsMaterial2D noFriction;
+    public PhysicsMaterial2D fullFriction;
+    public float gravityScale = 1f;
     
     
     [Header("Climbing")]
     public float climbSpeed = 4f;
+    public float climbCost = .5f;
+    public GameObject pitonPrefab;
     
     [Header("Rolling")]
     public float rollSpeed = 12f;
@@ -32,6 +37,4 @@ public class PlayerStateConfig : ScriptableObject
     public int heavyAttackCost = 10;
     public int heavyAttackDamage = 7;
 
-    public PhysicsMaterial2D noFriction;
-    public PhysicsMaterial2D fullFriction;
 }

@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem.Interactions;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -44,5 +46,21 @@ public class InventoryManager : MonoBehaviour
         GameObject newItemGo = Instantiate(inventoryItemprefrab, slot.transform);
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
         inventoryItem.InitialiseItem(item);
+    }
+
+    public bool ConsumeItem(String name)
+    {
+        for(int i = 0; i < inventorySlots.Length; i++)
+        {
+            InventorySlot slot = inventorySlots[i];
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+             if (itemInSlot != null && itemInSlot.Item != null && itemInSlot.Item.itemName == name)
+            {
+                Destroy(itemInSlot.gameObject);
+                return true;
+            }
+        }
+        Debug.Log("Item not found");
+        return false;
     }
 }

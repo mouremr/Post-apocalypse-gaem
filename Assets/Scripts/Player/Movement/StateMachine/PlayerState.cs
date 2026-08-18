@@ -54,7 +54,6 @@ public abstract class PlayerState
         {
             //turn off playercontrols in inventory screen
             input.PlayerControlsEnabled = !input.PlayerControlsEnabled;
-            //Debug.Log(input.PlayerControlsEnabled);
             inventoryManager.ToggleInventory();
             
         }
@@ -91,56 +90,56 @@ public abstract class PlayerState
             castDistance
         );
 
-#if UNITY_EDITOR
-        DrawBoxCastDebug(boxCenter, boxSize, Vector2.down, castDistance, hitCount > 0);
-#endif
+    #if UNITY_EDITOR
+            DrawBoxCastDebug(boxCenter, boxSize, Vector2.down, castDistance, hitCount > 0);
+    #endif
 
-        return hitCount > 0;
-    }
+            return hitCount > 0;
+        }
 
-#if UNITY_EDITOR
-    // Draws the swept boxcast volume used by IsGrounded(): the box at its start position,
-    // the box at its end position (start + direction * distance), and the four lines
-    // connecting matching corners between them, so you can see the whole swept region
-    // it's testing against — not just a single center ray.
-    // Green = grounded this frame, red = not grounded.
-    private void DrawBoxCastDebug(Vector2 origin, Vector2 size, Vector2 direction, float distance, bool grounded)
-    {
-        Color color = grounded ? Color.green : Color.red;
-        Vector2 halfSize = size * 0.5f;
-        Vector2 offset = direction.normalized * distance;
+    #if UNITY_EDITOR
+        // Draws the swept boxcast volume used by IsGrounded(): the box at its start position,
+        // the box at its end position (start + direction * distance), and the four lines
+        // connecting matching corners between them, so you can see the whole swept region
+        // it's testing against — not just a single center ray.
+        // Green = grounded this frame, red = not grounded.
+        private void DrawBoxCastDebug(Vector2 origin, Vector2 size, Vector2 direction, float distance, bool grounded)
+        {
+            Color color = grounded ? Color.green : Color.red;
+            Vector2 halfSize = size * 0.5f;
+            Vector2 offset = direction.normalized * distance;
 
-        // Corners of the box at the start of the cast
-        Vector2 startTL = origin + new Vector2(-halfSize.x, halfSize.y);
-        Vector2 startTR = origin + new Vector2(halfSize.x, halfSize.y);
-        Vector2 startBL = origin + new Vector2(-halfSize.x, -halfSize.y);
-        Vector2 startBR = origin + new Vector2(halfSize.x, -halfSize.y);
+            // Corners of the box at the start of the cast
+            Vector2 startTL = origin + new Vector2(-halfSize.x, halfSize.y);
+            Vector2 startTR = origin + new Vector2(halfSize.x, halfSize.y);
+            Vector2 startBL = origin + new Vector2(-halfSize.x, -halfSize.y);
+            Vector2 startBR = origin + new Vector2(halfSize.x, -halfSize.y);
 
-        // Corners of the box at the end of the cast (swept by `offset`)
-        Vector2 endTL = startTL + offset;
-        Vector2 endTR = startTR + offset;
-        Vector2 endBL = startBL + offset;
-        Vector2 endBR = startBR + offset;
+            // Corners of the box at the end of the cast (swept by `offset`)
+            Vector2 endTL = startTL + offset;
+            Vector2 endTR = startTR + offset;
+            Vector2 endBL = startBL + offset;
+            Vector2 endBR = startBR + offset;
 
-        // Start box outline
-        Debug.DrawLine(startTL, startTR, color);
-        Debug.DrawLine(startTR, startBR, color);
-        Debug.DrawLine(startBR, startBL, color);
-        Debug.DrawLine(startBL, startTL, color);
+            // Start box outline
+            Debug.DrawLine(startTL, startTR, color);
+            Debug.DrawLine(startTR, startBR, color);
+            Debug.DrawLine(startBR, startBL, color);
+            Debug.DrawLine(startBL, startTL, color);
 
-        // End box outline
-        Debug.DrawLine(endTL, endTR, color);
-        Debug.DrawLine(endTR, endBR, color);
-        Debug.DrawLine(endBR, endBL, color);
-        Debug.DrawLine(endBL, endTL, color);
+            // End box outline
+            Debug.DrawLine(endTL, endTR, color);
+            Debug.DrawLine(endTR, endBR, color);
+            Debug.DrawLine(endBR, endBL, color);
+            Debug.DrawLine(endBL, endTL, color);
 
-        // Connect matching corners to show the swept path
-        Debug.DrawLine(startTL, endTL, color);
-        Debug.DrawLine(startTR, endTR, color);
-        Debug.DrawLine(startBL, endBL, color);
-        Debug.DrawLine(startBR, endBR, color);
-    }
-#endif
+            // Connect matching corners to show the swept path
+            Debug.DrawLine(startTL, endTL, color);
+            Debug.DrawLine(startTR, endTR, color);
+            Debug.DrawLine(startBL, endBL, color);
+            Debug.DrawLine(startBR, endBR, color);
+        }
+    #endif
 
 
     protected bool IsWalled(out float direction)
@@ -197,7 +196,7 @@ public abstract class PlayerState
 
 
 
-    protected bool ConsumeStamina(int cost)
+    protected bool ConsumeStamina(float cost)
     {
         return stateMachine.ConsumeStamina(cost);
     }
