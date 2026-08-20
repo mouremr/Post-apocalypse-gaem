@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Piton : Interactible
 {
-    public StateMachine playerStateMachine;
+    private StateMachine playerStateMachine;
     public override void Interact()
     {
         if (playerStateMachine.CurrentState is WallClimbingState)
